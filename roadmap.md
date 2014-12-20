@@ -53,6 +53,6 @@ Ruby stuff
 - [filebot](http://www.filebot.net/): Прави същото, но има много повече функции
   и е много по-тежко. И е написано на java.  Много по-добро от това,
   което се опитвам да направя.
-- [lm](https://github.com/RedRise/lm/blob/master/lm.py): Прави само разпознаване
+- [lm](https://github.com/RedRise/lm): Прави само разпознаване
   на филми и сваляне на субтитри. Не работи за сериали.
 - [beets](http://beets.radbox.org/): Същото нещо, но за музика.
