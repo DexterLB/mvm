@@ -38,7 +38,7 @@ mvm ще е инструмент за идентифициране и сорти
 
 Ruby stuff
 ----------
-Възможни библиотеки, които може да се ползват в проекта:
+Разни библиотеки, които може да се ползват в проекта:
 
 - [XMLRPC::Client](http://www.ruby-doc.org/stdlib-2.1.5/libdoc/xmlrpc/rdoc/XMLRPC/Client.html):
   за ползване на функциите на [opensubtitles API](http://trac.opensubtitles.org/projects/opensubtitles/wiki/XMLRPC#CheckMovieHash2)
