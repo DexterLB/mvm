@@ -11,5 +11,8 @@ Gem::Specification.new do |s|
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.license = 'GPLv3'
+  s.add_runtime_dependency 'iso-639', '~> 0'
   s.add_development_dependency 'rspec', '~> 0'
 end
+
+# vim: set shiftwidth=2:
