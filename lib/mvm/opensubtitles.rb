@@ -1,7 +1,7 @@
 require 'xmlrpc/client'
-
-
 require 'iso-639'
+
+require 'mvm/opensubtitles_error'
 
 module Mvm
   class Opensubtitles
@@ -32,21 +32,42 @@ module Mvm
     end
 
     def login
-      @token = call('LogIn',
-                    @username, 
-                    @password, 
-                    @language.alpha2, 
-                    @useragent)['token']
+      @token = safe_client_call('LogIn',
+                                @username, 
+                                @password, 
+                                @language.alpha2, 
+                                @useragent)['token']
     end
     
     def logout
-      call('LogOut', token) if token
+      call('LogOut') if token
       @token = nil
     end
 
+    def safe_client_call(function, *arguments)
+      data = @client.call(function, *arguments)
+      if not data['status']
+        raise NoStatusError
+      end
+      code = data['status'].split.first.to_i
+      unless code == 200
+        error = ERRORS.fetch(code.to_i, UnknownError)
+        raise error, data['status']
+      end
+      data
+    end
+
     def call(function, *arguments)
-      @client.call(function, *arguments)
-      # todo: check the status
+      if not token
+        login
+      end
+
+      begin
+        safe_client_call(function, @token, *arguments)
+      rescue NoSessionError
+        login
+        safe_client_call(function, @token, *arguments)
+      end
     end
 
     private
