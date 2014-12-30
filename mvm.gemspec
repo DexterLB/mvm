@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'mvm'
-  s.version = '0.0.1'
+  s.version = `git describe --long --tags | sed -r 's/([^-]*-g)/r\\1/;s/-/./g'`
   s.authors = ['Angel Angelov']
   s.email = ['hextwoa at gmail.com']
   s.homepage = 'http://github.com/DexterLB/mvm'
