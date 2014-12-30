@@ -4,7 +4,7 @@ require 'iso-639'
 module Mvm
   class Opensubtitles
     DEFAULT_CLIENT_OPTIONS = {
-      host: 'http://api.opensubtitles.org',
+      host: 'api.opensubtitles.org',
       path: '/xml-rpc',
       timeout: 20,
     }
@@ -20,9 +20,22 @@ module Mvm
       @useragent = useragent
 
       client_options = DEFAULT_CLIENT_OPTIONS.merge(client_options)
-      @server = XMLRPC::Client.new(**client_options)
+      @client = new_client(**client_options)
     end
 
+    def info
+      @client.call('ServerInfo')
+    end
+
+    private
+
+    def new_client(**options)
+      # maybe make this a monkey patch?
+      option_sequence = options.values_at(:host, :path, :port, :proxy_host,
+                                          :proxy_port, :http_user,
+                                          :http_password, :use_ssl, :timeout)
+      XMLRPC::Client.new(*option_sequence)
+    end
   end
 end
 
