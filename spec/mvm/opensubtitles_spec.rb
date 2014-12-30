@@ -26,6 +26,12 @@ module Mvm
         expect { subject.login }.to change(subject, :token).from(nil)
       end
     end
+
+    describe '#logout' do
+      it 'changes token to nil' do
+        expect { subject.logout }.to change(subject, :token).to(nil)
+      end
+    end
   end
 end
 

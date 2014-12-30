@@ -38,6 +38,11 @@ module Mvm
                     @language.alpha2, 
                     @useragent)['token']
     end
+    
+    def logout
+      call('LogOut', token) if token
+      @token = nil
+    end
 
     def call(function, *arguments)
       @client.call(function, *arguments)
