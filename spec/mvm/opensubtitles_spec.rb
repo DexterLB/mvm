@@ -10,7 +10,7 @@ module Mvm
     end
 
     describe '#info' do
-      let(:info) { @opensubtitles.info }
+      let(:info) { subject.info }
 
       it 'returns non-nil info' do
         expect(info).not_to be_nil
@@ -18,6 +18,12 @@ module Mvm
 
       it 'gives correct website url' do
         expect(info['website_url']).to eq('http://www.opensubtitles.org')
+      end
+    end
+
+    describe '#login' do
+      it 'changes token to non-nil' do
+        expect { subject.login }.to change(subject, :token).from(nil)
       end
     end
   end

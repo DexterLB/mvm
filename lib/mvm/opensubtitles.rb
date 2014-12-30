@@ -1,8 +1,12 @@
 require 'xmlrpc/client'
+
+
 require 'iso-639'
 
 module Mvm
   class Opensubtitles
+    attr_reader :token
+
     DEFAULT_CLIENT_OPTIONS = {
       host: 'api.opensubtitles.org',
       path: '/xml-rpc',
@@ -27,8 +31,20 @@ module Mvm
       @client.call('ServerInfo')
     end
 
-    private
+    def login
+      @token = call('LogIn',
+                    @username, 
+                    @password, 
+                    @language.alpha2, 
+                    @useragent)['token']
+    end
 
+    def call(function, *arguments)
+      @client.call(function, *arguments)
+      # todo: check the status
+    end
+
+    private
     def new_client(**options)
       # maybe make this a monkey patch?
       option_sequence = options.values_at(:host, :path, :port, :proxy_host,
