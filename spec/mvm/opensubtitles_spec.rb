@@ -1,0 +1,37 @@
+require 'spec_helper'
+require 'mvm/opensubtitles'
+
+module Mvm
+  describe Opensubtitles do
+    subject { @opensubtitles }
+
+    before :all do
+      @opensubtitles = Opensubtitles.new useragent: 'OSTestUserAgent'
+    end
+
+    describe '#id_by_hash' do
+      it 'identifies movie correctly' do
+        expect(subject.id_by_hash('09a2c497663259cb')
+              ).to include('MovieKind'      => 'movie',
+                           'MovieName'      => 'Nochnoy dozor',
+                           'MovieYear'      => '2004',
+                           'MovieImdbID'    => '0403358',
+                          )
+      end
+
+      it 'identifies episode correctly' do
+        expect(subject.id_by_hash('46e33be00464c12e')
+              ).to include(
+                           'MovieKind'      => 'episode',
+                           'MovieName'      => '"Game of Thrones" Two Swords',
+                           'MovieYear'      => '2014',
+                           'MovieImdbID'    => '2816136',
+                           'SeriesSeason'   => '4',
+                           'SeriesEpisode'  => '1',
+                          )
+      end
+    end
+  end
+end
+
+# vim: set shiftwidth=2:
