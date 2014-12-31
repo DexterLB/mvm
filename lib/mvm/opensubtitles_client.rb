@@ -4,7 +4,7 @@ require 'iso-639'
 require 'mvm/opensubtitles_error'
 
 module Mvm
-  class Opensubtitles
+  class OpensubtitlesClient
     attr_reader :token
 
     DEFAULT_CLIENT_OPTIONS = {

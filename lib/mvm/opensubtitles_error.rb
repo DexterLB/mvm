@@ -1,5 +1,5 @@
 module Mvm
-  class Opensubtitles
+  class OpensubtitlesClient
     class OpensubtitlesError < RuntimeError; end
 
     class NoStatusError             < OpensubtitlesError; end

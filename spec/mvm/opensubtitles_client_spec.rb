@@ -1,13 +1,13 @@
 require 'spec_helper'
-require 'mvm/opensubtitles'
+require 'mvm/opensubtitles_client'
 require 'mvm/opensubtitles_error'
 
 module Mvm
-  describe Opensubtitles do
+  describe OpensubtitlesClient do
     subject { @opensubtitles }
 
     before :all do
-      @opensubtitles = Opensubtitles.new useragent: 'OSTestUserAgent'
+      @opensubtitles = OpensubtitlesClient.new useragent: 'OSTestUserAgent'
     end
 
     describe '#info' do
@@ -40,7 +40,7 @@ module Mvm
           subject.safe_client_call('CheckMovieHash',
                                    '',
                                    ['46e33be00464c12e'])
-        }.to raise_error(Opensubtitles::UnauthorizedError)
+        }.to raise_error(OpensubtitlesClient::UnauthorizedError)
       end
     end
 
