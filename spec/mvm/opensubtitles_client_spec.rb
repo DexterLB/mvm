@@ -4,10 +4,10 @@ require 'mvm/opensubtitles_error'
 
 module Mvm
   describe OpensubtitlesClient do
-    subject { @opensubtitles }
+    subject { @client }
 
     before :all do
-      @opensubtitles = OpensubtitlesClient.new useragent: 'OSTestUserAgent'
+      @client = OpensubtitlesClient.new useragent: 'OSTestUserAgent'
     end
 
     describe '#info' do
