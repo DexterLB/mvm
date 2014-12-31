@@ -31,6 +31,18 @@ module Mvm
                           )
       end
     end
+
+    describe '#id_by_hashes' do
+      let(:hashes) { ['09a2c497663259cb', '46e33be00464c12e'] }
+
+      it 'identifies multiple items correctly' do
+        expect(subject.id_by_hashes(hashes).map do |hash, data|
+          { hash => data['MovieImdbID'] } 
+        end.reduce(&:merge)).to eq(Hash[ hashes.map do |hash|
+          [hash, subject.id_by_hash(hash)['MovieImdbID'] ]
+        end ])
+      end
+    end
   end
 end
 

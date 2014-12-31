@@ -7,7 +7,11 @@ module Mvm
     end
 
     def id_by_hash(hash)
-      @client.call('CheckMovieHash', [hash])['data'][hash]
+      id_by_hashes([hash])[hash]
+    end
+
+    def id_by_hashes(hashes)
+      @client.call('CheckMovieHash', hashes)['data']
     end
   end
 end
