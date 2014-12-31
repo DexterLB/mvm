@@ -40,7 +40,7 @@ module Mvm
     end
     
     def logout
-      call('LogOut') if token
+      call('LogOut') if @token
       @token = nil
     end
 
@@ -58,7 +58,7 @@ module Mvm
     end
 
     def call(function, *arguments)
-      if not token
+      if not @token
         login
       end
 
