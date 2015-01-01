@@ -30,6 +30,10 @@ module Mvm
                            'SeriesEpisode'  => '1',
                           )
       end
+
+      it 'returns empty hash for non-existant movie' do
+        expect(subject.id_by_hash('450f3f0c98a1f11d')).to eq({})
+      end
     end
 
     describe '#id_by_hashes' do

@@ -11,7 +11,13 @@ module Mvm
     end
 
     def id_by_hashes(hashes)
-      @client.call('CheckMovieHash', hashes)['data']
+      @client.call('CheckMovieHash', hashes)['data'].map do |hash, data|
+        if data.empty? # XMLRPC returns [] instead of {} when it's empty
+          [hash, {}]
+        else
+          [hash, data]
+        end
+      end.to_h
     end
   end
 end
