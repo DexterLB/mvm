@@ -1,5 +1,14 @@
+require 'ostruct'
+
 module Mvm
   class MovieList   # really, really need a better name for this thing
+    class Movie < OpenStruct
+    end
+
+    def movie_class
+      Movie
+    end
+
     def initialize
       @movies = []
     end
