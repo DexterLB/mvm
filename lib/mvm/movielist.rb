@@ -1,5 +1,5 @@
 module Mvm
-  class MovieList
+  class MovieList   # really, really need a better name for this thing
     def initialize
       @movies = []
     end
