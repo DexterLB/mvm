@@ -1,12 +1,10 @@
 require 'ostruct'
 
 module Mvm
-  module Modules
-    module Files
-      def add_movies(filenames)
-        filenames.each do |filename|
-          movies << movie_class.new(filename: filename)
-        end
+  module Files
+    def add_movies(filenames)
+      filenames.each do |filename|
+        movies << movie_class.new(filename: filename)
       end
     end
   end

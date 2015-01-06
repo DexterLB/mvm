@@ -1,29 +1,30 @@
 require 'ostruct'
 require 'yaml'
-require 'xdg'
 
 module Mvm
-  module Modules
-    module Configuration
-      Defaults = {}
+  module Configuration
+    Defaults = {}
 
-      class Settings < OpenStruct
-        def to_yaml
-          YAML.dump(to_h).gsub(/^---\n/, '')
-        end
-
-        def from_yaml(yaml)
-          YAML.load(yaml).map { |setting, value| self[setting] = value }
-        end
+    class Settings < OpenStruct
+      def to_string_hash
+        to_h.map { |setting, value| [setting.to_s, value] }.to_h
       end
 
-      def settings
-        @settings || @settings = Settings.new(Defaults)
+      def to_yaml
+        YAML.dump(to_string_hash).gsub(/^---\n/, '')
       end
 
-      def clear_settings
-        @settings = nil
+      def from_yaml(yaml)
+        YAML.load(yaml).map { |setting, value| self[setting] = value }
       end
+    end
+
+    def settings
+      @settings || @settings = Settings.new(Defaults)
+    end
+
+    def clear_settings
+      @settings = nil
     end
   end
 end
