@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.opensubtitles.org/xml-rpc
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" ?><methodCall><methodName>CheckMovieHash</methodName><params><param><value><string></string></value></param><param><value><array><data><value><string>46e33be00464c12e</string></value></data></array></value></param></params></methodCall>
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.1.5)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '257'
+      Connection:
+      - keep-alive
+      Cookie:
+      - PHPSESSID=3cvq6i9n0sjpajr5gl07fkr662
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '234'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 07 Jan 2015 23:46:43 GMT
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Cache:
+      - MISS
+      X-Cache-Backend:
+      - web3
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <methodResponse>
+        <params>
+         <param>
+          <value>
+           <struct>
+            <member>
+             <name>token</name>
+             <value>
+              <string>3cvq6i9n0sjpajr5gl07fkr662</string>
+             </value>
+            </member>
+            <member>
+             <name>status</name>
+             <value>
+              <string>401 Unauthorized</string>
+             </value>
+            </member>
+            <member>
+             <name>seconds</name>
+             <value>
+              <double>0.001</double>
+             </value>
+            </member>
+           </struct>
+          </value>
+         </param>
+        </params>
+        </methodResponse>
+    http_version: 
+  recorded_at: Wed, 07 Jan 2015 23:46:43 GMT
+recorded_with: VCR 2.9.3

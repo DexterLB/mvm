@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'xdg', '~> 0'
   s.add_runtime_dependency 'iso-639', '~> 0'
   s.add_development_dependency 'rspec', '~> 0'
+  s.add_development_dependency 'vcr', '~> 0'
+  s.add_development_dependency 'webmock', '~> 0'
 end
 
 # vim: set shiftwidth=2:

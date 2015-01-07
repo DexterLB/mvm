@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'vcr'
 require 'mvm/api/opensubtitles_client'
 require 'mvm/api/opensubtitles_error'
 
@@ -15,42 +16,54 @@ module Mvm
         let(:info) { subject.info }
 
         it 'returns non-nil info' do
-          expect(info).not_to be_nil
+          VCR.use_cassette('os_client') do
+            expect(info).not_to be_nil
+          end
         end
 
         it 'gives correct website url' do
-          expect(info['website_url']).to eq('http://www.opensubtitles.org')
+          VCR.use_cassette('os_client') do
+            expect(info['website_url']).to eq('http://www.opensubtitles.org')
+          end
         end
       end
 
       describe '#login' do
         it 'changes token to non-nil' do
-          expect { subject.login }.to change(subject, :token).from(nil)
+          VCR.use_cassette('os_login') do
+            expect { subject.login }.to change(subject, :token).from(nil)
+          end
         end
       end
 
       describe '#logout' do
         it 'changes token to nil' do
-          expect { subject.logout }.to change(subject, :token).to(nil)
+          VCR.use_cassette('os_logout') do
+            expect { subject.logout }.to change(subject, :token).to(nil)
+          end
         end
       end
 
       describe '#safe_client_call' do
         it 'throws UnauthorizedError when used with wrong token' do
-          expect {
-            subject.safe_client_call('CheckMovieHash',
-                                    '',
-                                    ['46e33be00464c12e'])
-          }.to raise_error(OpensubtitlesClient::UnauthorizedError)
+          VCR.use_cassette('os_safe_call') do
+            expect {
+              subject.safe_client_call('CheckMovieHash',
+                                      '',
+                                      ['46e33be00464c12e'])
+            }.to raise_error(OpensubtitlesClient::UnauthorizedError)
+          end
         end
       end
 
       describe '#call' do
         it 'logs in automatically and successfully calls function' do
-          subject.logout
-          expect(subject.call('CheckMovieHash',
-                              ['46e33be00464c12e'])['data'].keys.first
-                            ).to eq('46e33be00464c12e')
+          VCR.use_cassette('os_call') do
+            subject.logout
+            expect(subject.call('CheckMovieHash',
+                                ['46e33be00464c12e'])['data'].keys.first
+                              ).to eq('46e33be00464c12e')
+          end
         end
       end
     end
