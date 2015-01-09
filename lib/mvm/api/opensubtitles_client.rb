@@ -11,7 +11,7 @@ module Mvm
       DEFAULT_CLIENT_OPTIONS = {
         host: 'api.opensubtitles.org',
         path: '/xml-rpc',
-        timeout: 20,
+        timeout: 20
       }
 
       def initialize(username: '',
@@ -34,12 +34,12 @@ module Mvm
 
       def login
         @token = safe_client_call('LogIn',
-                                  @username, 
-                                  @password, 
-                                  @language.alpha2, 
+                                  @username,
+                                  @password,
+                                  @language.alpha2,
                                   @useragent)['token']
       end
-      
+
       def logout
         call('LogOut') if @token
         @token = nil
@@ -47,21 +47,19 @@ module Mvm
 
       def safe_client_call(function, *arguments)
         data = @client.call(function, *arguments)
-        if not data['status']
-          raise NoStatusError
-        end
+        fail NoStatusError unless data['status']
+
         code = data['status'].split.first.to_i
+
         unless code == 200
           error = ERRORS.fetch(code.to_i, UnknownError)
-          raise error, data['status']
+          fail error, data['status']
         end
         data
       end
 
       def call(function, *arguments)
-        if not @token
-          login
-        end
+        login unless @token
 
         begin
           safe_client_call(function, @token, *arguments)
@@ -72,6 +70,7 @@ module Mvm
       end
 
       private
+
       def new_client(**options)
         # maybe make this a monkey patch?
         option_sequence = options.values_at(:host, :path, :port, :proxy_host,

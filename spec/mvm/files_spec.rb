@@ -26,10 +26,8 @@ module Mvm
 
     describe '#add_movies' do
       it 'adds movies with correct filenames' do
-        subject.add_movies(['foo', 'bar', 'baz'])
-        expect(subject.movies.map { |movie| movie.filename }).to eq(
-          ['foo', 'bar', 'baz']
-        )
+        subject.add_movies(%w(foo bar baz))
+        expect(subject.movies.map(&:filename)).to eq(%w(foo bar baz))
       end
     end
   end

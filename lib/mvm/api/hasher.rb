@@ -1,32 +1,26 @@
 module Mvm
   module Api
     class Hasher
-      # this is the official opensubtitles.org ruby code for generating hashes.
-      # http://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes#Ruby
+      # opensubtitles.org hash algorithm:
+      # sum of first 64kb + sum of last 64kb + filesize, truncated to 64bits
 
       CHUNK_SIZE = 64 * 1024 # in bytes
 
       def self.hash(filename)
-        filesize = File.size(filename)
-        hash = filesize
+        size = File.size(filename)
+        hash = size
 
-        # Read 64 kbytes, divide up into 64 bits and add each
-        # to hash. Do for beginning and end of file.
-        File.open(filename, 'rb') do |f|    
-          # Q = unsigned long long = 64 bit
-          f.read(CHUNK_SIZE).unpack("Q*").each do |n|
-            hash = hash + n & 0xffffffffffffffff # to remain as 64 bit number
-          end
-
-          f.seek([0, filesize - CHUNK_SIZE].max, IO::SEEK_SET)
-
-          # And again for the end of the file
-          f.read(CHUNK_SIZE).unpack("Q*").each do |n|
-            hash = hash + n & 0xffffffffffffffff
-          end
+        File.open(filename, 'rb') do |f|
+          hash += hash_fragment(f)  # hash first 64kb
+          f.seek([0, size - CHUNK_SIZE].max, IO::SEEK_SET)
+          hash += hash_fragment(f)  # hash last 64kb
         end
 
-        sprintf("%016x", hash)
+        sprintf('%016x', hash & 2**64 - 1)
+      end
+
+      def self.hash_fragment(file)
+        file.read(CHUNK_SIZE).unpack('Q*').inject(:+)
       end
     end
   end

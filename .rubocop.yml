@@ -1,0 +1,6 @@
+Style/Documentation:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - '**/spec_helper.rb'

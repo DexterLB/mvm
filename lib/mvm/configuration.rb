@@ -3,7 +3,7 @@ require 'yaml'
 
 module Mvm
   module Configuration
-    Defaults = {}
+    DEFAULTS = {}
 
     class Settings < OpenStruct
       def to_string_hash
@@ -20,7 +20,7 @@ module Mvm
     end
 
     def settings
-      @settings || @settings = Settings.new(Defaults)
+      @settings || @settings = Settings.new(DEFAULTS)
     end
 
     def clear_settings

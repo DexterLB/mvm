@@ -2,6 +2,8 @@ require 'ostruct'
 
 module Mvm
   class MovieList   # really, really need a better name for this thing
+    attr_reader :movies
+
     class Movie < OpenStruct
     end
 
@@ -11,10 +13,6 @@ module Mvm
 
     def initialize
       @movies = []
-    end
-
-    def movies
-      @movies
     end
   end
 end

@@ -47,11 +47,11 @@ module Mvm
       describe '#safe_client_call' do
         it 'throws UnauthorizedError when used with wrong token' do
           VCR.use_cassette('os_safe_call') do
-            expect {
+            expect do
               subject.safe_client_call('CheckMovieHash',
-                                      '',
-                                      ['46e33be00464c12e'])
-            }.to raise_error(OpensubtitlesClient::UnauthorizedError)
+                                       '',
+                                       ['46e33be00464c12e'])
+            end.to raise_error(OpensubtitlesClient::UnauthorizedError)
           end
         end
       end

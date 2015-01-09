@@ -26,17 +26,13 @@ module Mvm
         expect(subject.settings.foo).to eq(42)
       end
 
-      it 'uses Defaults' do
-        stub_const('Mvm::Configuration::Defaults', {
-          bar: 'baz'
-        })
+      it 'uses DEFAULTS' do
+        stub_const('Mvm::Configuration::DEFAULTS', bar: 'baz')
         expect(subject.settings.bar).to eq('baz')
       end
 
-      it 'overrides Defaults' do
-        stub_const('Mvm::Configuration::Defaults', {
-          bar: 'baz'
-        })
+      it 'overrides DEFAULTS' do
+        stub_const('Mvm::Configuration::DEFAULTS', bar: 'baz')
         subject.settings.bar = 'qux'
         expect(subject.settings.bar).to eq('qux')
       end
@@ -61,23 +57,21 @@ module Mvm
 
       it 'keeps old settings when reading YAML' do
         subject.settings.foo = 42
-        subject.settings.from_yaml({bar: 3.14}.to_yaml)
+        subject.settings.from_yaml({ bar: 3.14 }.to_yaml)
         expect(subject.settings.foo).to eq(42)
         expect(subject.settings.bar).to eq(3.14)
       end
 
       it 'overrides old settings with new ones when reading YAML' do
         subject.settings.foo = 42
-        subject.settings.from_yaml({'foo' => 3.14}.to_yaml)
+        subject.settings.from_yaml({ 'foo' => 3.14 }.to_yaml)
         expect(subject.settings.foo).to eq(3.14)
       end
     end
 
     describe '#clear_settings' do
-      it 'clears settings back to Defaults' do
-        stub_const('Mvm::Configuration::Defaults', {
-          'bar' => 'baz'
-        })
+      it 'clears settings back to DEFAULTS' do
+        stub_const('Mvm::Configuration::DEFAULTS', 'bar' => 'baz')
 
         subject.settings.foo = 5
         subject.settings.bar = 3.14
