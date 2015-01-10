@@ -8,6 +8,8 @@ module Mvm
       filenames.each do |filename|
         movies << OpenStruct.new(filename: filename)
       end
+
+      movies
     end
 
     def calculate_hashes

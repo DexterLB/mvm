@@ -31,8 +31,13 @@ module Mvm
           width: 256,
           height: 240,
           frame_rate: 30.0,
-          length: 6.07
+          duration: 6.07
         )
+      end
+
+      it 'returns the movies object' do
+        subject.movies = [OpenStruct.new(filename: sample_video)]
+        expect(subject.read_metadata).to equal(subject.movies)
       end
     end
   end
