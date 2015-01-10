@@ -1,6 +1,12 @@
 Style/Documentation:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/MethodLength:
+  Max: 15
+
 AllCops:
   Exclude:
     - '**/spec_helper.rb'
