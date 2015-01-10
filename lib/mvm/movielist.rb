@@ -1,19 +1,17 @@
 require 'ostruct'
+require 'mvm/files'
+require 'mvm/metadata'
 
 module Mvm
   class MovieList   # really, really need a better name for this thing
-    attr_reader :movies
-
-    class Movie < OpenStruct
-    end
-
-    def movie_class
-      Movie
-    end
+    attr_accessor :movies
 
     def initialize
       @movies = []
     end
+
+    include Files
+    include Metadata
   end
 end
 

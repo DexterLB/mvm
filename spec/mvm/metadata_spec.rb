@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'mvm/files'
+require 'mvm/metadata'
 
 module Mvm
   describe Files do
@@ -10,7 +10,7 @@ module Mvm
         @movies = []
       end
 
-      include Files
+      include Metadata
     end
 
     subject { @dummy }
@@ -19,22 +19,20 @@ module Mvm
       @dummy = DummyMovieList.new
     end
 
-    describe '#add_movies' do
-      it 'adds movies with correct filenames' do
-        subject.add_movies(%w(foo bar baz))
-        expect(subject.movies.map(&:filename)).to eq(%w(foo bar baz))
-      end
-    end
-
-    describe '#calculate_hashes' do
+    describe '#read_metadata' do
       let(:sample_video) do
         File.dirname(__FILE__) + '/api/samples/drop.avi'
       end
 
-      it 'calculates correct hash' do
+      it 'reads correct metadata' do
         subject.movies = [OpenStruct.new(filename: sample_video)]
-        subject.calculate_hashes
-        expect(subject.movies.first.file_hash).to eq('450f3f0c98a1f11d')
+        subject.read_metadata
+        expect(subject.movies.first.to_h).to include(
+          width: 256,
+          height: 240,
+          frame_rate: 30.0,
+          length: 6.07
+        )
       end
     end
   end
