@@ -5,24 +5,14 @@ require 'mvm/configuration'
 
 module Mvm
   describe Opensubtitles do
-    class DummyMovieList
-      attr_accessor :movies
-
-      def initialize
-        @movies = []
-      end
-
-      include Configuration
-      include Opensubtitles
-    end
-
-    subject { @dummy }
+    subject { @opensubtitles }
 
     before :all do
-      @dummy = DummyMovieList.new
+      settings = Settings.new
+      @opensubtitles = Opensubtitles.new settings
     end
 
-    describe '#id_by_hash' do
+    describe '#id_by_hash_for' do
       it 'identifies movie correctly' do
         VCR.use_cassette('os_id_by_hash_movie') do
           movie = OpenStruct.new(file_hash: '09a2c497663259cb')
@@ -59,6 +49,13 @@ module Mvm
           expect(subject.id_by_hash_for(movie)).to eq(unchanged)
         end
       end
+
+      it 'returns the movie object' do
+        VCR.use_cassette('os_id_by_hash_wrong') do
+          movie = OpenStruct.new(file_hash: '450f3f0c98a1f11d')
+          expect(subject.id_by_hash_for(movie)).to equal(movie)
+        end
+      end
     end
 
     describe '#id_by_hashes' do
@@ -66,14 +63,21 @@ module Mvm
 
       it 'identifies multiple items correctly' do
         VCR.use_cassette('os_id_by_hashes') do
-          subject.movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
-          subject.id_by_hashes
-          expect(subject.movies.map do |movie|
+          movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
+          subject.id_by_hashes(movies)
+          expect(movies.map do |movie|
             { movie.file_hash => movie.imdb_id }
           end.reduce(&:merge)).to eq(
             '09a2c497663259cb' => '0403358',
             '46e33be00464c12e' => '2816136'
           )
+        end
+      end
+
+      it 'returns the movies object' do
+        VCR.use_cassette('os_id_by_hashes') do
+          movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
+          expect(subject.id_by_hashes(movies)).to equal(movies)
         end
       end
     end

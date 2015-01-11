@@ -1,8 +1,8 @@
 require 'streamio-ffmpeg'
 
 module Mvm
-  module Metadata
-    def read_metadata_for(movie)
+  class Metadata
+    def self.read_metadata_for(movie)
       ffmpeg = FFMPEG::Movie.new(movie.filename)
       return unless ffmpeg.valid?
 
@@ -11,9 +11,11 @@ module Mvm
       ].each do |attribute|
         movie[attribute] = ffmpeg.send(attribute)
       end
+
+      movie
     end
 
-    def read_metadata
+    def self.read_metadata(movies)
       movies.each { |movie| read_metadata_for(movie) }
     end
   end

@@ -5,82 +5,77 @@ require 'ostruct'
 require 'yaml'
 
 module Mvm
-  describe Configuration do
-    class Dummy
-      include Configuration
-    end
-
-    subject { @dummy }
+  describe Settings do
+    subject { @settings }
 
     before :each do
-      @dummy = Dummy.new
+      @settings = Settings.new
     end
 
-    describe '#settings' do
-      it 'is an instance of Settings' do
-        expect(subject.settings).to be_a Configuration::Settings
-      end
+    it 'stores configuration' do
+      subject.foo = 42
+      expect(subject.foo).to eq(42)
+    end
 
-      it 'stores configuration' do
-        subject.settings.foo = 42
-        expect(subject.settings.foo).to eq(42)
-      end
+    it 'uses DEFAULT_SETTINGS' do
+      stub_const('Mvm::DEFAULT_SETTINGS', bar: 'baz')
+      @settings = Settings.new
+      expect(subject.bar).to eq('baz')
+    end
 
-      it 'uses DEFAULTS' do
-        stub_const('Mvm::Configuration::DEFAULTS', bar: 'baz')
-        expect(subject.settings.bar).to eq('baz')
-      end
+    it 'overrides DEFAULT_SETTINGS' do
+      stub_const('Mvm::DEFAULT_SETTINGS', bar: 'baz')
+      subject.bar = 'qux'
+      expect(subject.bar).to eq('qux')
+    end
 
-      it 'overrides DEFAULTS' do
-        stub_const('Mvm::Configuration::DEFAULTS', bar: 'baz')
-        subject.settings.bar = 'qux'
-        expect(subject.settings.bar).to eq('qux')
-      end
-
+    describe '#to_yaml' do
       it 'generates correct YAML' do
-        subject.settings.foo = 5
-        subject.settings.bar = 3.14
-        subject.settings.baz = 'qux'
-        expect(YAML.load(subject.settings.to_yaml)).to include(
+        subject.foo = 5
+        subject.bar = 3.14
+        subject.baz = 'qux'
+        expect(YAML.load(subject.to_yaml)).to include(
           'foo' => 5, 'bar' => 3.14, 'baz' => 'qux'
         )
       end
+    end
 
+    describe '#from_yaml' do
       it 'reads YAML correctly' do
-        subject.settings.from_yaml({
+        subject.from_yaml({
           'foo' => 5, 'bar' => 3.14, 'baz' => 'qux'
         }.to_yaml)
-        expect(subject.settings.foo).to eq(5)
-        expect(subject.settings.bar).to eq(3.14)
-        expect(subject.settings.baz).to eq('qux')
+        expect(subject.foo).to eq(5)
+        expect(subject.bar).to eq(3.14)
+        expect(subject.baz).to eq('qux')
       end
 
       it 'keeps old settings when reading YAML' do
-        subject.settings.foo = 42
-        subject.settings.from_yaml({ bar: 3.14 }.to_yaml)
-        expect(subject.settings.foo).to eq(42)
-        expect(subject.settings.bar).to eq(3.14)
+        subject.foo = 42
+        subject.from_yaml({ bar: 3.14 }.to_yaml)
+        expect(subject.foo).to eq(42)
+        expect(subject.bar).to eq(3.14)
       end
 
       it 'overrides old settings with new ones when reading YAML' do
-        subject.settings.foo = 42
-        subject.settings.from_yaml({ 'foo' => 3.14 }.to_yaml)
-        expect(subject.settings.foo).to eq(3.14)
+        subject.foo = 42
+        subject.from_yaml({ 'foo' => 3.14 }.to_yaml)
+        expect(subject.foo).to eq(3.14)
       end
     end
 
-    describe '#clear_settings' do
-      it 'clears settings back to DEFAULTS' do
-        stub_const('Mvm::Configuration::DEFAULTS', 'bar' => 'baz')
+    describe '#clear' do
+      it 'clears settings back to DEFAULT_SETTINGS' do
+        stub_const('Mvm::DEFAULT_SETTINGS', 'bar' => 'baz')
+        @settings = Settings.new
 
-        subject.settings.foo = 5
-        subject.settings.bar = 3.14
+        subject.foo = 5
+        subject.bar = 3.14
 
-        subject.clear_settings
+        subject.clear
 
-        subject.settings.bar = 'qux'
-        expect(subject.settings.foo).to be_nil
-        expect(subject.settings.bar).to eq('qux')
+        expect(subject.foo).to be_nil
+        expect(subject.bar).to eq('baz')
       end
     end
   end

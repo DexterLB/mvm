@@ -3,19 +3,15 @@ require 'streamio-ffmpeg'
 require 'mvm/api/hasher'
 
 module Mvm
-  module Files
-    def add_movies(filenames)
-      filenames.each do |filename|
-        movies << OpenStruct.new(filename: filename)
-      end
-
-      movies
+  class Files
+    def self.calculate_hashes(movies)
+      movies.each { |movie| calculate_hash_for(movie) }
     end
 
-    def calculate_hashes
-      movies.each do |movie|
-        movie.file_hash = Api::Hasher.hash(movie.filename)
-      end
+    def self.calculate_hash_for(movie)
+      movie.file_hash = Api::Hasher.hash(movie.filename)
+
+      movie
     end
   end
 end

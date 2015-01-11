@@ -11,12 +11,6 @@ module Mvm
     def initialize
       @movies = []
     end
-
-    include Configuration
-
-    include Files
-    include Metadata
-    include Opensubtitles
   end
 end
 
