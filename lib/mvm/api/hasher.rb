@@ -11,16 +11,25 @@ module Mvm
         hash = size
 
         File.open(filename, 'rb') do |f|
-          hash += hash_fragment(f)  # hash first 64kb
+          hash += hash_fragment(f) # hash first 64kb
           f.seek([0, size - CHUNK_SIZE].max, IO::SEEK_SET)
-          hash += hash_fragment(f)  # hash last 64kb
+          hash += hash_fragment(f) # hash last 64kb
         end
 
-        sprintf('%016x', hash & 2**64 - 1)
+        if hash == 0
+          nil
+        else
+          sprintf('%016x', hash & 2**64 - 1)
+        end
       end
 
       def self.hash_fragment(file)
-        file.read(CHUNK_SIZE).unpack('Q*').inject(:+)
+        data = file.read(CHUNK_SIZE)
+        if data
+          data.unpack('Q*').inject(:+)
+        else
+          0
+        end
       end
     end
   end

@@ -11,6 +11,37 @@ module Mvm
     def initialize
       @movies = []
     end
+
+    def calculate_hashes
+      Files.calculate_hashes(movies)
+    end
+
+    def id_by_hashes
+      opensubtitles.id_by_hashes(movies)
+    end
+
+    def identify_movies
+      calculate_hashes
+      id_by_hashes
+    end
+
+    def scan_folder(folder)
+      @movies += files.scan_folder folder
+    end
+
+    private
+
+    def settings
+      @settings ||= Settings.new
+    end
+
+    def opensubtitles
+      @opensubtitles ||= Opensubtitles.new settings
+    end
+
+    def files
+      @files ||= Files.new settings
+    end
   end
 end
 

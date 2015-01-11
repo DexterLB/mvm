@@ -24,13 +24,14 @@ module Mvm
     end
 
     def id_by_hashes(movies)
-      data = lookup_hashes(movies.map(&:file_hash))
+      data = lookup_hashes(movies.select(&:file_hash).map(&:file_hash))
       movies.each do |movie|
         set_attributes_for(movie, data[movie.file_hash])
       end
     end
 
     def set_attributes_for(movie, attributes)
+      return movie unless attributes
       return movie unless %w(episode movie).include? attributes['MovieKind']
 
       movie.title = attributes['MovieName']
@@ -55,6 +56,12 @@ module Mvm
     end
 
     def lookup_hashes(hashes)
+      hashes.each_slice(199).map do |hash_list|
+        lookup_hashes_under_200 hash_list
+      end.inject(&:merge)
+    end
+
+    def lookup_hashes_under_200(hashes)
       client.call('CheckMovieHash', hashes)['data'].map do |hash, data|
         if data.empty? # XMLRPC returns [] instead of {} when it's empty
           [hash, {}]
