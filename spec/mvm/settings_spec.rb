@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'mvm/configuration'
+require 'mvm/settings'
 
 require 'ostruct'
 require 'yaml'

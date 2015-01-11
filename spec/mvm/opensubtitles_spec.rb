@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ostruct'
 require 'mvm/opensubtitles'
-require 'mvm/configuration'
+require 'mvm/settings'
 
 module Mvm
   describe Opensubtitles do

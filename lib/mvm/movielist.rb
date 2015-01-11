@@ -2,7 +2,7 @@ require 'ostruct'
 require 'mvm/files'
 require 'mvm/metadata'
 require 'mvm/opensubtitles'
-require 'mvm/configuration'
+require 'mvm/settings'
 
 module Mvm
   class MovieList   # really, really need a better name for this thing

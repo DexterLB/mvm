@@ -1,5 +1,5 @@
 require 'mvm/api/opensubtitles_client'
-require 'mvm/configuration'
+require 'mvm/settings'
 
 require 'iso-639'
 
