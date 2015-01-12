@@ -14,26 +14,29 @@ module Mvm
 
     def calculate_hashes
       Files.calculate_hashes(movies)
+      self
     end
 
     def id_by_hashes
       opensubtitles.id_by_hashes(movies)
+      self
     end
 
-    def identify_movies
+    def identify
       calculate_hashes
       id_by_hashes
     end
 
     def scan_folder(folder)
       @movies += files.scan_folder folder
+      self
     end
-
-    private
 
     def settings
       @settings ||= Settings.new
     end
+
+    private
 
     def opensubtitles
       @opensubtitles ||= Opensubtitles.new settings
