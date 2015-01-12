@@ -50,10 +50,12 @@ module Mvm
         end
       end
 
-      it 'returns the movie object' do
+      it 'doesn\'t mutate the movie object' do
         VCR.use_cassette('os_id_by_hash_wrong') do
           movie = OpenStruct.new(file_hash: '450f3f0c98a1f11d')
-          expect(subject.id_by_hash_for(movie)).to equal(movie)
+          old_movie = movie.dup
+          subject.id_by_hash_for(movie)
+          expect(movie).to eq(old_movie)
         end
       end
     end
@@ -64,8 +66,7 @@ module Mvm
       it 'identifies multiple items correctly' do
         VCR.use_cassette('os_id_by_hashes') do
           movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
-          subject.id_by_hashes(movies)
-          expect(movies.map do |movie|
+          expect(subject.id_by_hashes(movies).map do |movie|
             { movie.file_hash => movie.imdb_id }
           end.reduce(&:merge)).to eq(
             '09a2c497663259cb' => '0403358',
@@ -74,10 +75,12 @@ module Mvm
         end
       end
 
-      it 'returns the movies object' do
+      it 'doesn\'t mutate the movies object' do
         VCR.use_cassette('os_id_by_hashes') do
           movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
-          expect(subject.id_by_hashes(movies)).to equal(movies)
+          old_movies = movies.dup
+          subject.id_by_hashes(movies)
+          expect(movies).to eq(old_movies)
         end
       end
     end

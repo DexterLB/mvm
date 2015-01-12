@@ -12,24 +12,40 @@ module Mvm
       @movies = []
     end
 
+    def calculate_hashes!
+      @movies = Files.calculate_hashes(@movies)
+      self
+    end
+
     def calculate_hashes
-      Files.calculate_hashes(movies)
+      dup.calculate_hashes!
+    end
+
+    def id_by_hashes!
+      @movies = opensubtitles.id_by_hashes(@movies)
       self
     end
 
     def id_by_hashes
-      opensubtitles.id_by_hashes(movies)
-      self
+      dup.id_by_hashes!
     end
 
     def identify
-      calculate_hashes
-      id_by_hashes
+      calculate_hashes.id_by_hashes
+    end
+
+    def identify!
+      calculate_hashes!
+      id_by_hashes!
+    end
+
+    def scan_folder!(folder)
+      @movies += files.scan_folder folder
+      self
     end
 
     def scan_folder(folder)
-      @movies += files.scan_folder folder
-      self
+      dup.scan_folder!(folder)
     end
 
     def settings

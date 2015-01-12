@@ -19,18 +19,18 @@ module Mvm
 
     def id_by_hash_for(movie)
       set_attributes_for(movie, lookup_hash(movie.file_hash))
-
-      movie
     end
 
     def id_by_hashes(movies)
       data = lookup_hashes(movies.select(&:file_hash).map(&:file_hash))
-      movies.each do |movie|
+      movies.map do |movie|
         set_attributes_for(movie, data[movie.file_hash])
       end
     end
 
     def set_attributes_for(movie, attributes)
+      movie = movie.dup
+
       return movie unless attributes
       return movie unless %w(episode movie).include? attributes['MovieKind']
 

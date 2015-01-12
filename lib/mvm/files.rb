@@ -15,10 +15,12 @@ module Mvm
     end
 
     def self.calculate_hashes(movies)
-      movies.each { |movie| calculate_hash_for(movie) }
+      movies.map { |movie| calculate_hash_for(movie) }
     end
 
     def self.calculate_hash_for(movie)
+      movie = movie.dup
+
       movie.file_hash = Api::Hasher.hash(movie.filename)
 
       movie
