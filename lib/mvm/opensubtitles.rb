@@ -1,4 +1,4 @@
-require 'mvm/api/opensubtitles_client'
+require 'mvm/api/opensubtitles'
 require 'mvm/settings'
 
 require 'iso-639'
@@ -18,11 +18,11 @@ module Mvm
     end
 
     def id_by_hash_for(movie)
-      set_attributes_for(movie, lookup_hash(movie.file_hash))
+      set_attributes_for(movie, client.lookup_hash(movie.file_hash))
     end
 
     def id_by_hashes(movies)
-      data = lookup_hashes(movies.select(&:file_hash).map(&:file_hash))
+      data = client.lookup_hashes(movies.select(&:file_hash).map(&:file_hash))
       movies.map do |movie|
         set_attributes_for(movie, data[movie.file_hash])
       end
@@ -51,28 +51,8 @@ module Mvm
       movie
     end
 
-    def lookup_hash(hash)
-      lookup_hashes([hash])[hash]
-    end
-
-    def lookup_hashes(hashes)
-      hashes.each_slice(199).map do |hash_list|
-        lookup_hashes_under_200 hash_list
-      end.inject(&:merge)
-    end
-
-    def lookup_hashes_under_200(hashes)
-      client.call('CheckMovieHash', hashes)['data'].map do |hash, data|
-        if data.empty? # XMLRPC returns [] instead of {} when it's empty
-          [hash, {}]
-        else
-          [hash, data]
-        end
-      end.to_h
-    end
-
     def client
-      @client ||= Api::OpensubtitlesClient.new(
+      @client ||= Api::Opensubtitles.new(
         username: @settings.opensubtitles_username,
         password: @settings.opensubtitles_password,
         useragent: @settings.opensubtitles_useragent,
