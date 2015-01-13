@@ -1,7 +1,7 @@
 require 'streamio-ffmpeg'
 
 module Mvm
-  module Library
+  class Library
     class Metadata
       def self.read_metadata_for(movie)
         movie = movie.dup
@@ -10,7 +10,7 @@ module Mvm
         return unless ffmpeg.valid?
 
         [:duration, :bitrate, :size, :video_codec, :width, :height,
-        :frame_rate, :audio_codec, :audio_sample_rate, :audio_channels
+         :frame_rate, :audio_codec, :audio_sample_rate, :audio_channels
         ].each do |attribute|
           movie[attribute] = ffmpeg.send(attribute)
         end

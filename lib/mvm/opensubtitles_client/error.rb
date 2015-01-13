@@ -1,26 +1,26 @@
 module Mvm
-  module OpensubtitlesClient
-    class OpensubtitlesError < RuntimeError; end
+  class OpensubtitlesClient
+    class Error < RuntimeError; end
 
-    class NoStatusError             < OpensubtitlesError; end
-    class UnknownError              < OpensubtitlesError; end
+    class NoStatusError             < Error; end
+    class UnknownError              < Error; end
 
-    class PartialContentError       < OpensubtitlesError; end
-    class MovedError                < OpensubtitlesError; end
-    class UnauthorizedError         < OpensubtitlesError; end
-    class InvalidFormatError        < OpensubtitlesError; end
-    class HashMismatchError         < OpensubtitlesError; end
-    class InvalidLanguageError      < OpensubtitlesError; end
-    class NotEnoughArgumentsError   < OpensubtitlesError; end
-    class NoSessionError            < OpensubtitlesError; end
-    class DownloadLimitError        < OpensubtitlesError; end
-    class InvalidArgumentsError     < OpensubtitlesError; end
-    class InvalidMethodError        < OpensubtitlesError; end
-    class UserAgentError            < OpensubtitlesError; end
-    class InvalidStringError        < OpensubtitlesError; end
-    class InvalidImdbidError        < OpensubtitlesError; end
-    class SubtitleError             < OpensubtitlesError; end
-    class ServiceUnavailableError   < OpensubtitlesError; end
+    class PartialContentError       < Error; end
+    class MovedError                < Error; end
+    class UnauthorizedError         < Error; end
+    class InvalidFormatError        < Error; end
+    class HashMismatchError         < Error; end
+    class InvalidLanguageError      < Error; end
+    class NotEnoughArgumentsError   < Error; end
+    class NoSessionError            < Error; end
+    class DownloadLimitError        < Error; end
+    class InvalidArgumentsError     < Error; end
+    class InvalidMethodError        < Error; end
+    class UserAgentError            < Error; end
+    class InvalidStringError        < Error; end
+    class InvalidImdbidError        < Error; end
+    class SubtitleError             < Error; end
+    class ServiceUnavailableError   < Error; end
 
     ERRORS = {
       206 => PartialContentError,
@@ -34,7 +34,7 @@ module Mvm
       407 => DownloadLimitError,
       408 => InvalidArgumentsError,
       409 => InvalidMethodError,
-      410 => OpensubtitlesError,
+      410 => Error,
       411 => UserAgentError,
       412 => InvalidStringError,
       413 => InvalidImdbidError,

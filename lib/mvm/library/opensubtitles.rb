@@ -1,10 +1,10 @@
-require 'mvm/api/opensubtitles'
-require 'mvm/settings'
+require 'mvm/library/opensubtitles'
+require 'mvm/library/settings'
 
 require 'iso-639'
 
 module Mvm
-  module Library
+  class Library
     DEFAULT_SETTINGS.merge!(
       opensubtitles_username: '',
       opensubtitles_password: '',

@@ -1,15 +1,15 @@
 require 'spec_helper'
 require 'vcr'
-require 'mvm/api/opensubtitles_client'
-require 'mvm/api/opensubtitles_error'
+require 'mvm/opensubtitles_client/api'
+require 'mvm/opensubtitles_client/error'
 
 module Mvm
-  module Api
-    describe OpensubtitlesClient do
+  class OpensubtitlesClient
+    describe Api do
       subject { @client }
 
       before :all do
-        @client = OpensubtitlesClient.new useragent: 'OSTestUserAgent'
+        @client = Api.new useragent: 'OSTestUserAgent'
       end
 
       describe '#info' do

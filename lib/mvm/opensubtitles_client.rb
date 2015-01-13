@@ -1,9 +1,9 @@
-require 'mvm/opensubtitles_client/opensubtitles_api'
+require 'mvm/opensubtitles_client/api'
 
 module Mvm
   class OpensubtitlesClient
     def initialize(**client_options)
-      @api = OpensubtitlesApi.new(**client_options)
+      @api = Api.new(**client_options)
     end
 
     def lookup_hash(hash)

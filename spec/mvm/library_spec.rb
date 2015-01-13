@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'mvm/movielist'
+require 'mvm/library'
 
 module Mvm
-  describe MovieList do
-    subject { @movielist }
+  describe Library do
+    subject { @library }
 
     before :each do
-      @movielist = MovieList.new
+      @library = Library.new
     end
 
     describe '#initialize' do

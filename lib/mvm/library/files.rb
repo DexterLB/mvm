@@ -5,7 +5,7 @@ require 'mvm/opensubtitles_client/hasher'
 require 'mvm/library/settings'
 
 module Mvm
-  module Library
+  class Library
     DEFAULT_SETTINGS.merge!(
       valid_movie_extensions: '.mkv .avi .mp4'
     )
@@ -22,7 +22,7 @@ module Mvm
       def self.calculate_hash_for(movie)
         movie = movie.dup
 
-        movie.file_hash = Hasher.hash(movie.filename)
+        movie.file_hash = OpensubtitlesClient::Hasher.hash(movie.filename)
 
         movie
       end

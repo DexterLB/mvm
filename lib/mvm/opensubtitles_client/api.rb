@@ -1,11 +1,11 @@
 require 'xmlrpc/client'
 require 'iso-639'
 
-require 'mvm/opensubtitles_client/opensubtitles_error'
+require 'mvm/opensubtitles_client/error'
 
 module Mvm
-  module Opensubtitles
-    class OpensubtitlesApi
+  class OpensubtitlesClient
+    class Api
       attr_reader :token
 
       DEFAULT_CLIENT_OPTIONS = {

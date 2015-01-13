@@ -2,7 +2,7 @@ require 'ostruct'
 require 'yaml'
 
 module Mvm
-  module Library
+  class Library
     DEFAULT_SETTINGS = {}
 
     class Settings < OpenStruct

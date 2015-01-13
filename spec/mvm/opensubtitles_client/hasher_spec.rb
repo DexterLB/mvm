@@ -1,18 +1,18 @@
 require 'spec_helper'
-require 'mvm/api/hasher'
+require 'mvm/opensubtitles_client/hasher'
 
 module Mvm
-  module Api
+  class OpensubtitlesClient
     describe Hasher do
       subject { Hasher }
 
       describe '.hash' do
         let(:sample_video) do
-          File.dirname(__FILE__) + '/samples/drop.avi'
+          File.dirname(__FILE__) + '/../../fixtures/drop.avi'
         end
 
         let(:empty_file) do
-          File.dirname(__FILE__) + '/samples/empty.file'
+          File.dirname(__FILE__) + '/../../fixtures/empty.file'
         end
 
         it 'hashes sample movie correctly' do
