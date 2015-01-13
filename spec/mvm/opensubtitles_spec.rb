@@ -1,86 +1,60 @@
 require 'spec_helper'
-require 'ostruct'
-require 'mvm/opensubtitles'
-require 'mvm/settings'
+require 'mvm/api/opensubtitles'
 
 module Mvm
-  describe Opensubtitles do
-    subject { @opensubtitles }
+  module Api
+    describe Opensubtitles do
+      subject { @opensubtitles }
 
-    before :all do
-      settings = Settings.new
-      @opensubtitles = Opensubtitles.new settings
-    end
+      before :all do
+        @opensubtitles = Opensubtitles.new useragent: 'OSTestUserAgent'
+      end
 
-    describe '#id_by_hash_for' do
-      it 'identifies movie correctly' do
-        VCR.use_cassette('os_id_by_hash_movie') do
-          movie = OpenStruct.new(file_hash: '09a2c497663259cb')
-          expect(subject.id_by_hash_for(movie).to_h
-                ).to include(
-                  type: :movie,
-                  title: 'Nochnoy dozor',
-                  year: 2004,
-                  imdb_id: '0403358'
-                )
+      describe '#lookup_hash' do
+        it 'identifies movie correctly' do
+          VCR.use_cassette('os_lookup_hash_movie') do
+            expect(subject.lookup_hash('09a2c497663259cb')
+                  ).to include(
+                    'MovieKind'      => 'movie',
+                    'MovieName'      => 'Nochnoy dozor',
+                    'MovieYear'      => '2004',
+                    'MovieImdbID'    => '0403358'
+                  )
+          end
+        end
+
+        it 'identifies episode correctly' do
+          VCR.use_cassette('os_lookup_hash_ep') do
+            expect(subject.lookup_hash('46e33be00464c12e')
+                  ).to include(
+                    'MovieKind'      => 'episode',
+                    'MovieName'      => '"Game of Thrones" Two Swords',
+                    'MovieYear'      => '2014',
+                    'MovieImdbID'    => '2816136',
+                    'SeriesSeason'   => '4',
+                    'SeriesEpisode'  => '1'
+                  )
+          end
+        end
+
+        it 'returns empty hash for non-existant movie' do
+          VCR.use_cassette('os_lookup_hash_wrong') do
+            expect(subject.lookup_hash('450f3f0c98a1f11d')).to eq({})
+          end
         end
       end
 
-      it 'identifies episode correctly' do
-        VCR.use_cassette('os_id_by_hash_ep') do
-          movie = OpenStruct.new(file_hash: '46e33be00464c12e')
-          expect(subject.id_by_hash_for(movie).to_h
-                ).to include(
-                  type: :episode,
-                  episode_title: 'Two Swords',
-                  year: 2014,
-                  imdb_id: '2816136',
-                  series_title: 'Game of Thrones',
-                  season_number: 4,
-                  episode_number: 1
-                )
-        end
-      end
+      describe '#lookup_hashes' do
+        let(:hashes) { %w(09a2c497663259cb 46e33be00464c12e) }
 
-      it 'does nothing unidentified movie' do
-        VCR.use_cassette('os_id_by_hash_wrong') do
-          movie = OpenStruct.new(file_hash: '450f3f0c98a1f11d')
-          unchanged = movie.dup
-          expect(subject.id_by_hash_for(movie)).to eq(unchanged)
-        end
-      end
-
-      it 'doesn\'t mutate the movie object' do
-        VCR.use_cassette('os_id_by_hash_wrong') do
-          movie = OpenStruct.new(file_hash: '450f3f0c98a1f11d')
-          old_movie = movie.dup
-          subject.id_by_hash_for(movie)
-          expect(movie).to eq(old_movie)
-        end
-      end
-    end
-
-    describe '#id_by_hashes' do
-      let(:hashes) { %w(09a2c497663259cb 46e33be00464c12e) }
-
-      it 'identifies multiple items correctly' do
-        VCR.use_cassette('os_id_by_hashes') do
-          movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
-          expect(subject.id_by_hashes(movies).map do |movie|
-            { movie.file_hash => movie.imdb_id }
-          end.reduce(&:merge)).to eq(
-            '09a2c497663259cb' => '0403358',
-            '46e33be00464c12e' => '2816136'
-          )
-        end
-      end
-
-      it 'doesn\'t mutate the movies object' do
-        VCR.use_cassette('os_id_by_hashes') do
-          movies = hashes.map { |hash| OpenStruct.new(file_hash: hash) }
-          old_movies = movies.dup
-          subject.id_by_hashes(movies)
-          expect(movies).to eq(old_movies)
+        it 'identifies multiple items correctly' do
+          VCR.use_cassette('os_lookup_hashes') do
+            expect(subject.lookup_hashes(hashes).map do |hash, data|
+              { hash => data['MovieImdbID'] }
+            end.reduce(&:merge)).to eq(Hash[hashes.map do |hash|
+              [hash, subject.lookup_hash(hash)['MovieImdbID']]
+            end])
+          end
         end
       end
     end
