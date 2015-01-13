@@ -1,5 +1,5 @@
 module Mvm
-  module Api
+  module OpensubtitlesClient
     class Hasher
       # opensubtitles.org hash algorithm:
       # sum of first 64kb + sum of last 64kb + filesize, truncated to 64bits

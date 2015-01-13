@@ -1,33 +1,31 @@
-require 'mvm/api/opensubtitles_client'
+require 'mvm/opensubtitles_client/opensubtitles_api'
 
 module Mvm
-  module Api
-    class Opensubtitles
-      def initialize(**client_options)
-        @client = OpensubtitlesClient.new(**client_options)
-      end
+  class OpensubtitlesClient
+    def initialize(**client_options)
+      @api = OpensubtitlesApi.new(**client_options)
+    end
 
-      def lookup_hash(hash)
-        lookup_hashes([hash])[hash]
-      end
+    def lookup_hash(hash)
+      lookup_hashes([hash])[hash]
+    end
 
-      def lookup_hashes(hashes)
-        hashes.each_slice(199).map do |hash_list|
-          lookup_hashes_under_200 hash_list
-        end.inject(&:merge)
-      end
+    def lookup_hashes(hashes)
+      hashes.each_slice(199).map do |hash_list|
+        lookup_hashes_under_200 hash_list
+      end.inject(&:merge)
+    end
 
-      private
+    private
 
-      def lookup_hashes_under_200(hashes)
-        @client.call('CheckMovieHash', hashes)['data'].map do |hash, data|
-          if data.empty? # XMLRPC returns [] instead of {} when it's empty
-            [hash, {}]
-          else
-            [hash, data]
-          end
-        end.to_h
-      end
+    def lookup_hashes_under_200(hashes)
+      @api.call('CheckMovieHash', hashes)['data'].map do |hash, data|
+        if data.empty? # XMLRPC returns [] instead of {} when it's empty
+          [hash, {}]
+        else
+          [hash, data]
+        end
+      end.to_h
     end
   end
 end
