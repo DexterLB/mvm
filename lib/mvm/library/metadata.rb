@@ -7,7 +7,7 @@ module Mvm
         movie = movie.dup
 
         ffmpeg = FFMPEG::Movie.new(movie.filename)
-        return unless ffmpeg.valid?
+        return movie unless ffmpeg.valid?
 
         [:duration, :bitrate, :size, :video_codec, :width, :height,
          :frame_rate, :audio_codec, :audio_sample_rate, :audio_channels

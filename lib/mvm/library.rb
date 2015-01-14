@@ -30,12 +30,22 @@ module Mvm
       dup.id_by_hashes!
     end
 
+    def read_metadata!
+      @movies = Metadata.read_metadata(movies)
+      self
+    end
+
+    def read_metadata
+      dup.read_metadata!
+    end
+
     def identify
-      calculate_hashes.id_by_hashes
+      calculate_hashes.read_metadata.id_by_hashes
     end
 
     def identify!
       calculate_hashes!
+      read_metadata!
       id_by_hashes!
     end
 
