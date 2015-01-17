@@ -2,6 +2,7 @@ require 'ostruct'
 require 'mvm/library/files'
 require 'mvm/library/metadata'
 require 'mvm/library/opensubtitles'
+require 'mvm/library/imdb'
 require 'mvm/library/settings'
 
 module Mvm
@@ -39,6 +40,15 @@ module Mvm
       dup.read_metadata!
     end
 
+    def get_data!(&block)
+      @movies = imdb.get_data(movies, &block)
+      self
+    end
+
+    def get_data(&block)
+      dup.get_data!(&block)
+    end
+
     def identify
       calculate_hashes.read_metadata.id_by_hashes
     end
@@ -66,6 +76,10 @@ module Mvm
 
     def opensubtitles
       @opensubtitles ||= Opensubtitles.new settings
+    end
+
+    def imdb
+      @imdb ||= Imdb.new settings
     end
 
     def files
