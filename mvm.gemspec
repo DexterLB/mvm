@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'iso-639', '~> 0'
   s.add_runtime_dependency 'streamio-ffmpeg', '~> 0'
   s.add_development_dependency 'rspec', '~> 0'
+  s.add_development_dependency 'rubocop', '~> 0'
   s.add_development_dependency 'vcr', '~> 0'
   s.add_development_dependency 'webmock', '~> 0'
 end
