@@ -19,7 +19,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 17 Jan 2015 11:09:32 GMT
+      - Mon, 19 Jan 2015 08:56:17 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -29,7 +29,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYmXbwa-LXItJzNgmQAi-ifpW-0AeEbqgmgEE2_3Y2mO5jW7qy4_cfjyLyPd-EjcvBgYRJDpuRk2auPR_iPbFCBC18Z34Uiq4-VmD_kZprpI4Z9PBv7PnqNpfW6s0QY7dmfRPnRBG8nhCcSQXwX9mnmjnITSuSsFau6VUkyY9lKS3Q;expires=Thu,
+      - uu=BCYlHXdClO9SqF4UuO4QRs9lbanSGO_kKh63NcQ5-vnR5w6xYuMiHet48rEWmAXDjGrQlR9jB49zIJNklFIiGIsG59LGn8G93LaXjF3FnOJdAI-S8P1Eb50BJpRqqjyDH3bRpMM7iHH8SfUhuRcwGLO3ZhSTIZZjUskF_Dx3RgJuxB4;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -37,10 +37,10 @@ http_interactions:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
-      Content-Length:
-      - '1189'
+      Transfer-Encoding:
+      - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
         />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
         \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
@@ -86,7 +86,7 @@ http_interactions:
         \       <a href=\"/title/tt0114369/\">Se7en (1995)</a>\n    </div>\n    <div
         class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:32 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:17 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -106,7 +106,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 17 Jan 2015 11:09:32 GMT
+      - Mon, 19 Jan 2015 08:56:17 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -116,94 +116,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYuKKjwqbl03ZmGY2KR0NdKZGWgx3U6CNGo-WVqvulvjOKQyxZOAGPTasiLMbRRW-Mt2jI-kYea8MhLSOEg17OT8aODsnEa4ueuopRNCvVFg1Bl4nEXYAzAcIp23FFeMo6-4h8muCzPRBcTiwmITci5Xl0A8wrfeCqfE38vDc7cceg;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
-        \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
-        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
-        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:32 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Sat, 17 Jan 2015 11:09:33 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYrtTFDkDmHL5zedMp6AtYdgZN47QRNYJGjtbyfCGHv15c2NsOAEGMGCuotttWQ71wsLK59ykzPtZPhQ-Psh3vFlCxiKtNZpAZcfnGBNNt7BoXFmalqqrFPJFHslgWVmNKhtxdDS7rKPyvZQ0z6FLOZzOnmB3b3pOQC3a62cG-nykg;expires=Thu,
+      - uu=BCYj1nXoxT5O-DL8AE7SGOz6uCTVQeHpDvcCEg53SsWKl5wJKvqgWDZaImUcPSE-XUmko0K2Ij8mHMddwovOalJwSXSsYkjFvlieVd-xr3YfHJcjn0OcmGdaRzQcGBX4-5C5iyMjioB3qlW0UCWLzqRRFp8ksxcZwMJAg9-sSlPHopE;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -212,444 +125,9 @@ http_interactions:
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
       Content-Length:
-      - '1208'
+      - '1224'
     body:
-      encoding: UTF-8
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
-        \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
-        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
-        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:33 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Sat, 17 Jan 2015 11:09:33 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYlfRDV9ZEOITdN3T8kGBjX5vvvSkqKv_FvoQUkcgUH-2u2Wx-LfbHGRG3VkN9Jc9caWd2B0SSxWv-3oSMkb0P7eAQJmHtM86Ww6UHEtIqdFlOLnkjL0ymigdId8lOD-3F4ehoGlCA9SgfMPj-jlMAQq5QRc7JbDZPRsIqVq3QaL5M;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Content-Length:
-      - '1199'
-    body:
-      encoding: UTF-8
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Dude, where's my webpage?</div>\n    </div>\n    <div
-        class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">        <span>Jesse
-        Montgomery III, </span>        <a href=\"/title/tt0242423/\">Dude, Where's
-        My Car? (2000)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:33 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Sat, 17 Jan 2015 11:09:33 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYl-j5LTRlAiGNKSb89HcDUADZnw4MiTTx9lwa_OVtnGPVb3jit18Mp6FSL4CUwD_A0KWtsXz_88gTaCtS7iKlKtmh2t2cfptYf_wU9Vyrtl_5slA9231waT8TwHQQyrnMdce09A2yh1NgpQ9stk-a1IjR0v3VfsOjx0g4rlBO1rd4;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Content-Length:
-      - '1208'
-    body:
-      encoding: UTF-8
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
-        \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
-        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
-        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:33 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Sat, 17 Jan 2015 11:09:33 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYs6Fhn2RWplzVcx9Zj9TbZSeCvEOThLO6BZoooPkWIgUDRs4wXTxoe4ExsraM-7N_VBOsY8rct6xeUvho24H8IxaF3DXQnrzcgO9sycRhl0ZTFuzMb7b2AJ0XGSwrduFniUxzmQprqIQaCJu6c6Ba-OxjlWveVOQPBRG_xBVQnQXY;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">There is no page.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Spoon Boy, </span>        <a
-        href=\"/title/tt0133093/\">The Matrix (1999)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:33 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Sat, 17 Jan 2015 11:09:34 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYk4zhg1kH7n4TgHwWhzxdn1nfQRDieBKtnPVPFYFB0usm-3sp8Oun6K2quf0N84JJ70UMwQOv-Ru6eYIR4pJbdW1QNEp2xhfvcJXVIjJALDiWFkZC2kSwpy1wlXzpOfFp6CxZG2fJ4GnD23jHwKFimw71ohzaJvGl1ZSs6ZF9Sngc;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Lord! It's a miracle! Webpage up and vanished like a
-        fart in the wind!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Warden Norton, </span>        <a
-        href=\"/title/tt0111161/\">The Shawshank Redemption (1994)</a>\n    </div>\n
-        \   <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:34 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Sat, 17 Jan 2015 11:09:34 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYu_vF8sAlqyWjXBlQbhadh2C88ObYmPX-GLLupKe1FWwaFpzW1gNh8zklF0DUDRZgFXDZNWkDQOTgcJsgklQPegat96gX6anfPiPF6nb2u4kOuQ6S3tP1kFGPXegYh6jQ-16RO09r6qSdMdukjcJEeUCdLVIlm_mQuUZYT-nrKnUs;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
         />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
         \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
@@ -696,7 +174,7 @@ http_interactions:
         \       <a href=\"/title/tt0080339/\">Airplane! (1980)</a>\n    </div>\n    <div
         class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:34 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:17 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -716,7 +194,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 17 Jan 2015 11:09:34 GMT
+      - Mon, 19 Jan 2015 08:56:17 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -726,7 +204,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYqKWyJNcRaLiJtxTaw5HFOB7vIinEDO2oglpNIks46UN9XWFpzkWQEty6utSqK8Yw_7ocOX7OUhQ3M7Hhu6N3l7u6hDsfcVG5sOVWa_wwkhukO-Udt-R7pCM9WAnWA8w4LCvSLCavhoklwKfP0e1-_xUygoWVxA0xh_0X4PyOrE3k;expires=Thu,
+      - uu=BCYgnUtqcsOcJZIW8zhrlq2UIwuiJ0-Oh3kQIfQ3pFkQbO6E7qoLp3GdVxoDqjJkwIcoHf9tddB52A8VinDNwyHEaudELNFKlVC8vDRyT-cxL08TRgNr-yGtRix4nbwgLmtozTKcA59pCDF81koFacapoNuO8BPUDTilzGdi9DJqvN0;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -734,12 +212,10 @@ http_interactions:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
-      Cneonction:
-      - close
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
         />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
         \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
@@ -780,12 +256,98 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
+        class=\"error_quote\">Dude...</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Hurley, </span>        <a href=\"/title/tt0411008/\">Lost
+        (2004) - TV Series</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Mon, 19 Jan 2015 08:56:17 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 19 Jan 2015 08:56:18 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYqwNK86mYqlXA4A9fwIfz_sW7Cw0uOr2Wi1LEK1xQxvoOUuLMC1sYzyzg85-nWBthSncPKWi9YXYYqvamS6Yl47gShrXpmatZVHdnlluIwW4u0bPaE5aQ4S7_3jDhHuANDYAZ8Xbbre_wH_ppkN17LGp-oWsZMouO6T4BMybunlOg;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">I've got a feeling we're not in Kansas anymore.</div>\n
         \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
-        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
-        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        \       <span>Dorothy, </span>        <a href=\"/title/tt0032138/\">The Wizard
+        of Oz (1939)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:34 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:18 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -805,7 +367,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 17 Jan 2015 11:09:34 GMT
+      - Mon, 19 Jan 2015 08:56:18 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -815,7 +377,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYnF8u3VWSRNQrx4Z0r2re5D0qza7gMaM2NfhabD72jq8MfX8xGPNFOk-HzM_fHMFNlv3YkYipalZOTN7NSnJ9IYBInN8B-1tKIW2j5UqYPx53nRo4K2u3bl2iNNN-PZ_UKm_Bvnst7MN8LpPDyXnumaMSBM4w9cpWv9Zza5SaSCtM;expires=Thu,
+      - uu=BCYhqwxBod6QsEiJwqhebdv9x_sWAUu83pW3JHT6V4F2IBwxu8W7zkmSekT8_0Au9We-yu84umZ5OJAtX6ytoKS65Gtnzw8lxpN5Ve6o3VBGsAclMbF6p7_yq4h3N0pEBiebOzBBEDxdoWQHfSBitWKpDChuLMazvAfJgu-W2HTq29I;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -826,7 +388,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
         />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
         \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
@@ -867,12 +429,11 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Dude, where's my webpage?</div>\n    </div>\n    <div
-        class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">        <span>Jesse
-        Montgomery III, </span>        <a href=\"/title/tt0242423/\">Dude, Where's
-        My Car? (2000)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        class=\"error_quote\">There is no page.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Spoon Boy, </span>        <a
+        href=\"/title/tt0133093/\">The Matrix (1999)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:35 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:18 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -892,7 +453,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 17 Jan 2015 11:09:35 GMT
+      - Mon, 19 Jan 2015 08:56:18 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -902,7 +463,94 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYhpV-xAtq5Dj9lU_BghTR25JA90Wx3ARf3A8r8VtoIra0fsWVSta_vkfRIjsgJGffZIHuvcIEnMyvg2BpizvRfJrkS-el3cBxL9ZrII0GT0MKZOjKsMMHiRgMWXJ3eQya4gXA2A1aaHBlTyYNTlAe-1EaoMeN6FfwSzHUSTrZd1Y8;expires=Thu,
+      - uu=BCYvH3tXKZru8y4zMndmYNKxnaoDbIXmsH3MDwoSXWnrrkNmN0HuXNR6ZPtBYYL76weYrWvhrmgAs4FeisE2td1jw6wGUjjawWjo4mgVHscF1Kth0hHy-5qOnsTBbEZQtqV8xZlKNer2RmOYCmEzCgkTIUj0ZfZjcnz7WLLHvsteodE;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Content-Length:
+      - '1201'
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">It's the one that says 'Page not found'.</div>\n    </div>\n
+        \   <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">        <span>Jules
+        Winnfield, </span>        <a href=\"/title/tt0110912/\">Pulp Fiction (1994)</a>\n
+        \   </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Mon, 19 Jan 2015 08:56:18 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 19 Jan 2015 08:56:18 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYmcffkc74eiord1rqfOZnQ48qVMkLrtsQl6EPZk5fr7te5zH3BP7RTE1oXp7BbXxMXbnzSljbfj4PDXAZGk3x-o8ifmdxxRBwJWamXOyvH0IsIYCdqo31AxkSaGOZgx-1Qf_6jsHi5IwCgIX9RzGzsoQVHR_1S4ZiWLiqbXU7lXKA;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -913,7 +561,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
         />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
         \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
@@ -959,7 +607,359 @@ http_interactions:
         class=\"error_attrib\">        <span>Phil Connors, </span>        <a href=\"/title/tt0107048/\">Groundhog
         Day (1993)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:35 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 19 Jan 2015 08:56:19 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYly3xTaoB9jLP6LlaS9SkafTbWXpq7F8GO8W9QZoWGnauVypEf3gMPKyH6B5QjgpjaIQT_YGcQnoDClFt3RkmwXVyiaZ3Wt0ZAuQT4foclvQZMIi2JE4Rt0eRhZrYFYa2Wcn8l-KK3eAtDbz0UCxJ9zKMsctHhuG5ztfPMztRUplk;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Content-Length:
+      - '1230'
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">Lord! It's a miracle! Webpage up and vanished like a
+        fart in the wind!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Warden Norton, </span>        <a
+        href=\"/title/tt0111161/\">The Shawshank Redemption (1994)</a>\n    </div>\n
+        \   <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 19 Jan 2015 08:56:19 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYgKw7OWPyjomkbWurZgfxeHbR7Gz-CDdKY-qripB0RKlf4gtfef17T5QRAgGlGKM_zvAasaqKYgmWGXL35DZ6viKOdDK6ArcXWgSFj0DU457pXUft8h3XH24JNvWNrvacKsd-YpSUszl1PS1hjpuv1ag5qOH7bWty1pX13QxkCjtI;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Content-Length:
+      - '1207'
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">I've got a feeling we're not in Kansas anymore.</div>\n
+        \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
+        \       <span>Dorothy, </span>        <a href=\"/title/tt0032138/\">The Wizard
+        of Oz (1939)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 19 Jan 2015 08:56:19 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYo804pAF1sAoSOAwcw9bFcJYWHQCwwqfN8huYGgkTxsAsF-dvx8XGY-x11yWJcDlphZRIVVPtr9qfs9HbESmG6uygv6Cqq00mgsc3CcY2qM9kbChfDULuWpR3CIfuVZigVWUdW6kf7c59Sz904qicB8Gg6gkgP0LslAvR9S965HUw;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Cneonction:
+      - close
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">Surely you can't be serious! I am serious. And don't
+        call me Shirley.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Ted Striker & Rumack, </span>
+        \       <a href=\"/title/tt0080339/\">Airplane! (1980)</a>\n    </div>\n    <div
+        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 19 Jan 2015 08:56:20 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYoF2jxDMSgkB95SXRgLPOJSq3UI6rXO4p0tk7BAQ8nFgi36iLtuUNRxgryAZ6mD8ghKg_RKcETbfw16yvMwoRmkdw9S6ckxIX51khCC-r3d5ySu0E1qHk0TGE7oVF5Cme-ypet4y5Rb907yjeu_bhSORoOtiy66WIuZWH5MgfKsrA;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">What's on the page?!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Detective David Mills, </span>
+        \       <a href=\"/title/tt0114369/\">Se7en (1995)</a>\n    </div>\n    <div
+        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Mon, 19 Jan 2015 08:56:20 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/plotsummary
@@ -979,7 +979,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 17 Jan 2015 11:09:35 GMT
+      - Mon, 19 Jan 2015 08:56:19 GMT
       Server:
       - Server
       X-Frame-Options:
@@ -991,12 +991,12 @@ http_interactions:
       Vary:
       - Accept-Encoding,User-Agent
       Set-Cookie:
-      - session-id-time=1579172975; Domain=.imdb.com; Expires=Thu, 04-Feb-2083 14:23:42
+      - session-id-time=1579337780; Domain=.imdb.com; Expires=Sat, 06-Feb-2083 12:10:27
         GMT; Path=/
-      - session-id=000-0000000-0000000; Domain=.imdb.com; Expires=Thu, 04-Feb-2083
-        14:23:42 GMT; Path=/
-      - uu=BCYsuwAYaN77mfDfPe7gNo-RqZypsdGQt2oIBktQ_L_AjJM4q6O1b31kCOAnmxtCFs1_XhbvKPmI%0D%0A6q6jQ6nBFIaOPrfBb4PZNKjxgsgYxImReqjrsShwdmb8EtJfYYU1OzKNjGvJqLfByK27XuJA-tmJ%0D%0AGIaHT9-FuIU-mHaA38UWzuVhqpRHUfDwEcZiU7spgrSTj3033D1HeCJ_PBTmKQwXwO8oA8YKTrwX%0D%0A4nbKSyJ9MdwvUbZrteAAIB9qAfDOdqgT2Z6sEm6nbOcNElxuB4ZB8w%0D%0A;
-        Domain=.imdb.com; Expires=Thu, 04-Feb-2083 14:23:42 GMT; Path=/
+      - session-id=000-0000000-0000000; Domain=.imdb.com; Expires=Sat, 06-Feb-2083
+        12:10:27 GMT; Path=/
+      - uu=BCYmZ41FgSI1TzI00_v6GapUoeZL3rIJ-PGwMz6mI0sAy3Vor9vuXzgu4P14X1eaTbNQq-ZKvfjA%0D%0AMT8QevWIK-T4QODqX1H9vrZwoq3FwLHz3WzMsWeTisTjc2qUXvO-GHZmju9gPOYW0e2EqHptvihP%0D%0ANk4axFwZesuYBiM69bYMECP1OHiZAgH234_nR_kpVlLxCqxVErZ0R3D9OB5kwpqj7U38s4BonOLH%0D%0AcdevSlkJarx4BdpBLmMHDiAR2ssUENJwcLJy6D3RZhAJXumj_g3Akg%0D%0A;
+        Domain=.imdb.com; Expires=Sat, 06-Feb-2083 12:10:27 GMT; Path=/
       P3p:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
@@ -1004,7 +1004,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: "\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
         />\n  <title>404 Error - IMDb</title>\n  <style>\nhtml, body {\n  height:
         100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color: #D4D9DD;\n
@@ -1047,15 +1047,15 @@ http_interactions:
         right;\n  margin-right: 70px;\n  margin-top: 26px;\n  padding: 0.3em 0.6em;\n
         \ text-decoration: none;\n}\na.btn:hover {\n  background-image: none;\n  border-color:
         #E6B800;\n}\n.clear {\n  clear: both;\n}\n  </style>\n</head>\n<body>\n<!--
-        h=ics-1d-c3-2xl-i-40f9beaa.us-east-1 -->\n<div id=\"error\" class=\"error_code_404\">\n
+        h=ics-http-1a-c1xl-i-241a4e05.us-east-1 -->\n<div id=\"error\" class=\"error_code_404\">\n
         \   \n    <div class=\"error_message\">\n        The requested URL was not
         found on our server.\n        <a href=\"/\">Go to the homepage</a> &raquo;\n
         \   </div>\n    <div class=\"error_bubble\">\n        <div class=\"error_code\">404<br><span>ERROR</span></div>\n
-        \       <div class=\"error_quote\">He's off the map! He's off the map!</div>\n
-        \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">\n
-        \       <span>Stan, </span><a href=\"/title/tt0338013/\">Eternal Sunshine
-        of the Spotless Mind (2004)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n<!--
+        \       <div class=\"error_quote\">Lord! It's a miracle! Webpage up and vanished
+        like a fart in the wind!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">\n        <span>Warden Norton, </span><a href=\"/title/tt0111161/\">The
+        Shawshank Redemption (1994)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n<!--
         The next level -->\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 11:09:35 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:20 GMT
 recorded_with: VCR 2.9.3

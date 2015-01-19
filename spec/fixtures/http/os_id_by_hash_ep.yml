@@ -6,10 +6,10 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" ?><methodCall><methodName>CheckMovieHash</methodName><params><param><value><string>523u42h3tp935knb6pfqf4fbp1</string></value></param><param><value><array><data><value><string>46e33be00464c12e</string></value></data></array></value></param></params></methodCall>
+        <?xml version="1.0" ?><methodCall><methodName>CheckMovieHash</methodName><params><param><value><string>iip6j9epi53ph4k8i5eqjh2um5</string></value></param><param><value><array><data><value><string>46e33be00464c12e</string></value></data></array></value></param></params></methodCall>
     headers:
       User-Agent:
-      - XMLRPC::Client (Ruby 2.1.5)
+      - XMLRPC::Client (Ruby 2.2.0)
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:
@@ -17,7 +17,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cookie:
-      - PHPSESSID=523u42h3tp935knb6pfqf4fbp1
+      - PHPSESSID=iip6j9epi53ph4k8i5eqjh2um5
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -28,7 +28,7 @@ http_interactions:
       message: OK
     headers:
       Set-Cookie:
-      - PHPSESSID=523u42h3tp935knb6pfqf4fbp1; path=/; domain=.opensubtitles.org
+      - PHPSESSID=iip6j9epi53ph4k8i5eqjh2um5; path=/; domain=.opensubtitles.org
       Expires:
       - Thu, 19 Nov 1981 08:52:00 GMT
       Cache-Control:
@@ -46,7 +46,7 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sun, 11 Jan 2015 22:26:20 GMT
+      - Mon, 19 Jan 2015 08:56:29 GMT
       Age:
       - '0'
       Connection:
@@ -56,7 +56,7 @@ http_interactions:
       X-Cache-Backend:
       - web3
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: |
         <?xml version="1.0" encoding="utf-8"?>
         <methodResponse>
@@ -123,7 +123,7 @@ http_interactions:
                   <member>
                    <name>SeenCount</name>
                    <value>
-                    <string>30971</string>
+                    <string>31080</string>
                    </value>
                   </member>
                   <member>
@@ -149,7 +149,7 @@ http_interactions:
             <member>
              <name>seconds</name>
              <value>
-              <double>0.174</double>
+              <double>0.012</double>
              </value>
             </member>
            </struct>
@@ -158,5 +158,5 @@ http_interactions:
         </params>
         </methodResponse>
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 22:26:20 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:29 GMT
 recorded_with: VCR 2.9.3

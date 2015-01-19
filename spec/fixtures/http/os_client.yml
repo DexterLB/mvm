@@ -9,7 +9,7 @@ http_interactions:
         <?xml version="1.0" ?><methodCall><methodName>ServerInfo</methodName><params/></methodCall>
     headers:
       User-Agent:
-      - XMLRPC::Client (Ruby 2.1.5)
+      - XMLRPC::Client (Ruby 2.2.0)
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:
@@ -32,11 +32,11 @@ http_interactions:
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
-      - '1213'
+      - '1205'
       Accept-Ranges:
       - bytes
       Date:
-      - Sun, 11 Jan 2015 22:26:17 GMT
+      - Mon, 19 Jan 2015 08:56:30 GMT
       Age:
       - '0'
       Connection:
@@ -46,7 +46,7 @@ http_interactions:
       X-Cache-Backend:
       - web3
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: |
         <?xml version="1.0" encoding="utf-8"?>
         <methodResponse>
@@ -87,19 +87,19 @@ http_interactions:
             <member>
              <name>users_online_total</name>
              <value>
-              <int>23234</int>
+              <int>6931</int>
              </value>
             </member>
             <member>
              <name>users_online_program</name>
              <value>
-              <int>18766</int>
+              <int>4872</int>
              </value>
             </member>
             <member>
              <name>users_loggedin</name>
              <value>
-              <int>515</int>
+              <int>190</int>
              </value>
             </member>
             <member>
@@ -111,31 +111,31 @@ http_interactions:
             <member>
              <name>users_registered</name>
              <value>
-              <string>1569575</string>
+              <string>1601044</string>
              </value>
             </member>
             <member>
              <name>subs_downloads</name>
              <value>
-              <string>1759510811</string>
+              <string>1777163409</string>
              </value>
             </member>
             <member>
              <name>subs_subtitle_files</name>
              <value>
-              <string>3147237</string>
+              <string>3156101</string>
              </value>
             </member>
             <member>
              <name>movies_total</name>
              <value>
-              <string>185332</string>
+              <string>185799</string>
              </value>
             </member>
             <member>
              <name>movies_aka</name>
              <value>
-              <string>458856</string>
+              <string>459993</string>
              </value>
             </member>
             <member>
@@ -397,7 +397,7 @@ http_interactions:
                <member>
                 <name>sr</name>
                 <value>
-                 <string>2007-09-05 10:16:25</string>
+                 <string>2015-01-17 09:37:01</string>
                 </value>
                </member>
                <member>
@@ -497,7 +497,7 @@ http_interactions:
             <member>
              <name>seconds</name>
              <value>
-              <double>0.176</double>
+              <double>0.007</double>
              </value>
             </member>
            </struct>
@@ -506,5 +506,5 @@ http_interactions:
         </params>
         </methodResponse>
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 22:26:17 GMT
+  recorded_at: Mon, 19 Jan 2015 08:56:30 GMT
 recorded_with: VCR 2.9.3
