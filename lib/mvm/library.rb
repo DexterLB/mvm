@@ -4,6 +4,7 @@ require 'mvm/library/metadata'
 require 'mvm/library/opensubtitles'
 require 'mvm/library/imdb'
 require 'mvm/library/settings'
+require 'mvm/library/cli'
 
 module Mvm
   class Library   # really, really need a better name for this thing
@@ -57,6 +58,10 @@ module Mvm
       calculate_hashes!
       read_metadata!
       id_by_hashes!
+    end
+
+    def print
+      Cli.print_movies(@movies)
     end
 
     def scan_folder!(folder)
