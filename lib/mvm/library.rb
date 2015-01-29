@@ -60,8 +60,8 @@ module Mvm
       id_by_hashes!
     end
 
-    def print
-      Cli.print_movies(@movies)
+    def print(spoiler_level: nil)
+      Cli.print_movies(@movies, spoiler_level: spoiler_level)
     end
 
     def scan_folder!(folder)
