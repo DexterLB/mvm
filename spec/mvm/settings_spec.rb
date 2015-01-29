@@ -29,6 +29,21 @@ module Mvm
       expect(subject.bar).to eq('qux')
     end
 
+    it 'reads settings from hash given to constructor' do
+      @settings = Settings.new(foo: 'bar')
+      subject.bar = 'qux'
+      expect(subject.foo).to eq('bar')
+      expect(subject.bar).to eq('qux')
+    end
+
+    it 'overrides DEFAULT_SETTINGS with hash given to constructor' do
+      stub_const('Mvm::DEFAULT_SETTINGS', foo: 42)
+      @settings = Settings.new(foo: 'bar')
+      subject.bar = 'qux'
+      expect(subject.foo).to eq('bar')
+      expect(subject.bar).to eq('qux')
+    end
+
     describe '#to_yaml' do
       it 'generates correct YAML' do
         subject.foo = 5

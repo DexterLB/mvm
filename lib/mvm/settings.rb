@@ -5,8 +5,8 @@ module Mvm
   DEFAULT_SETTINGS = {}
 
   class Settings < OpenStruct
-    def initialize
-      super DEFAULT_SETTINGS
+    def initialize(settings = {})
+      super DEFAULT_SETTINGS.merge(settings)
     end
 
     def to_string_hash

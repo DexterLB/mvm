@@ -5,6 +5,7 @@ require 'mvm/library/metadata'
 require 'mvm/library/opensubtitles'
 require 'mvm/library/imdb'
 require 'mvm/library/cli'
+require 'mvm/library/store'
 
 module Mvm
   class Library   # really, really need a better name for this thing
@@ -74,6 +75,19 @@ module Mvm
       dup.scan_folder!(folder)
     end
 
+    def store_movies
+      store.store_movies(@movies)
+    end
+
+    def load_movies!(folder)
+      @movies += store.load_movies(folder)
+      self
+    end
+
+    def load_movies(folder)
+      dup.load_movies!(folder)
+    end
+
     def settings
       @settings ||= Settings.new
     end
@@ -90,6 +104,10 @@ module Mvm
 
     def files
       @files ||= Files.new settings
+    end
+
+    def store
+      @store ||= Store.new settings
     end
   end
 end

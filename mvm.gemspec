@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '~> 0'
   s.add_development_dependency 'vcr', '~> 0'
   s.add_development_dependency 'webmock', '~> 0'
+  s.add_development_dependency 'fakefs', '~> 0'
 end
 
 # vim: set shiftwidth=2:
