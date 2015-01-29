@@ -1,17 +1,18 @@
 require 'ostruct'
+require 'mvm/settings'
 require 'mvm/library/files'
 require 'mvm/library/metadata'
 require 'mvm/library/opensubtitles'
 require 'mvm/library/imdb'
-require 'mvm/library/settings'
 require 'mvm/library/cli'
 
 module Mvm
   class Library   # really, really need a better name for this thing
     attr_accessor :movies
 
-    def initialize
+    def initialize(settings: nil)
       @movies = []
+      @settings = settings
     end
 
     def calculate_hashes!

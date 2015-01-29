@@ -2,7 +2,7 @@ require 'ostruct'
 require 'find'
 require 'streamio-ffmpeg'
 require 'mvm/opensubtitles_client/hasher'
-require 'mvm/library/settings'
+require 'mvm/settings'
 
 module Mvm
   class Library

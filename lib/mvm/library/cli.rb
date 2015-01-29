@@ -20,11 +20,11 @@ module Mvm
             movie.filename.yellow
           end
         )
-        puts movie.plot[spoiler_level] if movie.plot and spoiler_level
+        puts movie.plot[spoiler_level] if movie.plot && spoiler_level
       end
 
       def self.print_movies(movies, spoiler_level: nil)
-        movies.each { |movie| print_movie(movie, spoiler_level) }
+        movies.each { |movie| print_movie(movie, spoiler_level: spoiler_level) }
         nil
       end
     end

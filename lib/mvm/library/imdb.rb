@@ -1,4 +1,4 @@
-require 'mvm/library/settings'
+require 'mvm/settings'
 require 'imdb'
 require 'iso-639'
 
