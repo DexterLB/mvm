@@ -12,14 +12,14 @@ Gem::Specification.new do |s|
     .map { |f| File.basename(f) }
   s.require_paths = ['lib']
   s.license = 'GPLv3'
-  s.add_runtime_dependency 'xdg', '~> 0'
+  s.add_runtime_dependency 'xdg', '~> 2'
   s.add_runtime_dependency 'iso-639', '~> 0'
-  s.add_runtime_dependency 'streamio-ffmpeg', '~> 0'
-  s.add_runtime_dependency 'colorize' '~> 0'
-  s.add_development_dependency 'rspec', '~> 0'
+  s.add_runtime_dependency 'streamio-ffmpeg', '~> 1'
+  s.add_runtime_dependency 'colorize', '~> 0'
+  s.add_development_dependency 'rspec', '~> 3'
   s.add_development_dependency 'rubocop', '~> 0'
-  s.add_development_dependency 'vcr', '~> 0'
-  s.add_development_dependency 'webmock', '~> 0'
+  s.add_development_dependency 'vcr', '~> 2'
+  s.add_development_dependency 'webmock', '~> 1'
   s.add_development_dependency 'fakefs', '~> 0'
 end
 
