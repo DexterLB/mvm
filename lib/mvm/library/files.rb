@@ -28,7 +28,9 @@ module Mvm
       end
 
       def self.movies_from_filenames(filenames)
-        filenames.map { |filename| OpenStruct.new filename: filename }
+        filenames.map do |filename|
+          OpenStruct.new filename: filename, added: Time.now
+        end
       end
 
       def valid_movie?(filename)
