@@ -64,6 +64,7 @@ module Mvm
 
     def print(spoiler_level: nil)
       Cli.print_movies(@movies, spoiler_level: spoiler_level)
+      self
     end
 
     def scan_folder!(folder)
