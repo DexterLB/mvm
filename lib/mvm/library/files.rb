@@ -11,7 +11,7 @@ module Mvm
     )
 
     class Files
-      def initialize(settings)
+      def initialize(settings = Settings.new)
         @settings = settings
       end
 
@@ -33,14 +33,16 @@ module Mvm
         end
       end
 
-      def valid_movie?(filename)
-        return false unless File.file? filename
-        @settings.valid_movie_extensions.split.include? File.extname(filename)
-      end
-
       def scan_folder(folder)
         files = Find.find(folder).to_a.select { |file| valid_movie? file }
         self.class.movies_from_filenames files
+      end
+
+      private
+
+      def valid_movie?(filename)
+        return false unless File.file? filename
+        @settings.valid_movie_extensions.split.include? File.extname(filename)
       end
     end
   end

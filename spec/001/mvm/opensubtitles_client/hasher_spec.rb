@@ -8,11 +8,11 @@ module Mvm
 
       describe '.hash' do
         let(:sample_video) do
-          File.dirname(__FILE__) + '/../../fixtures/drop.avi'
+          File.dirname(__FILE__) + '/../../../fixtures/drop.avi'
         end
 
         let(:empty_file) do
-          File.dirname(__FILE__) + '/../../fixtures/empty.file'
+          File.dirname(__FILE__) + '/../../../fixtures/empty.file'
         end
 
         it 'hashes sample movie correctly' do

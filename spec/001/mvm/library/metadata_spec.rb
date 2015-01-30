@@ -7,7 +7,7 @@ module Mvm
       subject { Metadata }
 
       let(:sample_video) do
-        File.dirname(__FILE__) + '/../../fixtures/drop.avi'
+        File.dirname(__FILE__) + '/../../../fixtures/drop.avi'
       end
 
       let(:movie) do

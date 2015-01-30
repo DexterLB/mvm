@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'fakefs/safe'
+require 'fileutils'
 require 'mvm/library/files'
 
 module Mvm
@@ -7,7 +9,7 @@ module Mvm
       subject { Files }
 
       let(:sample_video) do
-        File.dirname(__FILE__) + '/../../fixtures/drop.avi'
+        File.dirname(__FILE__) + '/../../../fixtures/drop.avi'
       end
 
       let(:movie) do
@@ -39,6 +41,23 @@ module Mvm
           old_movies = movies.dup
           subject.calculate_hashes(movies)
           expect(movies).to eq(old_movies)
+        end
+      end
+
+      describe '.scan_folder' do
+        it 'recursively adds mkv movies from folders' do
+          FakeFS do
+            FileUtils.touch('foo.mkv')
+            FileUtils.touch('bar.mkv')
+            Dir.mkdir('baz')
+            FileUtils.touch('baz/qux.mkv')
+            FileUtils.touch('not_a_movie.txt')
+
+            movies = subject.new.scan_folder('.')
+            expect(movies.map(&:filename)).to match_array(
+              ['./foo.mkv', './bar.mkv', './baz/qux.mkv']
+            )
+          end
         end
       end
     end
