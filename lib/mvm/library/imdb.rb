@@ -50,6 +50,17 @@ module Mvm
 
         movie
       end
+
+      def self.url(imdb_id)
+        "http://www.imdb.com/title/tt#{imdb_id}"
+      end
+
+      def self.id(soup)
+        match = /(.*\.imdb\.com\/title\/tt)?(?<id>[0-9]+)(\/.*)?/.match(soup)
+        if match
+          match['id']
+        end
+      end
     end
   end
 end
