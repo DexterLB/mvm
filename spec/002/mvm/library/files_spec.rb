@@ -59,6 +59,33 @@ module Mvm
             )
           end
         end
+
+        it 'creates and "added" attribute which is time' do
+          FakeFS do
+            FileUtils.touch('foo.mkv')
+            movies = subject.new.scan_folder('.')
+            expect(movies[0].added).to be_instance_of(Time)
+            # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
+            # bug in FakeFS
+          end
+        end
+
+        it 'uses settings#valid_movie_extensions' do
+          FakeFS do
+            FileUtils.touch('file1.foo')
+            FileUtils.touch('file2.foo')
+            FileUtils.touch('file3.bar')
+            FileUtils.touch('file4.mkv')
+
+            movies = subject.new(Settings.new(
+              valid_movie_extensions: '.foo .bar'
+            )).scan_folder('.')
+
+            expect(movies.map(&:filename)).to match_array(
+              ['./file1.foo', './file2.foo', './file3.bar']
+            )
+          end
+        end
       end
     end
   end
