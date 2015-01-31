@@ -58,7 +58,10 @@ module Mvm
       end
 
       def self.swear
-        "fuck you."
+        [
+          "fuck you.",
+          "you suck."
+        ].sample
       end
 
       def self.get_imdb_id
