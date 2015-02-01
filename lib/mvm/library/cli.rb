@@ -103,6 +103,20 @@ module Mvm
           end
         end
       end
+
+      def self.progressbar(progress)
+        print '[ '
+        print(progress.map do |item|
+          { pending: ' ', processing: '-', finished: '=' }[item]
+        end.to_a.join)
+        print format(' ] %d/%d',
+          progress.select { |item| item == :finished }.size,
+          progress.size
+        )
+
+        print "\r"
+        STDOUT.flush
+      end
     end
   end
 end

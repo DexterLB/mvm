@@ -1,11 +1,12 @@
 require 'mvm/settings'
 require 'imdb'
 require 'iso-639'
+require 'parallel'
 
 module Mvm
   class Library
     DEFAULT_SETTINGS.merge!(
-        {}
+      imdb_threads: 8
     )
 
     class Imdb
@@ -18,8 +19,25 @@ module Mvm
       end
 
       def get_data(movies)
-        movies.each_with_index.map do |movie, current|
-          yield [current, movies.size] if block_given?
+        if block_given?
+          progress = movies.map { |_| :pending }
+          started = lambda do |_, index|
+            progress[index] = :processing
+            yield progress
+          end
+          finished = lambda do |_, index, _|
+            progress[index] = :finished
+            yield progress
+          end
+        else
+          started, finished = nil, nil
+        end
+
+        Parallel.map(
+          movies.each_with_index,
+          in_threads: @settings.imdb_threads,
+          start: started, finish: finished
+        ) do |movie, _|
           get_data_for(movie)
         end
       end
