@@ -58,6 +58,7 @@ module Mvm
           end
         end
       end
+
       describe '#get_data' do
         let(:ids) { %w(0403358 2816136) }
 
@@ -77,6 +78,40 @@ module Mvm
             subject.get_data(movies)
             expect(movies).to eq(old_movies)
           end
+        end
+      end
+
+      describe '.id' do
+        subject { Imdb }
+
+        it 'returns the id from an imdb url' do
+          expect(
+            subject.id('http://www.imdb.com/title/tt1063669')
+          ).to eq('1063669')
+        end
+
+        it 'returns the id from a long imdb url' do
+          expect(
+            subject.id('http://www.imdb.com/title/tt1617661/?ref_=ttmd_md_nm')
+          ).to eq('1617661')
+        end
+
+        it 'returns the id from.. the id' do
+          expect(subject.id('1617661')).to eq('1617661')
+        end
+
+        it 'returns nil for wrong input' do
+          expect(subject.id('foo bar baz')).to be_nil
+        end
+      end
+
+      describe '.url' do
+        subject { Imdb }
+
+        it 'returns the url from an imdb id' do
+          expect(
+            subject.url('1063669')
+          ).to eq('http://www.imdb.com/title/tt1063669')
         end
       end
     end

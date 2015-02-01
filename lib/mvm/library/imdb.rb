@@ -56,10 +56,8 @@ module Mvm
       end
 
       def self.id(soup)
-        match = /(.*\.imdb\.com\/title\/tt)?(?<id>[0-9]+)(\/.*)?/.match(soup)
-        if match
-          match['id']
-        end
+        match = %r{(.*\.imdb\.com/title/tt)?(?<id>[0-9]+)(/.*)?}.match(soup)
+        match['id'] if match
       end
     end
   end

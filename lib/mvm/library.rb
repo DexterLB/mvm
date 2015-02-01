@@ -43,6 +43,15 @@ module Mvm
       dup.read_metadata!
     end
 
+    def ask_imdb_ids!
+      @movies = Cli.ask_imdb_ids(movies)
+      self
+    end
+
+    def ask_imdb_ids
+      dup.ask_imdb_ids!
+    end
+
     def get_data!(&block)
       @movies = imdb.get_data(movies, &block)
       self

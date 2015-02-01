@@ -45,7 +45,7 @@ module Mvm
 
       def self.print_imdb(movie)
         if movie.imdb_id
-          print "[ ".light_blue + Imdb.url(movie.imdb_id) + " ]".blue
+          print '[ '.light_blue + Imdb.url(movie.imdb_id) + ' ]'.blue
           true
         else
           false
@@ -59,21 +59,25 @@ module Mvm
 
       def self.swear
         [
-          "fuck you.",
-          "you suck."
+          'fuck you.',
+          'you suck.',
+          'eat shit.'
         ].sample
       end
 
-      def self.get_imdb_id
-        begin
+      def self.obtain_imdb_id
+        loop do
           input = gets.chomp
           return nil if input.empty?
+
           id = Imdb.id(input)
-          if not id
-            print swear + " try again: "
+
+          if id
+            return id
+          else
+            print swear + ' try again: '
           end
-        end while not id
-        id
+        end
       end
 
       def self.ask_imdb_id_for(movie)
@@ -85,9 +89,19 @@ module Mvm
         print 'imdb id: '
         print_imdb(movie) && (print ' ')
 
-        movie.imdb_id = get_imdb_id || movie.imdb_id
+        movie.imdb_id = obtain_imdb_id || movie.imdb_id
 
         movie
+      end
+
+      def self.ask_imdb_ids(movies, only_missing: true)
+        movies.map do |movie|
+          if movie.imdb_id && only_missing
+            movie
+          else
+            ask_imdb_id_for(movie)
+          end
+        end
       end
     end
   end
