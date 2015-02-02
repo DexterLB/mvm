@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
     .map { |f| File.basename(f) }
   s.require_paths = ['lib']
   s.license = 'GPLv3'
+  s.add_dependency "git-version-bump", "~> 0.10"
   s.add_runtime_dependency 'xdg', '~> 2'
   s.add_runtime_dependency 'iso-639', '~> 0'
   s.add_runtime_dependency 'streamio-ffmpeg', '~> 1'
