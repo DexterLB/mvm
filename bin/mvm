@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+require 'mvm'
+
+class MvmUtil
+  def initialize
+    @settings = Mvm::Settings.new
+    @parser = OptionParser.new do |opts|
+      opts.version = Mvm::VERSION
+      opts.banner = 'Identify, rename and list movies.'
+    end
+  end
+
+  def run
+    @parser.parse!
+  end
+end
+
+MvmUtil.new.run
+
+# vim: set shiftwidth=2:
