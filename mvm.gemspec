@@ -1,7 +1,9 @@
+require 'git-version-bump'
+
 Gem::Specification.new do |s|
   s.name = 'mvm'
-  s.version =
-    `git describe --long --tags | sed -r 's/([^-]*)-([0-9]*).*/\\1.\\2/g'`
+  s.version = GVB.version
+  s.date = GVB.date
   s.authors = ['Angel Angelov']
   s.email = ['hextwoa at gmail.com']
   s.homepage = 'http://github.com/DexterLB/mvm'
