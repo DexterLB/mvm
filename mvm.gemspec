@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/git-version-bump/lib/git-version-bump'
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/git-version-bump/lib')
+require 'git-version-bump'
 
 Gem::Specification.new do |s|
   s.name = 'mvm'
