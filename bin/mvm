@@ -30,10 +30,10 @@ class MvmUtil
     opts.banner = 'Identify, rename and list movies.'
     opts.separator ''
     opts.separator 'Usage: mvm [OPTIONS...]'
-    opts.separator ''
   end
 
   def opts_global(opts)
+    opts.separator ''
     opts.separator 'Global options:'
 
     opts.on(
@@ -43,11 +43,10 @@ class MvmUtil
     ) do |folder|
       @settings.library_folder = folder
     end
-
-    opts.separator ''
   end
 
   def opts_library(opts)
+    opts.separator ''
     opts.separator 'Library viewing options:'
 
     opts.on(
@@ -61,11 +60,12 @@ class MvmUtil
   end
 
   def opts_identify(opts)
+    opts.separator ''
     opts.separator 'Identify options:'
     opts.on(
       '-i',
       '--identify FOLDER',
-      'Identify all movies from FOLDER into the library'
+      'Identify all movies from FOLDER'
     ) do |folder|
       identify(folder)
     end
@@ -73,9 +73,9 @@ class MvmUtil
     opts.on(
       '-s',
       '--save',
-      'Save movies into the library (by default the library is the same folder)'
+      'Save movie data to .mvm files'
     ) do
-      # FIXME
+      library.store_movies
     end
   end
 
