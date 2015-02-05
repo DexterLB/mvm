@@ -5,12 +5,17 @@ require 'mvm'
 
 class MvmUtil
   def initialize
-    @settings = Mvm::Settings.new
+    @settings = Mvm::Settings.new(
+      id_by_hashes: true,
+      interactive: true,
+      get_data: true
+    )
 
     @parser = OptionParser.new do |opts|
       opts_welcome(opts)
       opts_global(opts)
       opts_library(opts)
+      opts_identify(opts)
     end
   end
 
@@ -33,10 +38,10 @@ class MvmUtil
 
     opts.on(
       '-l',
-      '--library [FOLDER]',
+      '--library FOLDER',
       'Set the library folder (the folder with imported movies)'
     ) do |folder|
-      @library_folder = folder
+      @settings.library_folder = folder
     end
 
     opts.separator ''
@@ -47,16 +52,57 @@ class MvmUtil
 
     opts.on(
       '-p',
-      '--print',
-      'Print all movies in the library'
-    ) do
-      library.load_movies!(@library_folder)
+      '--print [FOLDER]',
+      'Print all movies in the library (or in the specified folder)'
+    ) do |folder|
+      library.load_movies!(folder || @settings.library_folder) unless @library
       library.print
     end
   end
 
+  def opts_identify(opts)
+    opts.separator 'Identify options:'
+    opts.on(
+      '-i',
+      '--identify FOLDER',
+      'Identify all movies from FOLDER into the library'
+    ) do |folder|
+      identify(folder)
+    end
+
+    opts.on(
+      '-s',
+      '--save',
+      'Save movies into the library (by default the library is the same folder)'
+    ) do
+      # FIXME
+    end
+  end
+
+  def identify(folder)
+    print 'Scanning...'
+    library.scan_folder!(folder)
+    library.calculate_hashes!
+    library.read_metadata!
+    puts ' done.'
+
+    if @settings.id_by_hashes
+      print 'Searching movie hashes on opensubtitles.org...'
+      library.id_by_hashes!
+      puts ' done.'
+    end
+
+    library.ask_imdb_ids! if @settings.interactive
+
+    if @settings.get_data
+      puts 'Getting movie data on imdb:'
+      library.get_data! { |progress| Mvm::Library::Cli.progressbar(progress) }
+      puts
+    end
+  end
+
   def library
-    @library ||= Mvm::Library.new
+    @library ||= Mvm::Library.new(settings: @settings)
   end
 end
 

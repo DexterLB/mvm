@@ -67,7 +67,7 @@ module Mvm
 
       def self.obtain_imdb_id
         loop do
-          input = gets.chomp
+          input = $stdin.gets.chomp
           return nil if input.empty?
 
           id = Imdb.id(input)

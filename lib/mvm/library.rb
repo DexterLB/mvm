@@ -61,16 +61,6 @@ module Mvm
       dup.get_data!(&block)
     end
 
-    def identify
-      calculate_hashes.read_metadata.id_by_hashes
-    end
-
-    def identify!
-      calculate_hashes!
-      read_metadata!
-      id_by_hashes!
-    end
-
     def print(spoiler_level: nil)
       Cli.print_movies(@movies, spoiler_level: spoiler_level)
       self
