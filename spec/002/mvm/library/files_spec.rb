@@ -70,6 +70,16 @@ module Mvm
           end
         end
 
+        it 'creates and "extension" attribute which is the file extension' do
+          FakeFS do
+            FileUtils.touch('foo.mkv')
+            movies = subject.new.scan_folder('.')
+            expect(movies[0].extension).to eq('.mkv')
+            # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
+            # bug in FakeFS
+          end
+        end
+
         it 'uses settings#valid_movie_extensions' do
           FakeFS do
             FileUtils.touch('file1.foo')

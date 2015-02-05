@@ -6,6 +6,7 @@ require 'mvm/library/opensubtitles'
 require 'mvm/library/imdb'
 require 'mvm/library/cli'
 require 'mvm/library/store'
+require 'mvm/library/rename'
 
 module Mvm
   class Library   # really, really need a better name for this thing
@@ -75,6 +76,15 @@ module Mvm
       dup.scan_folder!(folder)
     end
 
+    def rename_movies!
+      @movies = renamer.rename_movies(@movies)
+      self
+    end
+
+    def rename_movies
+      dup.rename_movies!
+    end
+
     def store_movies
       store.store_movies(@movies)
     end
@@ -108,6 +118,10 @@ module Mvm
 
     def store
       @store ||= Store.new settings
+    end
+
+    def renamer
+      @renamer ||= Renamer.new settings
     end
   end
 end

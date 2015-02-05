@@ -29,7 +29,11 @@ module Mvm
 
       def self.movies_from_filenames(filenames)
         filenames.map do |filename|
-          OpenStruct.new filename: filename, added: File.mtime(filename)
+          OpenStruct.new(
+            filename: filename,
+            added: File.mtime(filename),
+            extension: File.extname(filename)
+          )
         end
       end
 

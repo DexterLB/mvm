@@ -42,6 +42,7 @@ class MvmUtil
       'Set the library folder (the folder with imported movies)'
     ) do |folder|
       @settings.library_folder = folder
+      library.load_movies!(folder)
     end
   end
 
@@ -62,20 +63,18 @@ class MvmUtil
   def opts_identify(opts)
     opts.separator ''
     opts.separator 'Identify options:'
-    opts.on(
-      '-i',
-      '--identify FOLDER',
-      'Identify all movies from FOLDER'
-    ) do |folder|
+
+    opts.on('-i', '--identify FOLDER',
+            'Identify all movies from FOLDER') do |folder|
       identify(folder)
     end
 
-    opts.on(
-      '-s',
-      '--save',
-      'Save movie data to .mvm files'
-    ) do
+    opts.on('-s', '--save', 'Save movie data to .mvm files') do
       library.store_movies
+    end
+
+    opts.on('-r', '--rename', 'Rename movies') do
+      library.rename_movies!
     end
   end
 
