@@ -10,3 +10,4 @@ Metrics/MethodLength:
 AllCops:
   Exclude:
     - '**/spec_helper.rb'
+    - 'git-version-bump/**/*'

@@ -6,33 +6,11 @@ require 'mvm'
 class MvmUtil
   def initialize
     @settings = Mvm::Settings.new
+
     @parser = OptionParser.new do |opts|
-      opts.version = Mvm::VERSION
-      opts.banner = 'Identify, rename and list movies.'
-      opts.separator ''
-      opts.separator 'Usage: mvm [OPTIONS...]'
-      opts.separator ''
-      opts.separator 'Global options:'
-
-      opts.on(
-        '-l',
-        '--library [FOLDER]',
-        'Set the library folder (the folder with imported movies)'
-      ) do |folder|
-        @library_folder = folder
-      end
-
-      opts.separator ''
-      opts.separator 'Library viewing options:'
-
-      opts.on(
-        '-p',
-        '--print',
-        'Print all movies in the library'
-      ) do
-        library.load_movies!(@library_folder)
-        library.print
-      end
+      opts_welcome(opts)
+      opts_global(opts)
+      opts_library(opts)
     end
   end
 
@@ -41,6 +19,41 @@ class MvmUtil
   end
 
   private
+
+  def opts_welcome(opts)
+    opts.version = Mvm::VERSION
+    opts.banner = 'Identify, rename and list movies.'
+    opts.separator ''
+    opts.separator 'Usage: mvm [OPTIONS...]'
+    opts.separator ''
+  end
+
+  def opts_global(opts)
+    opts.separator 'Global options:'
+
+    opts.on(
+      '-l',
+      '--library [FOLDER]',
+      'Set the library folder (the folder with imported movies)'
+    ) do |folder|
+      @library_folder = folder
+    end
+
+    opts.separator ''
+  end
+
+  def opts_library(opts)
+    opts.separator 'Library viewing options:'
+
+    opts.on(
+      '-p',
+      '--print',
+      'Print all movies in the library'
+    ) do
+      library.load_movies!(@library_folder)
+      library.print
+    end
+  end
 
   def library
     @library ||= Mvm::Library.new
