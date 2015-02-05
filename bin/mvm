@@ -9,11 +9,41 @@ class MvmUtil
     @parser = OptionParser.new do |opts|
       opts.version = Mvm::VERSION
       opts.banner = 'Identify, rename and list movies.'
+      opts.separator ''
+      opts.separator 'Usage: mvm [OPTIONS...]'
+      opts.separator ''
+      opts.separator 'Global options:'
+
+      opts.on(
+        '-l',
+        '--library [FOLDER]',
+        'Set the library folder (the folder with imported movies)'
+      ) do |folder|
+        @library_folder = folder
+      end
+
+      opts.separator ''
+      opts.separator 'Library viewing options:'
+
+      opts.on(
+        '-p',
+        '--print',
+        'Print all movies in the library'
+      ) do
+        library.load_movies!(@library_folder)
+        library.print
+      end
     end
   end
 
   def run
     @parser.parse!
+  end
+
+  private
+
+  def library
+    @library ||= Mvm::Library.new
   end
 end
 
