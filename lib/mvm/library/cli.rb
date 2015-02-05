@@ -16,8 +16,8 @@ module Mvm
           print(
             if movie.type == :episode
               movie.series_title.cyan +
-                format(' S%02dE%02d '.light_blue, movie.season_number,
-                                                  movie.episode_number) +
+                format(' S%02dE%02d '.light_blue,
+                       movie.season_number, movie.episode_number) +
                 movie.episode_title.cyan
             else
               movie.title.cyan

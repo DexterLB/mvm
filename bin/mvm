@@ -99,6 +99,8 @@ class MvmUtil
       library.get_data! { |progress| Mvm::Library::Cli.progressbar(progress) }
       puts
     end
+
+    puts "#{library.movies.size} movies identified."
   end
 
   def library
