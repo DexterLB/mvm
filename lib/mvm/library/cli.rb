@@ -122,15 +122,12 @@ module Mvm
           progress.select { |item| item == :finished }.size,
           progress.size
         )
-
-        print left
-
-        print(progress.stretch(length - (left + right).size).map do |item|
+        
+        bar = progress.stretch(length - (left + right).size).map do |item|
           { pending: ' ', processing: '-', finished: '#' }[item]
-        end.to_a.join)
+        end.to_a.join
 
-        print right
-        print "\r"
+        print left + bar + right + "\r"
         STDOUT.flush
       end
     end
