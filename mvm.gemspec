@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'streamio-ffmpeg', '~> 1'
   s.add_runtime_dependency 'colorize', '~> 0'
   s.add_runtime_dependency 'parallel', '~> 1'
+  s.add_runtime_dependency 'terminfo', '~> 0'
   s.add_development_dependency 'rspec', '~> 3'
   s.add_development_dependency 'rubocop', '~> 0'
   s.add_development_dependency 'vcr', '~> 2'

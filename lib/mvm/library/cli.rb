@@ -1,5 +1,14 @@
 require 'iso-639'
 require 'colorize'
+require 'terminfo'
+
+class Array
+  def stretch(stretch_length)
+    (0...stretch_length).map do |index|
+      self[((index.to_f / stretch_length.to_f) * size.to_f).to_i]
+    end
+  end
+end
 
 module Mvm
   class Library
@@ -105,16 +114,22 @@ module Mvm
       end
 
       def self.progressbar(progress)
-        print '[ '
-        print(progress.map do |item|
-          { pending: ' ', processing: '-', finished: '=' }[item]
-        end.to_a.join)
-        print format(
-          ' ] %d/%d',
+        length = TermInfo.screen_columns - 1
+
+        left = ' ['
+        right = format(
+          '] %d/%d',
           progress.select { |item| item == :finished }.size,
           progress.size
         )
 
+        print left
+
+        print(progress.stretch(length - (left + right).size).map do |item|
+          { pending: ' ', processing: '-', finished: '#' }[item]
+        end.to_a.join)
+
+        print right
         print "\r"
         STDOUT.flush
       end
