@@ -76,13 +76,13 @@ module Mvm
       dup.scan_folder!(folder)
     end
 
-    def rename_movies!
-      @movies = renamer.rename_movies(@movies)
+    def rename_movies!(&block)
+      @movies = renamer.rename_movies(@movies, &block)
       self
     end
 
-    def rename_movies
-      dup.rename_movies!
+    def rename_movies(&block)
+      dup.rename_movies!(&block)
     end
 
     def store_movies

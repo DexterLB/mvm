@@ -7,7 +7,7 @@ module Mvm
     episode_pattern:
       '%{library_folder}/series/%{series_title}/' \
       'S%<season_number>02dE%<episode_number>02d' \
-      '- %{episode_title}%{extension}'
+      '- %{episode_title}?{extension}'
   )
 
   class Library
@@ -17,10 +17,24 @@ module Mvm
       end
 
       def rename_movies(movies)
-        movies.each { |movie| rename_movie(movie) }
+        progress = [:pending] * movies.size
+
+        movies.each.with_index.map do |movie, current|
+          progress[current] = :processing
+          yield progress if block_given?
+
+          renamed_movie = rename_movie(movie)
+
+          progress[current] = :finished
+          yield progress if block_given?
+
+          renamed_movie
+        end
       end
 
       def rename_movie(movie)
+        movie = movie.dup
+
         new_filename = format(
           { episode: @settings.episode_pattern,
             movie:   @settings.movie_pattern
@@ -28,7 +42,9 @@ module Mvm
           movie.to_h.merge(@settings.to_h)
         )
 
-        puts movie.filename + ' -> ' + new_filename
+        sleep 0.5
+        movie.filename = new_filename
+        movie
       end
     end
   end

@@ -74,7 +74,11 @@ class MvmUtil
     end
 
     opts.on('-r', '--rename', 'Rename movies') do
-      library.rename_movies!
+      puts 'Renaming movies: '
+      library.rename_movies! do |progress|
+        Mvm::Library::Cli.progressbar(progress)
+      end
+      puts
     end
   end
 
