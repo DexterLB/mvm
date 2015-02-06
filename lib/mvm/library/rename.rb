@@ -17,19 +17,14 @@ module Mvm
       end
 
       def rename_movies(movies)
-        progress = [:pending] * movies.size
+        renamed_movies = movies.each.with_index.map do |movie, current|
+          yield [current, movies.size] if block_given?
 
-        movies.each.with_index.map do |movie, current|
-          progress[current] = :processing
-          yield progress if block_given?
-
-          renamed_movie = rename_movie(movie)
-
-          progress[current] = :finished
-          yield progress if block_given?
-
-          renamed_movie
+          rename_movie(movie)
         end
+
+        yield [movies.size, movies.size]
+        renamed_movies
       end
 
       def rename_movie(movie)

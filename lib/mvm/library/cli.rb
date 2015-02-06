@@ -1,6 +1,7 @@
 require 'iso-639'
 require 'colorize'
 require 'terminfo'
+require 'mvm/library/imdb'
 
 class Array
   def stretch(stretch_length)
@@ -33,8 +34,6 @@ module Mvm
             end + (" (#{movie.year})".green if movie.year)
           )
           true
-        else
-          false
         end
       end
 
@@ -47,8 +46,6 @@ module Mvm
         if movie.plot && spoiler_level
           puts movie.plot[spoiler_level]
           true
-        else
-          false
         end
       end
 
@@ -56,8 +53,6 @@ module Mvm
         if movie.imdb_id
           print '[ '.light_blue + Imdb.url(movie.imdb_id) + ' ]'.blue
           true
-        else
-          false
         end
       end
 
@@ -80,12 +75,9 @@ module Mvm
           return nil if input.empty?
 
           id = Imdb.id(input)
+          return id if id
 
-          if id
-            return id
-          else
-            print swear + ' try again: '
-          end
+          print(swear + ' try again: ')
         end
       end
 
@@ -113,7 +105,14 @@ module Mvm
         end
       end
 
-      def self.progressbar(progress)
+      def self.progressbar(finished, all)
+        progress = [:finished] * finished
+        progress << :processing if finished < all
+        progress += [:pending] * (all - progress.size)
+        multi_progressbar(progress)
+      end
+
+      def self.multi_progressbar(progress)
         length = TermInfo.screen_columns - 1
 
         left = ' ['
@@ -122,7 +121,7 @@ module Mvm
           progress.select { |item| item == :finished }.size,
           progress.size
         )
-        
+
         bar = progress.stretch(length - (left + right).size).map do |item|
           { pending: ' ', processing: '-', finished: '#' }[item]
         end.to_a.join

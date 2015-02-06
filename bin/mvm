@@ -75,8 +75,8 @@ class MvmUtil
 
     opts.on('-r', '--rename', 'Rename movies') do
       puts 'Renaming movies: '
-      library.rename_movies! do |progress|
-        Mvm::Library::Cli.progressbar(progress)
+      library.rename_movies! do |(finished, all)|
+        Mvm::Library::Cli.progressbar(finished, all)
       end
       puts
     end
@@ -99,7 +99,9 @@ class MvmUtil
 
     if @settings.get_data
       puts 'Getting movie data on imdb:'
-      library.get_data! { |progress| Mvm::Library::Cli.progressbar(progress) }
+      library.get_data! do |progress|
+        Mvm::Library::Cli.multi_progressbar(progress)
+      end
       puts
     end
 
