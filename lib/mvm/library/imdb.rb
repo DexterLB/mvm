@@ -6,7 +6,7 @@ require 'parallel'
 module Mvm
   class Library
     DEFAULT_SETTINGS.merge!(
-      imdb_threads: 8
+      imdb_threads: 25
     )
 
     class Imdb
