@@ -9,6 +9,10 @@ class Array
       self[((index.to_f / stretch_length.to_f) * size.to_f).to_i]
     end
   end
+
+  def squish(max_length)
+    stretch([size, max_length].min)
+  end
 end
 
 module Mvm
@@ -122,7 +126,7 @@ module Mvm
           progress.size
         )
 
-        bar = progress.stretch(length - (left + right).size).map do |item|
+        bar = progress.squish(length - (left + right).size).map do |item|
           { pending: ' ', processing: '-', finished: '#' }[item]
         end.to_a.join
 

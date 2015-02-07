@@ -23,11 +23,11 @@ module Mvm
           progress = movies.map { |_| :pending }
           started = lambda do |_, index|
             progress[index] = :processing
-            yield progress
+            yield progress.dup
           end
           finished = lambda do |_, index, _|
             progress[index] = :finished
-            yield progress
+            yield progress.dup
           end
         else
           started, finished = nil, nil

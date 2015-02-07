@@ -79,6 +79,34 @@ module Mvm
             expect(movies).to eq(old_movies)
           end
         end
+
+        it 'yields progress correctly for many threads' do
+          VCR.use_cassette('imdb_get_data') do
+            movies = ids.map { |id| OpenStruct.new(imdb_id: id) }
+            progress_reports = []
+            subject.get_data(movies) { |progress| progress_reports << progress }
+            expect(progress_reports[0]).to match_array([:processing, :pending])
+            expect(progress_reports[1]).to eq([:processing, :processing])
+            expect(progress_reports[2]).to match_array([:processing, :finished])
+            expect(progress_reports[3]).to eq([:finished, :finished])
+          end
+        end
+
+        it 'yields progress correctly for one thread' do
+          VCR.use_cassette('imdb_get_data') do
+            @imdb = Imdb.new(Settings.new(imdb_threads: 1))
+            movies = ids.map { |id| OpenStruct.new(imdb_id: id) }
+            progress_reports = []
+            subject.get_data(movies) { |progress| progress_reports << progress }
+            p progress_reports
+            expect(progress_reports).to eq([
+              [:processing, :pending],
+              [:finished, :pending],
+              [:finished, :processing],
+              [:finished, :finished]
+            ])
+          end
+        end
       end
 
       describe '.id' do

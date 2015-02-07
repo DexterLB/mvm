@@ -37,7 +37,7 @@ module Mvm
           movie.to_h.merge(@settings.to_h)
         )
 
-        sleep 0.5
+        sleep 0.1
         movie.filename = new_filename
         movie
       end
