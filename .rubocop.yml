@@ -7,6 +7,10 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 20
 
+Metrics/ClassLength:
+  Exclude:
+    - '**/*_spec.rb'
+
 AllCops:
   Exclude:
     - '**/spec_helper.rb'
