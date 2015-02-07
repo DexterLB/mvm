@@ -3,11 +3,12 @@ require 'mvm/settings'
 module Mvm
   DEFAULT_SETTINGS.merge!(
     movie_pattern:
-      '%{library_folder}/movies/%{title} (%{year})/%{title}.?{extension}',
+      '%{library_folder}/movies/%{title} (%{year})/%{title}.%{extension}',
     episode_pattern:
       '%{library_folder}/series/%{series_title}/' \
       'S%<season_number>02dE%<episode_number>02d' \
-      '- %{episode_title}?{extension}'
+      '- %{episode_title}.%{extension}',
+    rename_strategy: 'symlink'
   )
 
   class Library
@@ -23,7 +24,7 @@ module Mvm
           rename_movie(movie)
         end
 
-        yield [movies.size, movies.size]
+        yield [movies.size, movies.size] if block_given?
         renamed_movies
       end
 
@@ -37,9 +38,42 @@ module Mvm
           movie.to_h.merge(@settings.to_h)
         )
 
-        sleep 0.1
+        mkdirs(new_filename)
+        rename_file(movie.filename, new_filename)
+
         movie.filename = new_filename
         movie
+      end
+
+      private
+
+      def mkdirs(filename)
+        FileUtils.mkdir_p(File.dirname(filename))
+      end
+
+      def rename_file(old_name, new_name)
+        strategy = format(@settings.rename_strategy,
+                          old: old_name, new: new_name)
+
+        case strategy
+        when 'dummy' then nil
+        when 'copy' then FileUtils.cp(old_name, new_name)
+        when 'move' then FileUtils.mv(old_name, new_name)
+        when 'symlink' then FileUtils.ln_sf(old_name, new_name)
+        when 'keeplink'
+          FileUtils.mv(old_name, new_name)
+          FileUtils.ln_s(new_name, old_name)
+        else exec_strategy(strategy)
+        end
+      end
+
+      def exec_strategy(strategy)
+        command_match = /exec: (.+)/.match(strategy)
+        if command_match
+          system(command_match[1])
+        else
+          fail 'Unknown rename strategy: ' + strategy
+        end
       end
     end
   end
