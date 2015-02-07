@@ -98,7 +98,6 @@ module Mvm
             movies = ids.map { |id| OpenStruct.new(imdb_id: id) }
             progress_reports = []
             subject.get_data(movies) { |progress| progress_reports << progress }
-            p progress_reports
             expect(progress_reports).to eq([
               [:processing, :pending],
               [:finished, :pending],
