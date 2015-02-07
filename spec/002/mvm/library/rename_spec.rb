@@ -108,6 +108,28 @@ module Mvm
           new_movie = subject.rename_movie(movie)
           expect(new_movie.filename).to eq('bar 42')
         end
+
+        it 'replaces nasty characters with underscores by default' do
+          @settings.rename_strategy = 'dummy'
+          @settings.movie_pattern = '%{title}'
+          movie = OpenStruct.new(filename: 'foo',
+                                 title: 'a|<>:b',
+                                 type: :movie)
+          new_movie = subject.rename_movie(movie)
+          expect(new_movie.filename).to eq('a____b')
+        end
+
+        it 'takes fs_forbidden_char_exp & fs_forbidden_char_replace in mind' do
+          @settings.rename_strategy = 'dummy'
+          @settings.movie_pattern = '%{title}'
+          @settings.fs_forbidden_char_exp = 'bar'
+          @settings.fs_forbidden_char_replace = 'qux'
+          movie = OpenStruct.new(filename: 'foo',
+                                 title: 'foo bar baz',
+                                 type: :movie)
+          new_movie = subject.rename_movie(movie)
+          expect(new_movie.filename).to eq('foo qux baz')
+        end
       end
 
       describe '#rename_movies' do

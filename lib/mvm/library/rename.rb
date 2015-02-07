@@ -3,12 +3,14 @@ require 'mvm/settings'
 module Mvm
   DEFAULT_SETTINGS.merge!(
     movie_pattern:
-      '%{library_folder}/movies/%{title} (%{year})/%{title}.%{extension}',
+      '%{library_folder}/movies/%{title} (%{year})/%{title}%{extension}',
     episode_pattern:
       '%{library_folder}/series/%{series_title}/' \
       'S%<season_number>02dE%<episode_number>02d' \
-      '- %{episode_title}.%{extension}',
-    rename_strategy: 'symlink'
+      '- %{episode_title}%{extension}',
+    rename_strategy: 'symlink',
+    fs_forbidden_char_exp: '[\x00\/\\:\*\?\"<>\|]', # windoze-friendly
+    fs_forbidden_char_replace: '_'
   )
 
   class Library
@@ -31,12 +33,12 @@ module Mvm
       def rename_movie(movie)
         movie = movie.dup
 
-        new_filename = format(
+        new_filename = sanitize(format(
           { episode: @settings.episode_pattern,
             movie:   @settings.movie_pattern
           }[movie.type],
           movie.to_h.merge(@settings.to_h)
-        )
+        ))
 
         mkdirs(new_filename)
         rename_file(movie.filename, new_filename)
@@ -74,6 +76,11 @@ module Mvm
         else
           fail 'Unknown rename strategy: ' + strategy
         end
+      end
+
+      def sanitize(string)
+        match = Regexp.new(@settings.fs_forbidden_char_exp)
+        string.gsub(match, @settings.fs_forbidden_char_replace)
       end
     end
   end
