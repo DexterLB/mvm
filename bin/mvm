@@ -42,7 +42,7 @@ class MvmUtil
       'Set the library folder (the folder with imported movies)'
     ) do |folder|
       @settings.library_folder = folder
-      library.load_movies!(folder)
+      # library.load_movies!(folder)
     end
   end
 

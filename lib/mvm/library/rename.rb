@@ -33,12 +33,12 @@ module Mvm
       def rename_movie(movie)
         movie = movie.dup
 
-        new_filename = sanitize(format(
+        new_filename = format(
           { episode: @settings.episode_pattern,
             movie:   @settings.movie_pattern
           }[movie.type],
-          movie.to_h.merge(@settings.to_h)
-        ))
+          sanitize_hash(movie.to_h.merge(@settings.to_h))
+        )
 
         mkdirs(new_filename)
         rename_file(movie.filename, new_filename)
@@ -56,7 +56,6 @@ module Mvm
       def rename_file(old_name, new_name)
         strategy = format(@settings.rename_strategy,
                           old: old_name, new: new_name)
-
         case strategy
         when 'dummy' then nil
         when 'copy' then FileUtils.cp(old_name, new_name)
@@ -76,6 +75,14 @@ module Mvm
         else
           fail 'Unknown rename strategy: ' + strategy
         end
+      end
+
+      private
+
+      def sanitize_hash(hash)
+        hash.map do |key, value|
+          [key, (value.is_a? String) ? sanitize(value) : value]
+        end.to_h
       end
 
       def sanitize(string)
