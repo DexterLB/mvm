@@ -45,6 +45,10 @@ module Mvm
       end
 
       describe '.scan_folder' do
+        after :each do
+          FakeFS::FileSystem.clear
+        end
+
         it 'recursively adds mkv movies from folders' do
           FakeFS do
             FileUtils.touch('foo.mkv')
@@ -60,7 +64,7 @@ module Mvm
           end
         end
 
-        it 'creates and "added" attribute which is time' do
+        it 'creates an "added" attribute which is time' do
           FakeFS do
             FileUtils.touch('foo.mkv')
             movies = subject.new.scan_folder('.')
@@ -70,11 +74,21 @@ module Mvm
           end
         end
 
-        it 'creates and "extension" attribute which is the file extension' do
+        it 'creates an "extension" attribute which is the file extension' do
           FakeFS do
             FileUtils.touch('foo.mkv')
             movies = subject.new.scan_folder('.')
             expect(movies[0].extension).to eq('.mkv')
+            # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
+            # bug in FakeFS
+          end
+        end
+
+        it 'creates a "filesize" attribute which is the file size' do
+          FakeFS do
+            File.write('foo.mkv', 'Ruby Ruby Ruby Ruby Ruby')
+            movies = subject.new.scan_folder('.')
+            expect(movies[0].filesize).to eq('Ruby Ruby Ruby Ruby Ruby'.size)
             # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
             # bug in FakeFS
           end

@@ -13,6 +13,10 @@ module Mvm
         @renamer = Renamer.new @settings
       end
 
+      after :each do
+        FakeFS::FileSystem.clear
+      end
+
       describe '#rename_movie' do
         it 'only changes filename with strategy: dummy' do
           @settings.rename_strategy = 'dummy'

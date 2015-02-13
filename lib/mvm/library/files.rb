@@ -31,6 +31,7 @@ module Mvm
         filenames.map do |filename|
           OpenStruct.new(
             filename: filename,
+            filesize: File.size(filename),
             basename: File.basename(filename),
             added: File.mtime(filename),
             extension: File.extname(filename)

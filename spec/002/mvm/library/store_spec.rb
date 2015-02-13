@@ -9,6 +9,10 @@ module Mvm
     describe Store do
       subject { @store }
 
+      after :each do
+        FakeFS::FileSystem.clear
+      end
+
       describe '#store_movie' do
         it 'stores movie to file given in settings' do
           @store = Store.new(Settings.new(store_file: 'foo'))
