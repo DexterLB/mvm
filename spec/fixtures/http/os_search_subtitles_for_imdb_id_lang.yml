@@ -1,0 +1,1096 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.opensubtitles.org/xml-rpc
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" ?><methodCall><methodName>LogIn</methodName><params><param><value><string></string></value></param><param><value><string></string></value></param><param><value><string>en</string></value></param><param><value><string>OSTestUserAgent</string></value></param></params></methodCall>
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.2.0)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '300'
+      Connection:
+      - keep-alive
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - PHPSESSID=snviun91rlesm056odamor0ov5; path=/; domain=.opensubtitles.org
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '223'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 13 Feb 2015 17:07:05 GMT
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Cache:
+      - MISS
+      X-Cache-Backend:
+      - web3
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <methodResponse>
+        <params>
+         <param>
+          <value>
+           <struct>
+            <member>
+             <name>token</name>
+             <value>
+              <string>snviun91rlesm056odamor0ov5</string>
+             </value>
+            </member>
+            <member>
+             <name>status</name>
+             <value>
+              <string>200 OK</string>
+             </value>
+            </member>
+            <member>
+             <name>seconds</name>
+             <value>
+              <double>0.014</double>
+             </value>
+            </member>
+           </struct>
+          </value>
+         </param>
+        </params>
+        </methodResponse>
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 17:07:05 GMT
+- request:
+    method: post
+    uri: http://api.opensubtitles.org/xml-rpc
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" ?><methodCall><methodName>SearchSubtitles</methodName><params><param><value><string>snviun91rlesm056odamor0ov5</string></value></param><param><value><array><data><value><struct><member><name>sublanguageid</name><value><string>rus</string></value></member><member><name>imdbid</name><value><string>2761432</string></value></member></struct></value></data></array></value></param></params></methodCall>
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.2.0)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '421'
+      Connection:
+      - keep-alive
+      Cookie:
+      - PHPSESSID=snviun91rlesm056odamor0ov5
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - PHPSESSID=snviun91rlesm056odamor0ov5; path=/; domain=.opensubtitles.org
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1174'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 13 Feb 2015 17:07:06 GMT
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Cache:
+      - MISS
+      X-Cache-Backend:
+      - web3
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <methodResponse>
+        <params>
+         <param>
+          <value>
+           <struct>
+            <member>
+             <name>status</name>
+             <value>
+              <string>200 OK</string>
+             </value>
+            </member>
+            <member>
+             <name>data</name>
+             <value>
+              <array>
+               <data>
+                <value>
+                 <struct>
+                  <member>
+                   <name>MatchedBy</name>
+                   <value>
+                    <string>imdbid</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubMovieFile</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieHash</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieByteSize</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieTimeMS</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitleFile</name>
+                   <value>
+                    <string>1953497018</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFileName</name>
+                   <value>
+                    <string>Arrow.S01E20.HDTV.XviD-AFG.srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubActualCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSize</name>
+                   <value>
+                    <string>46446</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHash</name>
+                   <value>
+                    <string>7b16a87ca333c88f685c75518b295792</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLastTS</name>
+                   <value>
+                    <string>00:41:59</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitle</name>
+                   <value>
+                    <string>4954794</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserID</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLanguageID</name>
+                   <value>
+                    <string>rus</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFormat</name>
+                   <value>
+                    <string>srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSumCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAuthorComment</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAddDate</name>
+                   <value>
+                    <string>2013-04-26 08:02:22</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubBad</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubRating</name>
+                   <value>
+                    <string>0.0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadsCnt</name>
+                   <value>
+                    <string>1048</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieReleaseName</name>
+                   <value>
+                    <string> Arrow.S01E20.HDTV.XviD-AFG</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieFPS</name>
+                   <value>
+                    <string>0.000</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovie</name>
+                   <value>
+                    <string>150049</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovieImdb</name>
+                   <value>
+                    <string>2761432</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieName</name>
+                   <value>
+                    <string>&#34;Arrow&#34; Home Invasion</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieNameEng</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieYear</name>
+                   <value>
+                    <string>2013</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieImdbRating</name>
+                   <value>
+                    <string>8.6</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFeatured</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserNickName</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ISO639</name>
+                   <value>
+                    <string>ru</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>LanguageName</name>
+                   <value>
+                    <string>Russian</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubComments</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHearingImpaired</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserRank</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesSeason</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesEpisode</name>
+                   <value>
+                    <string>20</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieKind</name>
+                   <value>
+                    <string>episode</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesIMDBParent</name>
+                   <value>
+                    <string>2193021</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubEncoding</name>
+                   <value>
+                    <string>CP1251</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/filead/src-api/vrf-0f0ef8f271/sid-snviun91rlesm056odamor0ov5/1953497018.gz</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ZipDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/subad/src-api/vrf-5c94365e72/sid-snviun91rlesm056odamor0ov5/4954794</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubtitlesLink</name>
+                   <value>
+                    <string>http://www.opensubtitles.org/en/subtitles/4954794/sid-snviun91rlesm056odamor0ov5/arrow-home-invasion-ru</string>
+                   </value>
+                  </member>
+                 </struct>
+                </value>
+                <value>
+                 <struct>
+                  <member>
+                   <name>MatchedBy</name>
+                   <value>
+                    <string>imdbid</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubMovieFile</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieHash</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieByteSize</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieTimeMS</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitleFile</name>
+                   <value>
+                    <string>1953522641</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFileName</name>
+                   <value>
+                    <string>Arrow.S01E20.HDTV.x264-LOL-rus.srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubActualCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSize</name>
+                   <value>
+                    <string>63575</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHash</name>
+                   <value>
+                    <string>e20201ab17934ce22d95eff7bb8994cf</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLastTS</name>
+                   <value>
+                    <string>00:42:09</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitle</name>
+                   <value>
+                    <string>4980426</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserID</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLanguageID</name>
+                   <value>
+                    <string>rus</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFormat</name>
+                   <value>
+                    <string>srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSumCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAuthorComment</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAddDate</name>
+                   <value>
+                    <string>2013-05-10 01:54:40</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubBad</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubRating</name>
+                   <value>
+                    <string>0.0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadsCnt</name>
+                   <value>
+                    <string>133</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieReleaseName</name>
+                   <value>
+                    <string> Arrow.S01E20.HDTV.x264-LOL</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieFPS</name>
+                   <value>
+                    <string>0.000</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovie</name>
+                   <value>
+                    <string>150049</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovieImdb</name>
+                   <value>
+                    <string>2761432</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieName</name>
+                   <value>
+                    <string>&#34;Arrow&#34; Home Invasion</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieNameEng</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieYear</name>
+                   <value>
+                    <string>2013</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieImdbRating</name>
+                   <value>
+                    <string>8.6</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFeatured</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserNickName</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ISO639</name>
+                   <value>
+                    <string>ru</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>LanguageName</name>
+                   <value>
+                    <string>Russian</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubComments</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHearingImpaired</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserRank</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesSeason</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesEpisode</name>
+                   <value>
+                    <string>20</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieKind</name>
+                   <value>
+                    <string>episode</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesIMDBParent</name>
+                   <value>
+                    <string>2193021</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubEncoding</name>
+                   <value>
+                    <string>UTF-8</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/filead/src-api/vrf-a56bc398ff/sid-snviun91rlesm056odamor0ov5/1953522641.gz</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ZipDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/subad/src-api/vrf-0a1fae5b4a/sid-snviun91rlesm056odamor0ov5/4980426</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubtitlesLink</name>
+                   <value>
+                    <string>http://www.opensubtitles.org/en/subtitles/4980426/sid-snviun91rlesm056odamor0ov5/arrow-home-invasion-ru</string>
+                   </value>
+                  </member>
+                 </struct>
+                </value>
+               </data>
+              </array>
+             </value>
+            </member>
+            <member>
+             <name>seconds</name>
+             <value>
+              <double>0.021</double>
+             </value>
+            </member>
+           </struct>
+          </value>
+         </param>
+        </params>
+        </methodResponse>
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 17:07:06 GMT
+- request:
+    method: post
+    uri: http://api.opensubtitles.org/xml-rpc
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" ?><methodCall><methodName>SearchSubtitles</methodName><params><param><value><string>snviun91rlesm056odamor0ov5</string></value></param><param><value><array><data><value><struct><member><name>sublanguageid</name><value><string>ger</string></value></member><member><name>imdbid</name><value><string>2761432</string></value></member></struct></value></data></array></value></param></params></methodCall>
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.2.0)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '421'
+      Connection:
+      - keep-alive
+      Cookie:
+      - PHPSESSID=snviun91rlesm056odamor0ov5
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - PHPSESSID=snviun91rlesm056odamor0ov5; path=/; domain=.opensubtitles.org
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '999'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 13 Feb 2015 17:07:06 GMT
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Cache:
+      - MISS
+      X-Cache-Backend:
+      - web3
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <methodResponse>
+        <params>
+         <param>
+          <value>
+           <struct>
+            <member>
+             <name>status</name>
+             <value>
+              <string>200 OK</string>
+             </value>
+            </member>
+            <member>
+             <name>data</name>
+             <value>
+              <array>
+               <data>
+                <value>
+                 <struct>
+                  <member>
+                   <name>MatchedBy</name>
+                   <value>
+                    <string>imdbid</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubMovieFile</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieHash</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieByteSize</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieTimeMS</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitleFile</name>
+                   <value>
+                    <string>1953779980</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFileName</name>
+                   <value>
+                    <string>Arrow.S01E20.Home.Invasion.1080p.WEB-DL.DD5.1.H.264-BS.de-TV4User&#38;SubCentral.srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubActualCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSize</name>
+                   <value>
+                    <string>47498</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHash</name>
+                   <value>
+                    <string>00a93dd7da3696e134e819f1a7ed5ba9</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLastTS</name>
+                   <value>
+                    <string>00:41:47</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitle</name>
+                   <value>
+                    <string>5238715</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserID</name>
+                   <value>
+                    <string>1553912</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLanguageID</name>
+                   <value>
+                    <string>ger</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFormat</name>
+                   <value>
+                    <string>srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSumCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAuthorComment</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAddDate</name>
+                   <value>
+                    <string>2013-10-24 19:27:55</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubBad</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubRating</name>
+                   <value>
+                    <string>0.0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadsCnt</name>
+                   <value>
+                    <string>1244</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieReleaseName</name>
+                   <value>
+                    <string>Arrow.S01E20.Home.Invasion.1080p.WEB-DL.DD5.1.H.264-BS.de-TV4User&#38;SubCentral</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieFPS</name>
+                   <value>
+                    <string>23.976</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovie</name>
+                   <value>
+                    <string>150049</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovieImdb</name>
+                   <value>
+                    <string>2761432</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieName</name>
+                   <value>
+                    <string>&#34;Arrow&#34; Home Invasion</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieNameEng</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieYear</name>
+                   <value>
+                    <string>2013</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieImdbRating</name>
+                   <value>
+                    <string>8.6</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFeatured</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserNickName</name>
+                   <value>
+                    <string>v3000</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ISO639</name>
+                   <value>
+                    <string>de</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>LanguageName</name>
+                   <value>
+                    <string>German</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubComments</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHearingImpaired</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserRank</name>
+                   <value>
+                    <string>gold member</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesSeason</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesEpisode</name>
+                   <value>
+                    <string>20</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieKind</name>
+                   <value>
+                    <string>episode</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesIMDBParent</name>
+                   <value>
+                    <string>2193021</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubEncoding</name>
+                   <value>
+                    <string>CP1252</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/filead/src-api/vrf-507a737b8b/sid-snviun91rlesm056odamor0ov5/1953779980.gz</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ZipDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/subad/src-api/vrf-749a552977/sid-snviun91rlesm056odamor0ov5/5238715</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubtitlesLink</name>
+                   <value>
+                    <string>http://www.opensubtitles.org/en/subtitles/5238715/sid-snviun91rlesm056odamor0ov5/arrow-home-invasion-de</string>
+                   </value>
+                  </member>
+                 </struct>
+                </value>
+               </data>
+              </array>
+             </value>
+            </member>
+            <member>
+             <name>seconds</name>
+             <value>
+              <double>0.016</double>
+             </value>
+            </member>
+           </struct>
+          </value>
+         </param>
+        </params>
+        </methodResponse>
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 17:07:06 GMT
+recorded_with: VCR 2.9.3

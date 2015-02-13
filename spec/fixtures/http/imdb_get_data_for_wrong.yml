@@ -19,7 +19,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:17 GMT
+      - Fri, 13 Feb 2015 16:48:22 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -29,7 +29,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYlHXdClO9SqF4UuO4QRs9lbanSGO_kKh63NcQ5-vnR5w6xYuMiHet48rEWmAXDjGrQlR9jB49zIJNklFIiGIsG59LGn8G93LaXjF3FnOJdAI-S8P1Eb50BJpRqqjyDH3bRpMM7iHH8SfUhuRcwGLO3ZhSTIZZjUskF_Dx3RgJuxB4;expires=Thu,
+      - uu=BCYrlGMdTIW8VFNh1nMd00jVtgRMhruAIttKktLeCg3pJJ2-Y_kBB_P16RFysnMSz8fHJydzOreR9IiB8pL3ZERf2-MMO5vnOOC3KRU1DIa6TvixNHEub8Cy00BrJ9G29HCPpYdZL5Ox4XN5-sx9OI2PZPIne4jnEKMfSY7T75dewhc;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -81,12 +81,12 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">What's on the page?!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Detective David Mills, </span>
-        \       <a href=\"/title/tt0114369/\">Se7en (1995)</a>\n    </div>\n    <div
-        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
+        \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
+        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
+        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:17 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:23 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -106,7 +106,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:17 GMT
+      - Fri, 13 Feb 2015 16:48:23 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -116,7 +116,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYj1nXoxT5O-DL8AE7SGOz6uCTVQeHpDvcCEg53SsWKl5wJKvqgWDZaImUcPSE-XUmko0K2Ij8mHMddwovOalJwSXSsYkjFvlieVd-xr3YfHJcjn0OcmGdaRzQcGBX4-5C5iyMjioB3qlW0UCWLzqRRFp8ksxcZwMJAg9-sSlPHopE;expires=Thu,
+      - uu=BCYtrwvKttStcCqPGJVg2-XFIrLfMiD6QsrtludHzS4hmEIBUbNypbzKufPkAyQbTu4QLgGtVrb9OnBfihHgS4jL5qaZcExyNJr9w2VTh57P0-rXJJt5EXWEmkk0vFYKNUyFX5CXnwZzyoilFIkR651N_WsBCh10RJVhMZusHPPoxdo;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -125,7 +125,7 @@ http_interactions:
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
       Content-Length:
-      - '1224'
+      - '1210'
     body:
       encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
@@ -168,13 +168,12 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Surely you can't be serious! I am serious. And don't
-        call me Shirley.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Ted Striker & Rumack, </span>
-        \       <a href=\"/title/tt0080339/\">Airplane! (1980)</a>\n    </div>\n    <div
-        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        class=\"error_quote\">Well, what if there is no webpage? There wasn't one
+        today.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n    <div
+        class=\"error_attrib\">        <span>Phil Connors, </span>        <a href=\"/title/tt0107048/\">Groundhog
+        Day (1993)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:17 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:23 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -194,7 +193,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:17 GMT
+      - Fri, 13 Feb 2015 16:48:23 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -204,7 +203,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYgnUtqcsOcJZIW8zhrlq2UIwuiJ0-Oh3kQIfQ3pFkQbO6E7qoLp3GdVxoDqjJkwIcoHf9tddB52A8VinDNwyHEaudELNFKlVC8vDRyT-cxL08TRgNr-yGtRix4nbwgLmtozTKcA59pCDF81koFacapoNuO8BPUDTilzGdi9DJqvN0;expires=Thu,
+      - uu=BCYp32S76IxSwrGhA5EMNmeMEgX3vFycO5X4St9u8G9KT-9PcqHea0kTfiNyJyBtpFczNJOA9hgaC-NF8Guv2-OwQQxJ3FfHLa1jazgEoYnv-07eOV04IjpP0_wlVq7w4zXVnIVUr7i7csd7H6Ndn6ARfpPvBtiAF0da9o5NE6tnTEA;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -212,8 +211,8 @@ http_interactions:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '1210'
     body:
       encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
@@ -256,11 +255,12 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Dude...</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Hurley, </span>        <a href=\"/title/tt0411008/\">Lost
-        (2004) - TV Series</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        class=\"error_quote\">Well, what if there is no webpage? There wasn't one
+        today.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n    <div
+        class=\"error_attrib\">        <span>Phil Connors, </span>        <a href=\"/title/tt0107048/\">Groundhog
+        Day (1993)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:17 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:23 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -280,7 +280,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:18 GMT
+      - Fri, 13 Feb 2015 16:48:23 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -290,7 +290,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYqwNK86mYqlXA4A9fwIfz_sW7Cw0uOr2Wi1LEK1xQxvoOUuLMC1sYzyzg85-nWBthSncPKWi9YXYYqvamS6Yl47gShrXpmatZVHdnlluIwW4u0bPaE5aQ4S7_3jDhHuANDYAZ8Xbbre_wH_ppkN17LGp-oWsZMouO6T4BMybunlOg;expires=Thu,
+      - uu=BCYh2unquDvoR3e4dxIqnpZ7l7ASoQuGa3yJzwUSp95-0XXBfZcqIxr7aSDTOeI0cI2_r54_mTyfPnDMw9ghmFm59TXhhsfGvcYkU_9g1nusNSZ37dUlG3mljzbfUKXPvM3U3Swj93GhTd-yo4x65CiXrVnz1YY6ovTYqgTCUhBzuLA;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -298,8 +298,8 @@ http_interactions:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '1208'
     body:
       encoding: ASCII-8BIT
       string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
@@ -342,12 +342,12 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">I've got a feeling we're not in Kansas anymore.</div>\n
+        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
         \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
-        \       <span>Dorothy, </span>        <a href=\"/title/tt0032138/\">The Wizard
-        of Oz (1939)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
+        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:18 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:24 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -367,7 +367,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:18 GMT
+      - Fri, 13 Feb 2015 16:48:24 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -377,93 +377,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYhqwxBod6QsEiJwqhebdv9x_sWAUu83pW3JHT6V4F2IBwxu8W7zkmSekT8_0Au9We-yu84umZ5OJAtX6ytoKS65Gtnzw8lxpN5Ve6o3VBGsAclMbF6p7_yq4h3N0pEBiebOzBBEDxdoWQHfSBitWKpDChuLMazvAfJgu-W2HTq29I;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">There is no page.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Spoon Boy, </span>        <a
-        href=\"/title/tt0133093/\">The Matrix (1999)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:18 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Mon, 19 Jan 2015 08:56:18 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYvH3tXKZru8y4zMndmYNKxnaoDbIXmsH3MDwoSXWnrrkNmN0HuXNR6ZPtBYYL76weYrWvhrmgAs4FeisE2td1jw6wGUjjawWjo4mgVHscF1Kth0hHy-5qOnsTBbEZQtqV8xZlKNer2RmOYCmEzCgkTIUj0ZfZjcnz7WLLHvsteodE;expires=Thu,
+      - uu=BCYoauks4JEQuBB4KTelT18nUQ9sZZjyBBdMtvTbtg2q5Ldb30JcGsu2pZz3nAsoHdJTeEolFG163fzl4wCgmyBIImTUnLKim8mmqWBjRWyQ0GbGDUeoUHcGYEMvhQMdHpyRKx9SEJWYwZUrhC5zh9by9M0eHJBSdTr91xVaVnZIMxU;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -520,7 +434,7 @@ http_interactions:
         Winnfield, </span>        <a href=\"/title/tt0110912/\">Pulp Fiction (1994)</a>\n
         \   </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:18 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:24 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -540,7 +454,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:18 GMT
+      - Fri, 13 Feb 2015 16:48:24 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -550,7 +464,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYmcffkc74eiord1rqfOZnQ48qVMkLrtsQl6EPZk5fr7te5zH3BP7RTE1oXp7BbXxMXbnzSljbfj4PDXAZGk3x-o8ifmdxxRBwJWamXOyvH0IsIYCdqo31AxkSaGOZgx-1Qf_6jsHi5IwCgIX9RzGzsoQVHR_1S4ZiWLiqbXU7lXKA;expires=Thu,
+      - uu=BCYkK5mYjuL9HOKarFtxIVN9-dgcyfnHmdxGIvPgiQClibjFe6aljrRFTXxD_XqA8jxYgYCgKdb5eYs_x2zzxRctMaqWR97rliW0m2Qgfl2Lt18mXi_VT7lzY7lstNX1GmRJUE_obVLNvohYkCXZnHlocl-CGj2ymGeSf90OGi8TbOs;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -602,187 +516,12 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Well, what if there is no webpage? There wasn't one
-        today.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n    <div
-        class=\"error_attrib\">        <span>Phil Connors, </span>        <a href=\"/title/tt0107048/\">Groundhog
-        Day (1993)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Mon, 19 Jan 2015 08:56:19 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYly3xTaoB9jLP6LlaS9SkafTbWXpq7F8GO8W9QZoWGnauVypEf3gMPKyH6B5QjgpjaIQT_YGcQnoDClFt3RkmwXVyiaZ3Wt0ZAuQT4foclvQZMIi2JE4Rt0eRhZrYFYa2Wcn8l-KK3eAtDbz0UCxJ9zKMsctHhuG5ztfPMztRUplk;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Content-Length:
-      - '1230'
-    body:
-      encoding: ASCII-8BIT
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Lord! It's a miracle! Webpage up and vanished like a
-        fart in the wind!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Warden Norton, </span>        <a
-        href=\"/title/tt0111161/\">The Shawshank Redemption (1994)</a>\n    </div>\n
-        \   <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
-    http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
-- request:
-    method: get
-    uri: http://akas.imdb.com/title/tt9999999/combined
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Mon, 19 Jan 2015 08:56:19 GMT
-      Server:
-      - HTTPDaemon
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - private
-      Content-Type:
-      - text/html; charset=iso-8859-1
-      Set-Cookie:
-      - uu=BCYgKw7OWPyjomkbWurZgfxeHbR7Gz-CDdKY-qripB0RKlf4gtfef17T5QRAgGlGKM_zvAasaqKYgmWGXL35DZ6viKOdDK6ArcXWgSFj0DU457pXUft8h3XH24JNvWNrvacKsd-YpSUszl1PS1hjpuv1ag5qOH7bWty1pX13QxkCjtI;expires=Thu,
-        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
-      Vary:
-      - Accept-Encoding,User-Agent
-      P3p:
-      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
-        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
-        CNT STA HEA PRE LOC GOV OTC "
-      Content-Length:
-      - '1207'
-    body:
-      encoding: ASCII-8BIT
-      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
-        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
-        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
-        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
-        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
-        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
-        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
-        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
-        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
-        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
-        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
-        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
-        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
-        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
-        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
-        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
-        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
-        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
-        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
-        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
-        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
-        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
-        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
-        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
-        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
-        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
-        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
-        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
-        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
-        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
-        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
-        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
-        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
-        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
-        class=\"error_message\">\n        The requested URL was not found on our server.
-        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
-        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">I've got a feeling we're not in Kansas anymore.</div>\n
+        class=\"error_quote\">What we've got here is... failure to communicate.</div>\n
         \   </div>\n    <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">
-        \       <span>Dorothy, </span>        <a href=\"/title/tt0032138/\">The Wizard
-        of Oz (1939)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        \       <span>Captain, </span>        <a href=\"/title/tt0061512/\">Cool Hand
+        Luke (1967)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:24 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -802,7 +541,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:19 GMT
+      - Fri, 13 Feb 2015 16:48:30 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -812,7 +551,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYo804pAF1sAoSOAwcw9bFcJYWHQCwwqfN8huYGgkTxsAsF-dvx8XGY-x11yWJcDlphZRIVVPtr9qfs9HbESmG6uygv6Cqq00mgsc3CcY2qM9kbChfDULuWpR3CIfuVZigVWUdW6kf7c59Sz904qicB8Gg6gkgP0LslAvR9S965HUw;expires=Thu,
+      - uu=BCYrAQ3ro_N3QQCAByd6M3V2MNzSjLnAoCWToVnbeIAKFilEpXV39Jiy4gMR-qVBK0Hke-Q0_iu11cyhZZ6b9WxlXFlbkthSOVw2m8x-KHL0PKt7xJk3hVxXs9BZnGMIsV17covCzn6I0WOJ_VZYeu-JWQhAvXRxpmmtNz5kcMFEa9w;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -820,8 +559,268 @@ http_interactions:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
         CNT STA HEA PRE LOC GOV OTC "
-      Cneonction:
-      - close
+      Content-Length:
+      - '1240'
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">Always remember, Frodo, the page is trying to get back
+        to its master. It wants to be found.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Gandalf, </span>        <a href=\"/title/tt0120737/\">The
+        Lord of the Rings: The Fellowship of the Ring (2001)</a>\n    </div>\n    <div
+        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 16:48:30 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Fri, 13 Feb 2015 16:48:30 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYrCNfzEyAqvx-ZY3d0cWB6A9DhKIaeQq5uB3uaocddHWJ7mQyidFmWok-JAO0ysxD3p-cBMIpihPgIpKTbTLW0RSUny2-4wkwDNdNlZAO4gJmxdjiTPEy6eRWN7KnIHBZZZQaAiM1m_VzEDDpkzHEVGNTb06CO7CGgvfX_o2DKpGg;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Content-Length:
+      - '1189'
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">I am Jack's missing page.</div>\n    </div>\n    <div
+        class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">        <span>The
+        Narrator, </span>        <a href=\"/title/tt0137523/\">Fight Club (1999)</a>\n
+        \   </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 16:48:30 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Fri, 13 Feb 2015 16:48:31 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYoA4PvJXqFk56Nuket1kV9JkvQNqGTqUrXEDuUU0u2aTJWazFu1htDfq1Ht8UZBEPQPJ_Xe4ZjUhQTjyLDH2pXUM5Jd-jd--_mEUvLPRoc4KtsEtPPmTGYlb_F6pu3iJAHYwKAMZApZ0oOZwtj7F4KCQyNXdeekpX-LiGFc8hbYVw;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
+      Content-Length:
+      - '1201'
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"
+        />\n  <title>404 Error</title>\n</head>\n<body>\n\n<style>\nhtml, body {\n
+        \ height: 100%;\n}\nbody {\n  margin: auto;\n  width: 1008px;\n  background-color:
+        #D4D9DD;\n  font-family: Verdana, Arial, sans-serif;\n}\na {\n  text-decoration:
+        none;\n}\na:hover {\n  text-decoration: underline;\n}\na:link, a:hover, a:visited
+        {\n  color: #136CB2;\n}\na:active {\n  color: #E7BE00;\n}\n#error {\n  height:
+        100%;\n  background-color: white;\n  border-left: 1px solid #999999;\n  border-right:
+        1px solid #999999;\n  box-shadow: 0 0 5px 5px #C5CACD;\n}\n.error_message
+        {\n  color: #999999;\n  font-size: 17.5px;\n  padding: 30px 70px 20px;\n}\n.error_bubble
+        {\n  font-family: Arial, helvetica, sans-serif;\n  font-weight: bold;\n  border-radius:
+        8px;\n  -moz-border-radius: 8px;\n  margin: 0 70px 0 70px;\n  padding: 50px;\n}\n.error_bubble
+        div {\n  display: inline-block;\n  vertical-align: middle;\n}\n.error_quote
+        {\n  color: #FFFFFF;\n  font-size: 30px;\n  line-height: 1.35em;\n  padding-left:
+        50px;\n  width: 500px;\n}\n.error_code {\n  font-size: 100px;\n  line-height:
+        50px;\n  margin-top:8px\n}\n.error_arrow {\n  border-color: #DECA16 transparent
+        transparent transparent;\n  border-style: solid;\n  border-width: 21px 0px
+        0px 32px;\n  height: 0;\n  left: 700px;\n  line-height: 0;\n  position: relative;\n
+        \ top: -1px;\n  width: 0;\n}\n.error_code > span {\n  font-size: 50px;\n}\n.error_attrib
+        {\n  color: #999999;\n  float: right;\n  font-size: 14px;\n  font-style: italic;\n
+        \ padding: 10px 70px 36px;\n}\n.error_code_404 .error_bubble {\n  background:
+        none repeat scroll 0% 0% #DECA16;\n  border: 1px solid #DECA16;\n}\n.error_code_500
+        .error_bubble {\n  background: none repeat scroll 0% 0% #EDCA24;\n  border:
+        1px solid #EDCA24;\n}\n.error_code_404 .error_code {\n  color: #BFAD13;\n}\n.error_code_500
+        .error_code {\n  color: #CCAD1F;\n}\n.error_code_500 .error_arrow {\n  border-color:
+        #EDCA24 transparent transparent transparent;\n}\na.btn {\n  background-repeat:
+        repeat-x; \n  background-color: #ECE2C6;\n  background-image: linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -moz-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  background-image: -webkit-linear-gradient(rgba(255,255,255,.8)
+        5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8) 100%); \n  background-image:
+        -ms-linear-gradient(rgba(255,255,255,.8) 5%, rgba(255,255,255,0.0) 70%, rgba(255,255,255,0.8)
+        100%); \n  border-color: #E0E0E0 #C0C0C0 #C0C0C0 #E0E0E0;\n  border-radius:
+        3px 3px 3px 3px;\n  border-style: solid;\n  border-width: 1px;\n  color: #000000;\n
+        \ cursor: pointer;\n  float: right;\n  margin-right: 70px;\n  margin-top:
+        26px;\n  padding: 0.3em 0.6em;\n  text-decoration: none;\n}\na.btn:hover {\n
+        \ background-image: none;\n  border-color: #E6B800;\n}\n.clear {\n  clear:
+        both;\n}\n</style>\n<div id=\"error\" class=\"error_code_404\">\n    <div
+        class=\"error_message\">\n        The requested URL was not found on our server.
+        <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
+        \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
+        class=\"error_quote\">It's the one that says 'Page not found'.</div>\n    </div>\n
+        \   <div class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">        <span>Jules
+        Winnfield, </span>        <a href=\"/title/tt0110912/\">Pulp Fiction (1994)</a>\n
+        \   </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 16:48:31 GMT
+- request:
+    method: get
+    uri: http://akas.imdb.com/title/tt9999999/combined
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Fri, 13 Feb 2015 16:48:31 GMT
+      Server:
+      - HTTPDaemon
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Set-Cookie:
+      - uu=BCYvVk-ZKYiVWAgGVBwAiKtFoSG8jpH8U_AEO-Fuuxzy9NCrJB4yPrkdYgwBBaWdOn6jt7HlbDMnCl8ac0E4Yg5SKR9oTRfKaBjoFpxqdU_xqQQCQdrpjban5eVG59xIpxm0Ea3vRWnDpjiEouZ0tfTBWoya12VzePBwSIsc6hqMzVY;expires=Thu,
+        30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
+      Vary:
+      - Accept-Encoding,User-Agent
+      P3p:
+      - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
+        IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
+        CNT STA HEA PRE LOC GOV OTC "
       Transfer-Encoding:
       - chunked
     body:
@@ -866,13 +865,12 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">Surely you can't be serious! I am serious. And don't
-        call me Shirley.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Ted Striker & Rumack, </span>
-        \       <a href=\"/title/tt0080339/\">Airplane! (1980)</a>\n    </div>\n    <div
-        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        class=\"error_quote\">Page not found? INCONCEIVABLE.</div>\n    </div>\n    <div
+        class=\"error_arrow\"></div>\n    <div class=\"error_attrib\">        <span>Vizzini,
+        </span>        <a href=\"/title/tt0093779/\">The Princess Bride (1987)</a>\n
+        \   </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:19 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:32 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/combined
@@ -892,7 +890,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:20 GMT
+      - Fri, 13 Feb 2015 16:48:32 GMT
       Server:
       - HTTPDaemon
       X-Frame-Options:
@@ -902,7 +900,7 @@ http_interactions:
       Content-Type:
       - text/html; charset=iso-8859-1
       Set-Cookie:
-      - uu=BCYoF2jxDMSgkB95SXRgLPOJSq3UI6rXO4p0tk7BAQ8nFgi36iLtuUNRxgryAZ6mD8ghKg_RKcETbfw16yvMwoRmkdw9S6ckxIX51khCC-r3d5ySu0E1qHk0TGE7oVF5Cme-ypet4y5Rb907yjeu_bhSORoOtiy66WIuZWH5MgfKsrA;expires=Thu,
+      - uu=BCYocUnudctQ58hbfGdqLCGNSF7fAQQKBSKmFr95tHNqAHQFwY6BHJxMQvs4Ha49pZGBsJxmuROafZImi3Bn93rOcFLeBiOScv_uR6fo21o989ERaUKFsbovIqBIHfPbI6v7ytMF3zeOJQV9lgBmEUCVxhbUD2WJwqHTXF-R4yZemkk;expires=Thu,
         30 Dec 2037 00:00:00 GMT;path=/;domain=.imdb.com
       Vary:
       - Accept-Encoding,User-Agent
@@ -954,12 +952,11 @@ http_interactions:
         class=\"error_message\">\n        The requested URL was not found on our server.
         <a href=\"/\">Go to the IMDb homepage</a> &raquo;\n    </div>\n    <div class=\"error_bubble\">\n
         \       <div class=\"error_code\">404<br><span>ERROR</span></div>\n        <div
-        class=\"error_quote\">What's on the page?!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">        <span>Detective David Mills, </span>
-        \       <a href=\"/title/tt0114369/\">Se7en (1995)</a>\n    </div>\n    <div
-        class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
+        class=\"error_quote\">There is no page.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">        <span>Spoon Boy, </span>        <a
+        href=\"/title/tt0133093/\">The Matrix (1999)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n\n\n\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:20 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:32 GMT
 - request:
     method: get
     uri: http://akas.imdb.com/title/tt9999999/plotsummary
@@ -979,7 +976,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Mon, 19 Jan 2015 08:56:19 GMT
+      - Fri, 13 Feb 2015 16:48:32 GMT
       Server:
       - Server
       X-Frame-Options:
@@ -991,12 +988,12 @@ http_interactions:
       Vary:
       - Accept-Encoding,User-Agent
       Set-Cookie:
-      - session-id-time=1579337780; Domain=.imdb.com; Expires=Sat, 06-Feb-2083 12:10:27
+      - session-id-time=1581526112; Domain=.imdb.com; Expires=Wed, 03-Mar-2083 20:02:39
         GMT; Path=/
-      - session-id=000-0000000-0000000; Domain=.imdb.com; Expires=Sat, 06-Feb-2083
-        12:10:27 GMT; Path=/
-      - uu=BCYmZ41FgSI1TzI00_v6GapUoeZL3rIJ-PGwMz6mI0sAy3Vor9vuXzgu4P14X1eaTbNQq-ZKvfjA%0D%0AMT8QevWIK-T4QODqX1H9vrZwoq3FwLHz3WzMsWeTisTjc2qUXvO-GHZmju9gPOYW0e2EqHptvihP%0D%0ANk4axFwZesuYBiM69bYMECP1OHiZAgH234_nR_kpVlLxCqxVErZ0R3D9OB5kwpqj7U38s4BonOLH%0D%0AcdevSlkJarx4BdpBLmMHDiAR2ssUENJwcLJy6D3RZhAJXumj_g3Akg%0D%0A;
-        Domain=.imdb.com; Expires=Sat, 06-Feb-2083 12:10:27 GMT; Path=/
+      - session-id=000-0000000-0000000; Domain=.imdb.com; Expires=Wed, 03-Mar-2083
+        20:02:39 GMT; Path=/
+      - uu=BCYqwAbJ8_GNrmvom4XjItuASZ4iiiBGI-HxrfyfHYGiOYSvdZjSILvnfNTmdjG_bE6DO4mV6Q1G%0D%0ABAJB3AGRfgQiimUZCqPWoYkUnIfbSeTnUqZTbAM2QeDnRYpEvk7AZPSdcFPLdvNacVoYFh1qNJG1%0D%0AGPE55r0jy6KFiX2bofumsuuGTxK_PQmCWqb5_3vE6n-7h0sBfdMPtTqVs607ar8z3fvTeYJ1jnqr%0D%0AwtFXuYbGMofIEGryjXWjBINlwC8fL1YFqpoOIoKwPTHH2wSduRDzcw%0D%0A;
+        Domain=.imdb.com; Expires=Wed, 03-Mar-2083 20:02:39 GMT; Path=/
       P3p:
       - policyref="http://i.imdb.com/images/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo
         IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM
@@ -1047,15 +1044,15 @@ http_interactions:
         right;\n  margin-right: 70px;\n  margin-top: 26px;\n  padding: 0.3em 0.6em;\n
         \ text-decoration: none;\n}\na.btn:hover {\n  background-image: none;\n  border-color:
         #E6B800;\n}\n.clear {\n  clear: both;\n}\n  </style>\n</head>\n<body>\n<!--
-        h=ics-http-1a-c1xl-i-241a4e05.us-east-1 -->\n<div id=\"error\" class=\"error_code_404\">\n
+        h=ics-http-1e-c1xl-i-5eee1d0c.us-east-1 -->\n<div id=\"error\" class=\"error_code_404\">\n
         \   \n    <div class=\"error_message\">\n        The requested URL was not
         found on our server.\n        <a href=\"/\">Go to the homepage</a> &raquo;\n
         \   </div>\n    <div class=\"error_bubble\">\n        <div class=\"error_code\">404<br><span>ERROR</span></div>\n
-        \       <div class=\"error_quote\">Lord! It's a miracle! Webpage up and vanished
-        like a fart in the wind!</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
-        \   <div class=\"error_attrib\">\n        <span>Warden Norton, </span><a href=\"/title/tt0111161/\">The
-        Shawshank Redemption (1994)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n<!--
+        \       <div class=\"error_quote\">Yeah... I'm gonna need you to go ahead
+        and find another page.</div>\n    </div>\n    <div class=\"error_arrow\"></div>\n
+        \   <div class=\"error_attrib\">\n        <span>Bill Lumbergh, </span><a href=\"/title/tt0151804/\">Office
+        Space (1999)</a>\n    </div>\n    <div class=\"clear\"></div>\n</div>\n<!--
         The next level -->\n</body>\n</html>\n"
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:20 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:32 GMT
 recorded_with: VCR 2.9.3

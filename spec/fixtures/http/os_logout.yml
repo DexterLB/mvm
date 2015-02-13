@@ -6,7 +6,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" ?><methodCall><methodName>LogOut</methodName><params><param><value><string>1cmjvpnhvpb2b578s2dpnn2ab1</string></value></param></params></methodCall>
+        <?xml version="1.0" ?><methodCall><methodName>LogOut</methodName><params><param><value><string>ha8a3pcb4gr8a27ksvjvim8is3</string></value></param></params></methodCall>
     headers:
       User-Agent:
       - XMLRPC::Client (Ruby 2.2.0)
@@ -17,7 +17,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cookie:
-      - PHPSESSID=1cmjvpnhvpb2b578s2dpnn2ab1
+      - PHPSESSID=ha8a3pcb4gr8a27ksvjvim8is3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -28,7 +28,7 @@ http_interactions:
       message: OK
     headers:
       Set-Cookie:
-      - PHPSESSID=1cmjvpnhvpb2b578s2dpnn2ab1; path=/; domain=.opensubtitles.org
+      - PHPSESSID=ha8a3pcb4gr8a27ksvjvim8is3; path=/; domain=.opensubtitles.org
       Expires:
       - Thu, 19 Nov 1981 08:52:00 GMT
       Cache-Control:
@@ -46,7 +46,7 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Mon, 19 Jan 2015 08:56:30 GMT
+      - Fri, 13 Feb 2015 16:49:16 GMT
       Age:
       - '0'
       Connection:
@@ -73,7 +73,7 @@ http_interactions:
             <member>
              <name>seconds</name>
              <value>
-              <double>0.003</double>
+              <double>0.03</double>
              </value>
             </member>
            </struct>
@@ -82,5 +82,5 @@ http_interactions:
         </params>
         </methodResponse>
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:30 GMT
+  recorded_at: Fri, 13 Feb 2015 16:49:16 GMT
 recorded_with: VCR 2.9.3

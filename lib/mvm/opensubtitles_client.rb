@@ -16,6 +16,10 @@ module Mvm
       end.inject(&:merge)
     end
 
+    def search_subtitles(queries)
+      @api.call('SearchSubtitles', queries)['data'] || []
+    end
+
     private
 
     def lookup_hashes_under_200(hashes)

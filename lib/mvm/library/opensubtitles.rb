@@ -10,11 +10,13 @@ module Mvm
       opensubtitles_password: '',
       opensubtitles_useragent: 'OSTestUserAgent',
       opensubtitles_language: 'en',
-      opensubtitles_timeout: 20
+      opensubtitles_timeout: 20,
+      subtitle_languages: 'en,bg',
+      max_subtitles: 5
     )
 
     class Opensubtitles
-      def initialize(settings)
+      def initialize(settings: Settings.new)
         @settings = settings
       end
 
@@ -27,6 +29,61 @@ module Mvm
         movies.map do |movie|
           set_attributes_for(movie, data[movie.file_hash])
         end
+      end
+
+      def search_subtitles(movies)
+        movies_with_subtitles = movies.each.with_index.map do |movie, current|
+          yield [current, movies.size] if block_given?
+          search_subtitles_for(movie)
+        end
+
+        yield [movies.size, movies.size] if block_given?
+        movies_with_subtitles
+      end
+
+      def search_subtitles_for(movie)
+        movie = movie.dup
+
+        languages = parse_languages(@settings.subtitle_languages)
+        subtitles_data = languages.map do |language|
+          results = client.search_subtitles([subtitle_query(movie, language)])
+          sort_subtitles(results).take(@settings.max_subtitles)
+        end.flatten
+
+        movie.subtitles = subtitles_data.map do |data|
+          subtitle_attributes(data)
+        end
+
+        movie
+      end
+
+      private
+
+      def subtitle_query(movie, languages)
+        {
+          sublanguageid: languages,
+          moviehash: movie.file_hash,
+          moviebytesize: movie.filesize,
+          imdbid: movie.imdb_id,
+          query: movie.title,
+          season: movie.season_number,
+          episode: movie.episode_number
+        }.select { |_, value| value }.map do |key, value|   # haters gonna hate
+          [key.to_s, value]
+        end.to_h
+      end
+
+      def subtitle_attributes(data)
+        OpenStruct.new(
+          raw_info: data,
+          language: ISO_639.find_by_code(data['SubLanguageID']),
+          release: data['MovieReleaseName'],
+          framerate: data['MovieFPS'].to_f,
+          rating: data['SubRating'].to_f,
+          downloads: data['SubDownloadsCnt'].to_i,
+          encoding: Encoding.find(data['SubEncoding']),
+          url: data['SubDownloadLink']
+        )
       end
 
       def set_attributes_for(movie, attributes)
@@ -52,6 +109,22 @@ module Mvm
         movie
       end
 
+      def sort_subtitles(results)
+        results.sort_by { |result| sort_rating(result) }
+      end
+
+      def sort_rating(result)
+        [
+          case result['MatchedBy']
+          when 'moviehash' then 0
+          when 'imdbid'    then 1
+          else 2
+          end,
+          -result['SubDownloadsCnt'].to_i,
+          -result['SubRating'].to_f
+        ]
+      end
+
       def client
         @client ||= OpensubtitlesClient.new(
           username: @settings.opensubtitles_username,
@@ -60,6 +133,14 @@ module Mvm
           language: ISO_639.find(@settings.opensubtitles_language),
           timeout: @settings.opensubtitles_timeout
         )
+      end
+
+      def parse_languages(comma_separated_languages)
+        comma_separated_languages.split(',').map do |code|
+          language = ISO_639.find(code)
+          fail 'Unknown language: ' + code unless language
+          language.alpha3
+        end
       end
     end
   end

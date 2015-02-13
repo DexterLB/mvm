@@ -6,18 +6,16 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" ?><methodCall><methodName>CheckMovieHash</methodName><params><param><value><string>iip6j9epi53ph4k8i5eqjh2um5</string></value></param><param><value><array><data><value><string>46e33be00464c12e</string></value></data></array></value></param></params></methodCall>
+        <?xml version="1.0" ?><methodCall><methodName>LogIn</methodName><params><param><value><string></string></value></param><param><value><string></string></value></param><param><value><string>en</string></value></param><param><value><string>OSTestUserAgent</string></value></param></params></methodCall>
     headers:
       User-Agent:
       - XMLRPC::Client (Ruby 2.2.0)
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:
-      - '283'
+      - '300'
       Connection:
       - keep-alive
-      Cookie:
-      - PHPSESSID=iip6j9epi53ph4k8i5eqjh2um5
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -28,7 +26,7 @@ http_interactions:
       message: OK
     headers:
       Set-Cookie:
-      - PHPSESSID=iip6j9epi53ph4k8i5eqjh2um5; path=/; domain=.opensubtitles.org
+      - PHPSESSID=iu97p3kae1ljmcvvgtqn4bsqh1; path=/; domain=.opensubtitles.org
       Expires:
       - Thu, 19 Nov 1981 08:52:00 GMT
       Cache-Control:
@@ -42,11 +40,100 @@ http_interactions:
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
-      - '421'
+      - '224'
       Accept-Ranges:
       - bytes
       Date:
-      - Mon, 19 Jan 2015 08:56:29 GMT
+      - Fri, 13 Feb 2015 16:48:55 GMT
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Cache:
+      - MISS
+      X-Cache-Backend:
+      - web3
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <methodResponse>
+        <params>
+         <param>
+          <value>
+           <struct>
+            <member>
+             <name>token</name>
+             <value>
+              <string>iu97p3kae1ljmcvvgtqn4bsqh1</string>
+             </value>
+            </member>
+            <member>
+             <name>status</name>
+             <value>
+              <string>200 OK</string>
+             </value>
+            </member>
+            <member>
+             <name>seconds</name>
+             <value>
+              <double>0.043</double>
+             </value>
+            </member>
+           </struct>
+          </value>
+         </param>
+        </params>
+        </methodResponse>
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 16:48:55 GMT
+- request:
+    method: post
+    uri: http://api.opensubtitles.org/xml-rpc
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" ?><methodCall><methodName>CheckMovieHash</methodName><params><param><value><string>iu97p3kae1ljmcvvgtqn4bsqh1</string></value></param><param><value><array><data><value><string>46e33be00464c12e</string></value></data></array></value></param></params></methodCall>
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.2.0)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '283'
+      Connection:
+      - keep-alive
+      Cookie:
+      - PHPSESSID=iu97p3kae1ljmcvvgtqn4bsqh1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - PHPSESSID=iu97p3kae1ljmcvvgtqn4bsqh1; path=/; domain=.opensubtitles.org
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '420'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 13 Feb 2015 16:48:55 GMT
       Age:
       - '0'
       Connection:
@@ -123,7 +210,7 @@ http_interactions:
                   <member>
                    <name>SeenCount</name>
                    <value>
-                    <string>31080</string>
+                    <string>31471</string>
                    </value>
                   </member>
                   <member>
@@ -149,7 +236,7 @@ http_interactions:
             <member>
              <name>seconds</name>
              <value>
-              <double>0.012</double>
+              <double>0.015</double>
              </value>
             </member>
            </struct>
@@ -158,5 +245,5 @@ http_interactions:
         </params>
         </methodResponse>
     http_version: 
-  recorded_at: Mon, 19 Jan 2015 08:56:29 GMT
+  recorded_at: Fri, 13 Feb 2015 16:48:55 GMT
 recorded_with: VCR 2.9.3

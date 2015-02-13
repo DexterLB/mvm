@@ -1,0 +1,369 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.opensubtitles.org/xml-rpc
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" ?><methodCall><methodName>SearchSubtitles</methodName><params><param><value><string>g568hjrb82tajod99drl84p4v2</string></value></param><param><value><array><data><value><struct><member><name>moviehash</name><value><string>09a2c497663259cb</string></value></member><member><name>sublanguageid</name><value><string>eng,rus</string></value></member></struct></value></data></array></value></param></params></methodCall>
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 2.2.0)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '437'
+      Connection:
+      - keep-alive
+      Cookie:
+      - PHPSESSID=g568hjrb82tajod99drl84p4v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - PHPSESSID=g568hjrb82tajod99drl84p4v2; path=/; domain=.opensubtitles.org
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '993'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 13 Feb 2015 17:33:59 GMT
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Cache:
+      - MISS
+      X-Cache-Backend:
+      - web3
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <methodResponse>
+        <params>
+         <param>
+          <value>
+           <struct>
+            <member>
+             <name>status</name>
+             <value>
+              <string>200 OK</string>
+             </value>
+            </member>
+            <member>
+             <name>data</name>
+             <value>
+              <array>
+               <data>
+                <value>
+                 <struct>
+                  <member>
+                   <name>MatchedBy</name>
+                   <value>
+                    <string>moviehash</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubMovieFile</name>
+                   <value>
+                    <string>25206</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieHash</name>
+                   <value>
+                    <string>09a2c497663259cb</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieByteSize</name>
+                   <value>
+                    <string>733589504</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieTimeMS</name>
+                   <value>
+                    <string>3165000</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitleFile</name>
+                   <value>
+                    <string>235409</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFileName</name>
+                   <value>
+                    <string>Nochnoj dozor (CD1).srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubActualCD</name>
+                   <value>
+                    <string>1</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSize</name>
+                   <value>
+                    <string>30762</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHash</name>
+                   <value>
+                    <string>ef4a16a076d43a90dd2b57b8417b6046</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLastTS</name>
+                   <value>
+                    <string>00:52:44</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDSubtitle</name>
+                   <value>
+                    <string>175464</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserID</name>
+                   <value>
+                    <string>63279</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubLanguageID</name>
+                   <value>
+                    <string>eng</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFormat</name>
+                   <value>
+                    <string>srt</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubSumCD</name>
+                   <value>
+                    <string>2</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAuthorComment</name>
+                   <value>
+                    <string/>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubAddDate</name>
+                   <value>
+                    <string>2005-09-10 00:00:00</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubBad</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubRating</name>
+                   <value>
+                    <string>10.0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadsCnt</name>
+                   <value>
+                    <string>1313</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieReleaseName</name>
+                   <value>
+                    <string>Night.Watch.2004.DVDRiP.XViD-FiCO</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieFPS</name>
+                   <value>
+                    <string>0.000</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovie</name>
+                   <value>
+                    <string>516</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>IDMovieImdb</name>
+                   <value>
+                    <string>403358</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieName</name>
+                   <value>
+                    <string>Nochnoy dozor</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieNameEng</name>
+                   <value>
+                    <string>Night Watch</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieYear</name>
+                   <value>
+                    <string>2004</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieImdbRating</name>
+                   <value>
+                    <string>6.5</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubFeatured</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserNickName</name>
+                   <value>
+                    <string>iyaayas_si (a)</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ISO639</name>
+                   <value>
+                    <string>en</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>LanguageName</name>
+                   <value>
+                    <string>English</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubComments</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHearingImpaired</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>UserRank</name>
+                   <value>
+                    <string>bronze member</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesSeason</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesEpisode</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>MovieKind</name>
+                   <value>
+                    <string>movie</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubHD</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SeriesIMDBParent</name>
+                   <value>
+                    <string>0</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubEncoding</name>
+                   <value>
+                    <string>ASCII</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/filead/src-api/vrf-b6884489ce/sid-g568hjrb82tajod99drl84p4v2/235409.gz</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>ZipDownloadLink</name>
+                   <value>
+                    <string>http://dl.opensubtitles.org/en/download/subad/src-api/vrf-20c31fa18d/sid-g568hjrb82tajod99drl84p4v2/175464</string>
+                   </value>
+                  </member>
+                  <member>
+                   <name>SubtitlesLink</name>
+                   <value>
+                    <string>http://www.opensubtitles.org/en/subtitles/175464/sid-g568hjrb82tajod99drl84p4v2/nochnoy-dozor-en</string>
+                   </value>
+                  </member>
+                 </struct>
+                </value>
+               </data>
+              </array>
+             </value>
+            </member>
+            <member>
+             <name>seconds</name>
+             <value>
+              <double>0.046</double>
+             </value>
+            </member>
+           </struct>
+          </value>
+         </param>
+        </params>
+        </methodResponse>
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 17:33:59 GMT
+recorded_with: VCR 2.9.3

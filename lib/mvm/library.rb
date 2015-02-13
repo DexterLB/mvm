@@ -67,7 +67,7 @@ module Mvm
       self
     end
 
-    def load!(path)
+    def load!(path)     # FIXME: the name of this method sucks
       @movies += files.load path
       self
     end
