@@ -18,7 +18,7 @@ module Mvm
     end
 
     def calculate_hashes!
-      @movies = Files.calculate_hashes(@movies)
+      @movies = files.calculate_hashes(@movies)
       self
     end
 
@@ -67,13 +67,13 @@ module Mvm
       self
     end
 
-    def scan_folder!(folder)
-      @movies += files.scan_folder folder
+    def load!(path)
+      @movies += files.load path
       self
     end
 
-    def scan_folder(folder)
-      dup.scan_folder!(folder)
+    def load(path)
+      dup.load!(path)
     end
 
     def rename_movies!(&block)

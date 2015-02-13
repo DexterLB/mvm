@@ -15,11 +15,11 @@ module Mvm
         @settings = settings
       end
 
-      def self.calculate_hashes(movies)
+      def calculate_hashes(movies)
         movies.map { |movie| calculate_hash_for(movie) }
       end
 
-      def self.calculate_hash_for(movie)
+      def calculate_hash_for(movie)
         movie = movie.dup
 
         movie.file_hash = OpensubtitlesClient::Hasher.hash(movie.filename)
@@ -27,7 +27,19 @@ module Mvm
         movie
       end
 
-      def self.movies_from_filenames(filenames)
+      def load(path)
+        if File.directory? path
+          scan_folder path
+        elsif File.file? path
+          movies_from_filenames [path]
+        else
+          fail 'Not a file/folder: ' + path
+        end
+      end
+
+      private
+
+      def movies_from_filenames(filenames)
         filenames.map do |filename|
           OpenStruct.new(
             filename: filename,
@@ -39,16 +51,14 @@ module Mvm
         end
       end
 
-      def scan_folder(folder)
-        files = Find.find(folder).to_a.select { |file| valid_movie? file }
-        self.class.movies_from_filenames files
-      end
-
-      private
-
       def valid_movie?(filename)
         return false unless File.file? filename
         @settings.valid_movie_extensions.split.include? File.extname(filename)
+      end
+
+      def scan_folder(folder)
+        files = Find.find(folder).to_a.select { |file| valid_movie? file }
+        movies_from_filenames files
       end
     end
   end

@@ -64,8 +64,8 @@ class MvmUtil
     opts.separator ''
     opts.separator 'Identify options:'
 
-    opts.on('-i', '--identify FOLDER',
-            'Identify all movies from FOLDER') do |folder|
+    opts.on('-i', '--identify FOLDER|FILE',
+            'Identify MOVIE or all movies from FOLDER') do |folder|
       identify(folder)
     end
 
@@ -84,7 +84,7 @@ class MvmUtil
 
   def identify(folder)
     print 'Scanning...'
-    library.scan_folder!(folder)
+    library.load!(folder)
     library.calculate_hashes!
     library.read_metadata!
     puts ' done.'

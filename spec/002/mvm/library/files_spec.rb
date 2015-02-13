@@ -6,7 +6,12 @@ require 'mvm/library/files'
 module Mvm
   class Library
     describe Files do
-      subject { Files }
+      subject { @files }
+
+      before :each do
+        @settings = Settings.new
+        @files = Files.new(@settings)
+      end
 
       let(:sample_video) do
         File.dirname(__FILE__) + '/../../../fixtures/drop.avi'
@@ -16,7 +21,7 @@ module Mvm
         OpenStruct.new(filename: sample_video)
       end
 
-      describe '.calculate_hash_for' do
+      describe '#calculate_hash_for' do
         it 'calculates correct hash' do
           expect(subject.calculate_hash_for(movie).file_hash)
             .to eq('450f3f0c98a1f11d')
@@ -29,7 +34,7 @@ module Mvm
         end
       end
 
-      describe '.calculate_hashes' do
+      describe '#calculate_hashes' do
         let(:movies) { [movie] }
         it 'calculates correct hash for list of one movie' do
           result = subject.calculate_hashes(movies)
@@ -44,9 +49,18 @@ module Mvm
         end
       end
 
-      describe '.scan_folder' do
+      describe '#load' do
         after :each do
           FakeFS::FileSystem.clear
+        end
+
+        it 'recognizes a single file' do
+          FakeFS do
+            FileUtils.touch('foo.mkv')
+            movies = subject.load('foo.mkv')
+            expect(movies.size).to eq(1)
+            expect(movies[0].filename).to eq('foo.mkv')
+          end
         end
 
         it 'recursively adds mkv movies from folders' do
@@ -57,19 +71,24 @@ module Mvm
             FileUtils.touch('baz/qux.mkv')
             FileUtils.touch('not_a_movie.txt')
 
-            movies = subject.new.scan_folder('.')
+            movies = subject.load('.')
             expect(movies.map(&:filename)).to match_array(
               ['./foo.mkv', './bar.mkv', './baz/qux.mkv']
             )
           end
         end
 
+        it 'fails for non-existant file' do
+          FakeFS do
+            expect { subject.load('foo.mkv') }.to raise_error
+          end
+        end
+
         it 'creates an "added" attribute which is time' do
           FakeFS do
             FileUtils.touch('foo.mkv')
-            movies = subject.new.scan_folder('.')
-            expect(movies[0].added).to be_instance_of(Time)
-            # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
+            expect(subject.load('foo.mkv')[0].added).to be_instance_of(Time)
+            # expect(subject.load('foo.mkv').added).to eq(File.mtime('foo.mkv'))
             # bug in FakeFS
           end
         end
@@ -77,20 +96,16 @@ module Mvm
         it 'creates an "extension" attribute which is the file extension' do
           FakeFS do
             FileUtils.touch('foo.mkv')
-            movies = subject.new.scan_folder('.')
-            expect(movies[0].extension).to eq('.mkv')
-            # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
-            # bug in FakeFS
+            expect(subject.load('foo.mkv')[0].extension).to eq('.mkv')
           end
         end
 
         it 'creates a "filesize" attribute which is the file size' do
           FakeFS do
             File.write('foo.mkv', 'Ruby Ruby Ruby Ruby Ruby')
-            movies = subject.new.scan_folder('.')
-            expect(movies[0].filesize).to eq('Ruby Ruby Ruby Ruby Ruby'.size)
-            # expect(movies[0].added).to eq(File.mtime('foo.mkv'))
-            # bug in FakeFS
+            expect(
+              subject.load('foo.mkv')[0].filesize
+            ).to eq('Ruby Ruby Ruby Ruby Ruby'.size)
           end
         end
 
@@ -101,9 +116,8 @@ module Mvm
             FileUtils.touch('file3.bar')
             FileUtils.touch('file4.mkv')
 
-            movies = subject.new(Settings.new(
-              valid_movie_extensions: '.foo .bar'
-            )).scan_folder('.')
+            @settings.valid_movie_extensions = '.foo .bar'
+            movies = subject.load('.')
 
             expect(movies.map(&:filename)).to match_array(
               ['./file1.foo', './file2.foo', './file3.bar']
