@@ -105,7 +105,7 @@ module Mvm
     private
 
     def opensubtitles
-      @opensubtitles ||= Opensubtitles.new settings
+      @opensubtitles ||= Opensubtitles.new settings: settings
     end
 
     def imdb

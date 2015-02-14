@@ -12,7 +12,8 @@ module Mvm
       opensubtitles_language: 'en',
       opensubtitles_timeout: 20,
       subtitle_languages: 'en,bg',
-      max_subtitles: 5
+      max_subtitles: 5,
+      subtitle_filename: '%{filename}.%{subtitle_index}.srt'
     )
 
     class Opensubtitles
@@ -57,6 +58,27 @@ module Mvm
         movie
       end
 
+      def download_subtitles_for(movie)
+        movie = movie.dup
+        movie.subtitles = movie.subtitles.dup
+
+        movie.subtitles.each_with_index do |subtitle, index|
+          subtitle.filename = format(@settings.subtitle_filename,
+                                     movie.to_h.merge(subtitle_index: index))
+          @client.download_gz(subtitle.url, subtitle.filename)
+        end
+      end
+
+      def download_subtitles(movies)
+        movies_with_sub_files = movies.each.with_index.map do |movie, current|
+          yield [current, movies.size] if block_given?
+          download_subtitles_for(movie)
+        end
+
+        yield [movies.size, movies.size] if block_given?
+        movies_with_sub_files
+      end
+
       private
 
       def subtitle_query(movie, languages)
@@ -74,6 +96,12 @@ module Mvm
       end
 
       def subtitle_attributes(data)
+        begin
+          encoding = Encoding.find(data['SubEncoding'])
+        rescue ArgumentError
+          encoding = nil
+        end
+
         OpenStruct.new(
           raw_info: data,
           language: ISO_639.find_by_code(data['SubLanguageID']),
@@ -81,7 +109,7 @@ module Mvm
           framerate: data['MovieFPS'].to_f,
           rating: data['SubRating'].to_f,
           downloads: data['SubDownloadsCnt'].to_i,
-          encoding: Encoding.find(data['SubEncoding']),
+          encoding: encoding,
           url: data['SubDownloadLink']
         )
       end

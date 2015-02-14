@@ -1,4 +1,6 @@
 require 'mvm/opensubtitles_client/api'
+require 'zlib'
+require 'open-uri'
 
 module Mvm
   class OpensubtitlesClient
@@ -18,6 +20,16 @@ module Mvm
 
     def search_subtitles(queries)
       @api.call('SearchSubtitles', queries)['data'] || []
+    end
+
+    def download_gz(url, target_filename, encoding: nil)
+      open(url, 'rb') do |reader|
+        gz_reader = Zlib::GzipReader.new(reader, encoding: encoding)
+        open(target_filename, 'w') do |writer|
+          writer.write(gz_reader.read)
+        end
+        gz_reader.close
+      end
     end
 
     private

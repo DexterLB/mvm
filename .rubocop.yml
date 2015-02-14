@@ -8,6 +8,7 @@ Metrics/MethodLength:
   Max: 20
 
 Metrics/ClassLength:
+  Max: 150
   Exclude:
     - '**/*_spec.rb'
 
