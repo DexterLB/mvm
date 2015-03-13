@@ -1,3 +1,0 @@
-[submodule "git-version-bump"]
-	path = git-version-bump
-	url = git@github.com:mpalmer/git-version-bump.git
