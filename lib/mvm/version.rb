@@ -1,7 +1,5 @@
-require 'git-version-bump'
-
 module Mvm
-  VERSION = GVB.version
+  VERSION = '0.1.0'
 end
 
 # vim: set shiftwidth=2:
