@@ -1,5 +1,7 @@
+require 'version'
+
 module Mvm
-  VERSION = '0.1.1'
+  is_versioned
 end
 
 # vim: set shiftwidth=2:

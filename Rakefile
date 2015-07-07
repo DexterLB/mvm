@@ -2,59 +2,41 @@ require 'rubygems'
 require 'rake'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+require 'rake/version_task'
+
+spec = Gem::Specification.new do |s|
+  s.name = 'mvm'
+  s.authors = ['Angel Angelov']
+  s.email = ['hextwoa at gmail.com']
+  s.homepage = 'http://github.com/DexterLB/mvm'
+  s.summary = 'Movie identifier, renamer and lister'
+  s.description = 'Provides an interface for identifying and renaming movies.'
+  s.files = `git ls-files`.split("\n")
+  s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables = `git ls-files -- bin/*`.split("\n")
+                  .map { |f| File.basename(f) }
+  s.require_paths = ['lib']
+  s.license = 'GPLv3'
+  s.add_runtime_dependency 'xdg', '~> 2'
+  s.add_runtime_dependency 'version', '~> 1'
+  s.add_runtime_dependency 'iso-639', '~> 0'
+  s.add_runtime_dependency 'streamio-ffmpeg', '~> 1'
+  s.add_runtime_dependency 'colorize', '~> 0'
+  s.add_runtime_dependency 'parallel', '~> 1'
+  s.add_runtime_dependency 'ruby-terminfo', '~> 0'
+  s.add_development_dependency 'rspec', '~> 3'
+  s.add_development_dependency 'rubocop', '~> 0'
+  s.add_development_dependency 'vcr', '~> 2'
+  s.add_development_dependency 'webmock', '~> 1'
+  s.add_development_dependency 'fakefs', '~> 0'
+end
 
 RSpec::Core::RakeTask.new(:spec)
 RuboCop::RakeTask.new(:rubocop)
 
-namespace :version do
-  VERSION_FILE = './lib/mvm/version.rb'
-  require VERSION_FILE
-
-  def update_version(new_version)
-    File.write(VERSION_FILE, File.read(VERSION_FILE).gsub(
-      /(^\s*VERSION\s*=\s*')(.*)('\s*)/,
-      '\1' + new_version + '\3'
-    ))
-    system("git add #{VERSION_FILE}")
-    system("git commit -m 'bump version to #{new_version}'")
-  end
-
-  def bump_version(version, id)
-    patches = version.split('.').map(&:to_i)
-    patches = patches.each.with_index.map do |patch, index|
-      if index == id
-        patch + 1
-      elsif index > id
-        0
-      else
-        patch
-      end
-    end
-    update_version(patches.join('.'))
-  end
-
-  task :show do
-    puts Mvm::VERSION
-  end
-
-  task :set do
-    new_version = ENV['version']
-    fail 'invalid version' unless /\d+\.\d+\.\d+/.match(new_version)
-
-    update_version(new_version)
-  end
-
-  task :bump do
-    bump_version(Mvm::VERSION, 2)
-  end
-
-  task :bump_minor do
-    bump_version(Mvm::VERSION, 1)
-  end
-
-  task :bump_major do
-    bump_version(Mvm::VERSION, 0)
-  end
+Rake::VersionTask.new do |task|
+  task.with_gemspec = spec
+  task.with_git_tag = true
 end
 
 task default: [:spec, :rubocop]
