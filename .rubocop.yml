@@ -15,4 +15,4 @@ Metrics/ClassLength:
 AllCops:
   Exclude:
     - '**/spec_helper.rb'
-    - 'git-version-bump/**/*'
+    - 'mvm.gemspec'
