@@ -1,7 +1,6 @@
 mvm
 ===
-mvm ще е инструмент за идентифициране и сортиране на филми и сериали.
-Ще използва данни от [IMDB](http://imdb.com) и ще съхранява информацията
-в прости текстови файлове.
+mvm is a tool for identifying movies, fetching information from IMDb etc,
+downloading subtitles, etc.
 
-Засега тук няма нищо, виж roadmap.md за повече информация.
+Currently in development.
