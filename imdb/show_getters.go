@@ -5,8 +5,23 @@ import (
 	"strings"
 	"time"
 
+	"github.com/moovweb/gokogiri/xml"
 	"github.com/moovweb/gokogiri/xpath"
 )
+
+// IsEpisode tells whether the show is part of a series
+func (s *Show) IsEpisode() (bool, error) {
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return false, err
+	}
+
+	_, err = episodeTitle(mainPage)
+	if err != nil {
+		return false, nil
+	}
+	return true, nil
+}
 
 // Title returns the show's title
 func (s *Show) Title() (string, error) {
@@ -15,7 +30,12 @@ func (s *Show) Title() (string, error) {
 		return "", err
 	}
 
-	h1, err := mainPage.Search(xpath.Compile("h1"))
+	episodeTitle, err := episodeTitle(mainPage)
+	if err == nil {
+		return episodeTitle, nil
+	}
+
+	h1, err := mainPage.Search(xpath.Compile(`//h1`))
 	if err != nil {
 		return "", err
 	}
@@ -29,7 +49,7 @@ func (s *Show) Title() (string, error) {
 		return "", fmt.Errorf("empty title")
 	}
 
-	return title, nil
+	return strings.Trim(title, " \n\r\t\""), nil
 }
 
 // Year returns the show's airing year
@@ -69,10 +89,6 @@ func (s *Show) Votes() (int, error) {
 	return 0, fmt.Errorf("dummy method")
 }
 
-func (s *Show) IsEpisode() (bool, error) {
-	return false, fmt.Errorf("dummy method")
-}
-
 func (s *Show) SeasonEpisode() (int, int, error) {
 	return 0, 0, fmt.Errorf("dummy method")
 }
@@ -87,4 +103,17 @@ func (s *Show) SeriesTitle() (string, error) {
 
 func (s *Show) SeriesYear() (int, error) {
 	return 0, fmt.Errorf("dummy method")
+}
+
+func episodeTitle(mainPage *xml.ElementNode) (string, error) {
+	titleElements, err := mainPage.Search(xpath.Compile(`//h1//span//em`))
+	if err != nil {
+		return "", err
+	}
+
+	if len(titleElements) == 0 {
+		return "", fmt.Errorf("unable to find title element (show not an episode?)")
+	}
+
+	return titleElements[0].InnerHtml(), nil
 }
