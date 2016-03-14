@@ -4,12 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strings"
 
 	"github.com/moovweb/gokogiri"
 	htmlParser "github.com/moovweb/gokogiri/html"
 	"github.com/moovweb/gokogiri/xml"
-	"github.com/moovweb/gokogiri/xpath"
 )
 
 // Show represents a single show (either a movie or an episode)
@@ -32,30 +30,6 @@ func (s *Show) Free() {
 		s.mainPageDocument.Free()
 		s.mainPageDocument = nil
 	}
-}
-
-// Title returns the show's title
-func (s *Show) Title() (string, error) {
-	mainPage, err := s.mainPage()
-	if err != nil {
-		return "", err
-	}
-
-	h1, err := mainPage.Search(xpath.Compile("h1"))
-	if err != nil {
-		return "", err
-	}
-
-	if len(h1) == 0 {
-		return "", fmt.Errorf("unable to find title element")
-	}
-
-	title := strings.Split(h1[0].InnerHtml(), "<span")[0]
-	if title == "" {
-		return "", fmt.Errorf("empty title")
-	}
-
-	return title, nil
 }
 
 func (s *Show) mainPage() (*xml.ElementNode, error) {
