@@ -53,6 +53,22 @@ func ExampleShow_Year() {
 	// year: 2004
 }
 
+func ExampleShow_Year_episode() {
+	episode := New(1577257) // Doctor Who s05e02
+	defer episode.Free()
+
+	year, err := episode.Year()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("year: %d\n", year)
+
+	// Output:
+	// year: 2010
+}
+
 func ExampleShow_OtherTitles() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()

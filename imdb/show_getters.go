@@ -2,6 +2,7 @@ package imdb
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -54,7 +55,50 @@ func (s *Show) Title() (string, error) {
 
 // Year returns the show's airing year
 func (s *Show) Year() (int, error) {
-	return 0, fmt.Errorf("dummy method")
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return 0, err
+	}
+
+	isEpisode, err := s.IsEpisode()
+	if err != nil {
+		return 0, err
+	}
+
+	var yearText string
+
+	if isEpisode {
+		yearSpans, err := mainPage.Search(xpath.Compile(`//h1//span`))
+		if err != nil {
+			return 0, err
+		}
+
+		if len(yearSpans) == 0 {
+			return 0, fmt.Errorf("can't find year element")
+		}
+
+		yearText = strings.Trim(yearSpans[0].LastChild().Content(), " ()")
+	} else {
+		yearLinks, err := mainPage.Search(
+			xpath.Compile(`//a[contains(@href,'/year/')]`),
+		)
+		if err != nil {
+			return 0, err
+		}
+
+		if len(yearLinks) == 0 {
+			return 0, fmt.Errorf("can't find year element")
+		}
+
+		yearText = yearLinks[0].Content()
+	}
+
+	year, err := strconv.Atoi(yearText)
+	if err != nil {
+		return 0, fmt.Errorf("year is not a number: %s", err)
+	}
+
+	return year, nil
 }
 
 func (s *Show) OtherTitles() ([]string, error) {
