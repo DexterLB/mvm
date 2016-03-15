@@ -101,6 +101,22 @@ func ExampleShow_ReleaseDate() {
 	// release date: 2006-03-03
 }
 
+func ExampleShow_ReleaseDate_episode() {
+	episode := New(1577257) // Doctor Who s05e02
+	defer episode.Free()
+
+	releaseDate, err := episode.ReleaseDate()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("release date: %s\n", releaseDate)
+
+	// Output:
+	// release date: 2010-04-10
+}
+
 func ExampleShow_Tagline() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
