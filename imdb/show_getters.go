@@ -1,7 +1,9 @@
 package imdb
 
 import (
+	"bufio"
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -9,6 +11,11 @@ import (
 	"github.com/moovweb/gokogiri/xml"
 	_ "github.com/orchestrate-io/dvr"
 )
+
+// ID returns the show's IMDB ID
+func (s *Show) ID() int {
+	return s.id
+}
 
 // Type tells whether the show a movie, series or episode
 func (s *Show) Type() (ShowType, error) {
@@ -153,7 +160,37 @@ func (s *Show) Votes() (int, error) {
 }
 
 func (s *Show) SeasonEpisode() (int, int, error) {
-	return 0, 0, fmt.Errorf("dummy method")
+	if s.season != nil && s.episode != nil {
+		return *s.season, *s.episode, nil
+	}
+
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return 0, 0, err
+	}
+
+	info, err := episodeInfo(mainPage)
+	if err != nil {
+		return 0, 0, err
+	}
+
+	matcher := regexp.MustCompile(`Season (\d+).*Episode (\d+)`)
+	groups := matcher.FindStringSubmatch(info[len(info)-1])
+
+	season, err := strconv.Atoi(groups[1])
+	if err != nil {
+		return 0, 0, fmt.Errorf("invalid season number: %s", groups[1])
+	}
+
+	episode, err := strconv.Atoi(groups[2])
+	if err != nil {
+		return 0, 0, fmt.Errorf("invalid episode number: %s", groups[2])
+	}
+
+	s.season = &season
+	s.episode = &episode
+
+	return season, episode, nil
 }
 
 func (s *Show) SeriesID() (int, error) {
@@ -168,6 +205,7 @@ func (s *Show) SeriesYear() (int, error) {
 	return 0, fmt.Errorf("dummy method")
 }
 
+// episodeTitle returns the title of an episode
 func episodeTitle(mainPage *xml.ElementNode) (string, error) {
 	titleElements, err := mainPage.Search(`//h1//span//em`)
 	if err != nil {
@@ -185,4 +223,29 @@ func episodeTitle(mainPage *xml.ElementNode) (string, error) {
 	}
 
 	return title, nil
+}
+
+// episodeInfo returns a text block containing the episode's air date and number
+func episodeInfo(mainPage *xml.ElementNode) ([]string, error) {
+	infoElements, err := mainPage.Search(
+		`//div[@class='info-content' and preceding-sibling::h5[contains(text(),'Original Air Date')]]`,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(infoElements) == 0 {
+		return nil, fmt.Errorf("unable to find info element (show not an episode?)")
+	}
+
+	var lines []string
+	scanner := bufio.NewScanner(strings.NewReader(infoElements[0].Content()))
+	for scanner.Scan() {
+		line := strings.Trim(scanner.Text(), " \t")
+		if line != "" {
+			lines = append(lines, line)
+		}
+	}
+
+	return lines, nil
 }

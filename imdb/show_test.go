@@ -5,6 +5,14 @@ import (
 	"strings"
 )
 
+func ExampleShow_ID() {
+	movie := New(403358)
+	fmt.Printf("id: %d\n", movie.ID())
+
+	// Output:
+	// id: 403358
+}
+
 func ExampleShow_Title() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
