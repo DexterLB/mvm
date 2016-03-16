@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/moovweb/gokogiri/xml"
+	_ "github.com/orchestrate-io/dvr"
 )
 
 //go:generate stringer -type=ShowType
