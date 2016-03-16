@@ -37,6 +37,22 @@ func ExampleShow_Title_episode() {
 	// title: The Beast Below
 }
 
+func ExampleShow_Title_series() {
+	series := New(436992) // Doctor Who
+	defer series.Free()
+
+	title, err := series.Title()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("title: %s\n", title)
+
+	// Output:
+	// title: Doctor Who
+}
+
 func ExampleShow_Year() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
@@ -67,6 +83,22 @@ func ExampleShow_Year_episode() {
 
 	// Output:
 	// year: 2010
+}
+
+func ExampleShow_Year_series() {
+	series := New(436992) // Doctor Who
+	defer series.Free()
+
+	year, err := series.Year()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("year: %d\n", year)
+
+	// Output:
+	// year: 2005
 }
 
 func ExampleShow_OtherTitles() {
@@ -213,30 +245,40 @@ func ExampleShow_Votes() {
 	// votes: 46450
 }
 
-func ExampleShow_IsEpisode() {
+func ExampleShow_Type() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
+	series := New(436992)
+	defer series.Free()
 
-	isMovieEpisode, err := movie.IsEpisode()
+	movieType, err := movie.Type()
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return
 	}
 
-	isEpisodeEpisode, err := episode.IsEpisode()
+	episodeType, err := episode.Type()
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return
 	}
 
-	fmt.Printf("Is Nochnoy Dozor an episode? %v\n", isMovieEpisode)
-	fmt.Printf("Is Doctor Who s05e02 an episode? %v\n", isEpisodeEpisode)
+	seriesType, err := series.Type()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("Nochnoy Dozor's type is %s\n", movieType)
+	fmt.Printf("Doctor Who s05e02's type is %s\n", episodeType)
+	fmt.Printf("Doctor Who's type is %s\n", seriesType)
 
 	// Output:
-	// Is Nochnoy Dozor an episode? false
-	// Is Doctor Who s05e02 an episode? true
+	// Nochnoy Dozor's type is Movie
+	// Doctor Who s05e02's type is Episode
+	// Doctor Who's type is Series
 }
 
 func ExampleShow_SeasonEpisode() {

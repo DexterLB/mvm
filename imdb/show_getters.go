@@ -9,18 +9,36 @@ import (
 	"github.com/moovweb/gokogiri/xml"
 )
 
-// IsEpisode tells whether the show is part of a series
-func (s *Show) IsEpisode() (bool, error) {
+//go:generate stringer -type=ShowType
+type ShowType int
+
+const (
+	// Movie is the type of a show which is a movie
+	Movie ShowType = iota
+	// Movie is the type of a show which is a series
+	Series
+	// Episode is the type of a show which is an episode
+	Episode
+)
+
+// Type tells whether the show a movie, series or episode
+func (s *Show) Type() (ShowType, error) {
 	mainPage, err := s.mainPage()
 	if err != nil {
-		return false, err
+		return -1, err
 	}
 
 	_, err = episodeTitle(mainPage)
-	if err != nil {
-		return false, nil
+	if err == nil {
+		return Episode, nil
 	}
-	return true, nil
+
+	eplist, err := mainPage.Search(`//h5[text()='Seasons:']`)
+	if err == nil && len(eplist) > 0 {
+		return Series, nil
+	}
+
+	return Movie, nil
 }
 
 // Title returns the show's title
@@ -59,14 +77,14 @@ func (s *Show) Year() (int, error) {
 		return 0, err
 	}
 
-	isEpisode, err := s.IsEpisode()
+	showType, err := s.Type()
 	if err != nil {
 		return 0, err
 	}
 
 	var yearText string
 
-	if isEpisode {
+	if showType == Episode {
 		yearSpans, err := mainPage.Search(`//h1//span`)
 		if err != nil {
 			return 0, err
@@ -98,6 +116,7 @@ func (s *Show) Year() (int, error) {
 	return year, nil
 }
 
+// OtherTitles returns the show's alternative titles
 func (s *Show) OtherTitles() ([]string, error) {
 	return nil, fmt.Errorf("dummy method")
 }
@@ -156,5 +175,11 @@ func episodeTitle(mainPage *xml.ElementNode) (string, error) {
 		return "", fmt.Errorf("unable to find title element (show not an episode?)")
 	}
 
-	return titleElements[0].InnerHtml(), nil
+	title := titleElements[0].InnerHtml()
+
+	if title == "" {
+		return "", fmt.Errorf("empty title")
+	}
+
+	return title, nil
 }
