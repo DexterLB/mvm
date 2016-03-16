@@ -4,9 +4,9 @@ package imdb
 
 import "fmt"
 
-const _ShowType_name = "MovieSeriesEpisode"
+const _ShowType_name = "UnknownMovieSeriesEpisode"
 
-var _ShowType_index = [...]uint8{0, 5, 11, 18}
+var _ShowType_index = [...]uint8{0, 7, 12, 18, 25}
 
 func (i ShowType) String() string {
 	if i < 0 || i >= ShowType(len(_ShowType_index)-1) {

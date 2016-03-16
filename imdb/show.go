@@ -13,13 +13,38 @@ import (
 // Show represents a single show (either a movie or an episode)
 type Show struct {
 	id               int
+	title            *string
+	showType         ShowType
 	mainPageDocument *htmlParser.HtmlDocument
 }
+
+//go:generate stringer -type=ShowType
+type ShowType int
+
+const (
+	// Unknown is a null show type
+	Unknown ShowType = iota
+	// Movie is the type of a show which is a movie
+	Movie
+	// Movie is the type of a show which is a series
+	Series
+	// Episode is the type of a show which is an episode
+	Episode
+)
 
 // New creates a show from an IMDB ID
 func New(id int) *Show {
 	return &Show{
 		id: id,
+	}
+}
+
+// newCached creates a show with a preset IMDB ID, title and type
+func newCached(id int, title string, showType ShowType) *Show {
+	return &Show{
+		id:       id,
+		title:    &title,
+		showType: showType,
 	}
 }
 

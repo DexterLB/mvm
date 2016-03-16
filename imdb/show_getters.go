@@ -10,20 +10,12 @@ import (
 	_ "github.com/orchestrate-io/dvr"
 )
 
-//go:generate stringer -type=ShowType
-type ShowType int
-
-const (
-	// Movie is the type of a show which is a movie
-	Movie ShowType = iota
-	// Movie is the type of a show which is a series
-	Series
-	// Episode is the type of a show which is an episode
-	Episode
-)
-
 // Type tells whether the show a movie, series or episode
 func (s *Show) Type() (ShowType, error) {
+	if s.showType != Unknown {
+		return s.showType, nil
+	}
+
 	mainPage, err := s.mainPage()
 	if err != nil {
 		return -1, err
@@ -31,19 +23,26 @@ func (s *Show) Type() (ShowType, error) {
 
 	_, err = episodeTitle(mainPage)
 	if err == nil {
+		s.showType = Episode
 		return Episode, nil
 	}
 
 	eplist, err := mainPage.Search(`//h5[text()='Seasons:']`)
 	if err == nil && len(eplist) > 0 {
+		s.showType = Series
 		return Series, nil
 	}
 
+	s.showType = Movie
 	return Movie, nil
 }
 
 // Title returns the show's title
 func (s *Show) Title() (string, error) {
+	if s.title != nil {
+		return *s.title, nil
+	}
+
 	mainPage, err := s.mainPage()
 	if err != nil {
 		return "", err
@@ -51,6 +50,7 @@ func (s *Show) Title() (string, error) {
 
 	episodeTitle, err := episodeTitle(mainPage)
 	if err == nil {
+		s.title = &episodeTitle
 		return episodeTitle, nil
 	}
 
@@ -68,7 +68,9 @@ func (s *Show) Title() (string, error) {
 		return "", fmt.Errorf("empty title")
 	}
 
-	return strings.Trim(title, " \n\r\t\""), nil
+	title = strings.Trim(title, " \n\r\t\"")
+	s.title = &title
+	return title, nil
 }
 
 // Year returns the show's airing year
