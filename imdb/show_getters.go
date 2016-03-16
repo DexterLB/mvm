@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/moovweb/gokogiri/xml"
-	"github.com/moovweb/gokogiri/xpath"
 )
 
 // IsEpisode tells whether the show is part of a series
@@ -36,7 +35,7 @@ func (s *Show) Title() (string, error) {
 		return episodeTitle, nil
 	}
 
-	h1, err := mainPage.Search(xpath.Compile(`//h1`))
+	h1, err := mainPage.Search(`//h1`)
 	if err != nil {
 		return "", err
 	}
@@ -68,7 +67,7 @@ func (s *Show) Year() (int, error) {
 	var yearText string
 
 	if isEpisode {
-		yearSpans, err := mainPage.Search(xpath.Compile(`//h1//span`))
+		yearSpans, err := mainPage.Search(`//h1//span`)
 		if err != nil {
 			return 0, err
 		}
@@ -79,9 +78,7 @@ func (s *Show) Year() (int, error) {
 
 		yearText = strings.Trim(yearSpans[0].LastChild().Content(), " ()")
 	} else {
-		yearLinks, err := mainPage.Search(
-			xpath.Compile(`//a[contains(@href,'/year/')]`),
-		)
+		yearLinks, err := mainPage.Search(`//a[contains(@href,'/year/')]`)
 		if err != nil {
 			return 0, err
 		}
@@ -150,7 +147,7 @@ func (s *Show) SeriesYear() (int, error) {
 }
 
 func episodeTitle(mainPage *xml.ElementNode) (string, error) {
-	titleElements, err := mainPage.Search(xpath.Compile(`//h1//span//em`))
+	titleElements, err := mainPage.Search(`//h1//span//em`)
 	if err != nil {
 		return "", err
 	}
