@@ -305,50 +305,34 @@ func ExampleShow_SeasonEpisode() {
 	// s05e02
 }
 
-func ExampleShow_SeriesID() {
+func ExampleShow_Series() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
-	id, err := episode.SeriesID()
+	series, err := episode.Series()
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return
 	}
 
-	fmt.Printf("id: %07d\n", id)
+	fmt.Printf("id: %07d\n", series.ID())
 
-	// Output:
-	// id: 0436992
-}
-
-func ExampleShow_SeriesTitle() {
-	episode := New(1577257) // Doctor Who s05e02
-	defer episode.Free()
-
-	title, err := episode.SeriesTitle()
+	showType, err := series.Type()
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return
 	}
+	fmt.Printf("type: %s\n", showType)
 
+	title, err := series.Title()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
 	fmt.Printf("title: %s\n", title)
 
 	// Output:
+	// id: 0436992
+	// type: Series
 	// title: Doctor Who
-}
-
-func ExampleShow_SeriesYear() {
-	episode := New(1577257) // Doctor Who s05e02
-	defer episode.Free()
-
-	year, err := episode.SeriesYear()
-	if err != nil {
-		fmt.Printf("error: %s\n", err)
-		return
-	}
-
-	fmt.Printf("year: %s\n", year)
-
-	// Output:
-	// year: 2005
 }

@@ -159,6 +159,7 @@ func (s *Show) Votes() (int, error) {
 	return 0, fmt.Errorf("dummy method")
 }
 
+// SeasonEpisode returns an episode's season and episode numbers
 func (s *Show) SeasonEpisode() (int, int, error) {
 	if s.season != nil && s.episode != nil {
 		return *s.season, *s.episode, nil
@@ -193,16 +194,35 @@ func (s *Show) SeasonEpisode() (int, int, error) {
 	return season, episode, nil
 }
 
-func (s *Show) SeriesID() (int, error) {
-	return 0, fmt.Errorf("dummy method")
-}
+// Series returns the series this episode belongs to
+func (s *Show) Series() (*Show, error) {
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return nil, err
+	}
 
-func (s *Show) SeriesTitle() (string, error) {
-	return "", fmt.Errorf("dummy method")
-}
+	seriesLinkElements, err := mainPage.Search(
+		`//div[preceding-sibling::h5[contains(text(),'TV Series:')]]/a`,
+	)
+	if err != nil {
+		return nil, err
+	}
 
-func (s *Show) SeriesYear() (int, error) {
-	return 0, fmt.Errorf("dummy method")
+	if len(seriesLinkElements) == 0 {
+		return nil, fmt.Errorf("unable to find series element (show not an episode?)")
+	}
+
+	href := seriesLinkElements[0].Attribute("href")
+	if href == nil {
+		return nil, fmt.Errorf("malformed series link")
+	}
+
+	id, err := idFromLink(href.String())
+	if err != nil {
+		return nil, err
+	}
+
+	return New(id), nil
 }
 
 // episodeTitle returns the title of an episode
@@ -248,4 +268,21 @@ func episodeInfo(mainPage *xml.ElementNode) ([]string, error) {
 	}
 
 	return lines, nil
+}
+
+// idFromLink extracts an IMDB ID from a link
+func idFromLink(link string) (int, error) {
+	matcher := regexp.MustCompile(`\/tt([0-9]+)`)
+	groups := matcher.FindStringSubmatch(link)
+
+	if len(groups) <= 1 || groups[1] == "" {
+		return 0, fmt.Errorf("invalid link: %s", link)
+	}
+
+	id, err := strconv.Atoi(groups[1])
+	if err != nil {
+		return 0, fmt.Errorf("invalid imdb id: %s", err)
+	}
+
+	return id, nil
 }
