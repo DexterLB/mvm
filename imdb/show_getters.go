@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kennygrant/sanitize"
 	"github.com/moovweb/gokogiri/xml"
 )
 
@@ -157,6 +158,8 @@ func (s *Show) OtherTitles() (map[string]string, error) {
 	return titles, nil
 }
 
+// ReleaseDate returns the show's release date.
+// Only applicable for Movie and Episode.
 func (s *Show) ReleaseDate() (*time.Time, error) {
 	showType, err := s.Type()
 	if err != nil {
@@ -201,8 +204,25 @@ func (s *Show) ReleaseDate() (*time.Time, error) {
 	return parseDate(dateText)
 }
 
+// Tagline returns the slogan. Probably only applicable for Movie.
 func (s *Show) Tagline() (string, error) {
-	return "", fmt.Errorf("dummy method")
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return "", err
+	}
+
+	taglineElements, err := mainPage.Search(
+		`//div[preceding-sibling::h5[text()='Tagline:']]`,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	if len(taglineElements) == 0 {
+		return "", fmt.Errorf("unable to find tagline element (not a movie?)")
+	}
+
+	return strings.Trim(sanitize.HTML(taglineElements[0].Content()), " \n\t"), nil
 }
 
 func (s *Show) Duration() (*time.Duration, error) {
