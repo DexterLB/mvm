@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"regexp"
+	"strconv"
+	"time"
 
 	"github.com/moovweb/gokogiri"
 	htmlParser "github.com/moovweb/gokogiri/html"
@@ -110,4 +113,50 @@ func (s *Show) openPage(name string) ([]byte, error) {
 	}
 
 	return data, nil
+}
+
+// idFromLink extracts an IMDB ID from a link
+func idFromLink(link string) (int, error) {
+	matcher := regexp.MustCompile(`\/tt([0-9]+)`)
+	groups := matcher.FindStringSubmatch(link)
+
+	if len(groups) <= 1 || groups[1] == "" {
+		return 0, fmt.Errorf("invalid link: %s", link)
+	}
+
+	id, err := strconv.Atoi(groups[1])
+	if err != nil {
+		return 0, fmt.Errorf("invalid imdb id: %s", err)
+	}
+
+	return id, nil
+}
+
+// parseDate parses a date from IMDB's default format
+func parseDate(text string) (*time.Time, error) {
+	time, err := time.Parse("2 January 2006", text)
+	if err != nil {
+		return nil, fmt.Errorf("can't parse date string '%s': %s", text, err)
+	}
+	return &time, nil
+}
+
+// firstMatching obtains a root node by calling pageGetter,
+// and then finds its first child node which matches the xpath
+func firstMatching(pageGetter func() (*xml.ElementNode, error), xpath string) (xml.Node, error) {
+	page, err := pageGetter()
+	if err != nil {
+		return nil, err
+	}
+
+	elements, err := page.Search(xpath)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(elements) == 0 {
+		return nil, fmt.Errorf("unable to find element")
+	}
+
+	return elements[0], nil
 }

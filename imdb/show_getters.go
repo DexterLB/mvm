@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/kennygrant/sanitize"
-	"github.com/moovweb/gokogiri/xml"
 )
 
 // ID returns the show's IMDB ID
@@ -28,7 +27,7 @@ func (s *Show) Type() (ShowType, error) {
 		return -1, err
 	}
 
-	_, err = episodeTitle(mainPage)
+	_, err = s.episodeTitle()
 	if err == nil {
 		s.showType = Episode
 		return Episode, nil
@@ -50,27 +49,18 @@ func (s *Show) Title() (string, error) {
 		return *s.title, nil
 	}
 
-	mainPage, err := s.mainPage()
-	if err != nil {
-		return "", err
-	}
-
-	episodeTitle, err := episodeTitle(mainPage)
+	episodeTitle, err := s.episodeTitle()
 	if err == nil {
 		s.title = &episodeTitle
 		return episodeTitle, nil
 	}
 
-	h1, err := mainPage.Search(`//h1`)
+	h1, err := firstMatching(s.mainPage, `//h1`)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to find title element: %s", err)
 	}
 
-	if len(h1) == 0 {
-		return "", fmt.Errorf("unable to find title element")
-	}
-
-	title := strings.Split(h1[0].InnerHtml(), "<span")[0]
+	title := strings.Split(h1.InnerHtml(), "<span")[0]
 	if title == "" {
 		return "", fmt.Errorf("empty title")
 	}
@@ -166,34 +156,26 @@ func (s *Show) ReleaseDate() (*time.Time, error) {
 		return nil, err
 	}
 
-	mainPage, err := s.mainPage()
-	if err != nil {
-		return nil, err
-	}
-
 	var dateText string
 
 	if showType == Episode {
-		info, err := episodeInfo(mainPage)
+		info, err := s.episodeInfo()
 		if err != nil {
 			return nil, err
 		}
 
 		dateText = info[0]
 	} else {
-		releaseDateElements, err := mainPage.Search(
+		releaseDateElement, err := firstMatching(
+			s.mainPage,
 			`//div[preceding-sibling::h5[contains(text(),'Release Date')]]`,
 		)
 		if err != nil {
-			return nil, err
-		}
-
-		if len(releaseDateElements) == 0 {
-			return nil, fmt.Errorf("unable to find release date element")
+			return nil, fmt.Errorf("unable to find release date element: %s", err)
 		}
 
 		matcher := regexp.MustCompile(`([0-9]{1,2} [A-Z][a-z]* [0-9]{4})`)
-		groups := matcher.FindStringSubmatch(releaseDateElements[0].Content())
+		groups := matcher.FindStringSubmatch(releaseDateElement.Content())
 		if len(groups) < 2 {
 			return nil, fmt.Errorf("unable to find release date")
 		}
@@ -206,23 +188,15 @@ func (s *Show) ReleaseDate() (*time.Time, error) {
 
 // Tagline returns the slogan. Probably only applicable for Movie.
 func (s *Show) Tagline() (string, error) {
-	mainPage, err := s.mainPage()
-	if err != nil {
-		return "", err
-	}
-
-	taglineElements, err := mainPage.Search(
+	taglineElement, err := firstMatching(
+		s.mainPage,
 		`//div[preceding-sibling::h5[text()='Tagline:']]`,
 	)
 	if err != nil {
 		return "", err
 	}
 
-	if len(taglineElements) == 0 {
-		return "", fmt.Errorf("unable to find tagline element (not a movie?)")
-	}
-
-	return strings.Trim(sanitize.HTML(taglineElements[0].Content()), " \n\t"), nil
+	return strings.Trim(sanitize.HTML(taglineElement.Content()), " \n\t"), nil
 }
 
 func (s *Show) Duration() (*time.Duration, error) {
@@ -251,12 +225,7 @@ func (s *Show) SeasonEpisode() (int, int, error) {
 		return *s.season, *s.episode, nil
 	}
 
-	mainPage, err := s.mainPage()
-	if err != nil {
-		return 0, 0, err
-	}
-
-	info, err := episodeInfo(mainPage)
+	info, err := s.episodeInfo()
 	if err != nil {
 		return 0, 0, err
 	}
@@ -282,23 +251,15 @@ func (s *Show) SeasonEpisode() (int, int, error) {
 
 // Series returns the series this episode belongs to
 func (s *Show) Series() (*Show, error) {
-	mainPage, err := s.mainPage()
-	if err != nil {
-		return nil, err
-	}
-
-	seriesLinkElements, err := mainPage.Search(
+	seriesLinkElement, err := firstMatching(
+		s.mainPage,
 		`//div[preceding-sibling::h5[contains(text(),'TV Series:')]]/a`,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	if len(seriesLinkElements) == 0 {
-		return nil, fmt.Errorf("unable to find series element (show not an episode?)")
-	}
-
-	href := seriesLinkElements[0].Attribute("href")
+	href := seriesLinkElement.Attribute("href")
 	if href == nil {
 		return nil, fmt.Errorf("malformed series link")
 	}
@@ -312,17 +273,13 @@ func (s *Show) Series() (*Show, error) {
 }
 
 // episodeTitle returns the title of an episode
-func episodeTitle(mainPage *xml.ElementNode) (string, error) {
-	titleElements, err := mainPage.Search(`//h1//span//em`)
+func (s *Show) episodeTitle() (string, error) {
+	titleElement, err := firstMatching(s.mainPage, `//h1//span//em`)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("show not an episode?: %s", err)
 	}
 
-	if len(titleElements) == 0 {
-		return "", fmt.Errorf("unable to find title element (show not an episode?)")
-	}
-
-	title := titleElements[0].InnerHtml()
+	title := titleElement.InnerHtml()
 
 	if title == "" {
 		return "", fmt.Errorf("empty title")
@@ -332,20 +289,18 @@ func episodeTitle(mainPage *xml.ElementNode) (string, error) {
 }
 
 // episodeInfo returns a text block containing the episode's air date and number
-func episodeInfo(mainPage *xml.ElementNode) ([]string, error) {
-	infoElements, err := mainPage.Search(
+func (s *Show) episodeInfo() ([]string, error) {
+	infoElement, err := firstMatching(
+		s.mainPage,
 		`//div[@class='info-content' and preceding-sibling::h5[contains(text(),'Original Air Date')]]`,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	if len(infoElements) == 0 {
-		return nil, fmt.Errorf("unable to find info element (show not an episode?)")
+	if err != nil {
+		return nil, fmt.Errorf("show not an episode?: %s", err)
 	}
 
 	var lines []string
-	scanner := bufio.NewScanner(strings.NewReader(infoElements[0].Content()))
+	scanner := bufio.NewScanner(strings.NewReader(infoElement.Content()))
 	for scanner.Scan() {
 		line := strings.Trim(scanner.Text(), " \t")
 		if line != "" {
@@ -354,29 +309,4 @@ func episodeInfo(mainPage *xml.ElementNode) ([]string, error) {
 	}
 
 	return lines, nil
-}
-
-// idFromLink extracts an IMDB ID from a link
-func idFromLink(link string) (int, error) {
-	matcher := regexp.MustCompile(`\/tt([0-9]+)`)
-	groups := matcher.FindStringSubmatch(link)
-
-	if len(groups) <= 1 || groups[1] == "" {
-		return 0, fmt.Errorf("invalid link: %s", link)
-	}
-
-	id, err := strconv.Atoi(groups[1])
-	if err != nil {
-		return 0, fmt.Errorf("invalid imdb id: %s", err)
-	}
-
-	return id, nil
-}
-
-func parseDate(text string) (*time.Time, error) {
-	time, err := time.Parse("2 January 2006", text)
-	if err != nil {
-		return nil, fmt.Errorf("can't parse date string '%s': %s", text, err)
-	}
-	return &time, nil
 }
