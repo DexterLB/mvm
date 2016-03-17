@@ -20,9 +20,10 @@ type Show struct {
 	mainPageDocument *htmlParser.HtmlDocument
 }
 
-//go:generate stringer -type=ShowType
 // ShowType is one of Unknown, Movie, Series and Episode
 type ShowType int
+
+//go:generate stringer -type=ShowType
 
 const (
 	// Unknown is a null show type

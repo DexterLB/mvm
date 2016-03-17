@@ -3,6 +3,8 @@ package imdb
 import (
 	"fmt"
 	"strings"
+
+	_ "github.com/orchestrate-io/dvr"
 )
 
 func ExampleShow_ID() {
@@ -135,10 +137,10 @@ func ExampleShow_ReleaseDate() {
 		return
 	}
 
-	fmt.Printf("release date: %s\n", releaseDate)
+	fmt.Printf("release date: %s\n", releaseDate.Format("2006-01-02"))
 
 	// Output:
-	// release date: 2006-03-03
+	// release date: 2005-10-07
 }
 
 func ExampleShow_ReleaseDate_episode() {
@@ -151,7 +153,7 @@ func ExampleShow_ReleaseDate_episode() {
 		return
 	}
 
-	fmt.Printf("release date: %s\n", releaseDate)
+	fmt.Printf("release date: %s\n", releaseDate.Format("2006-01-02"))
 
 	// Output:
 	// release date: 2010-04-10

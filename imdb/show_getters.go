@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/moovweb/gokogiri/xml"
-	_ "github.com/orchestrate-io/dvr"
 )
 
 // ID returns the show's IMDB ID
@@ -132,7 +131,47 @@ func (s *Show) OtherTitles() ([]string, error) {
 }
 
 func (s *Show) ReleaseDate() (*time.Time, error) {
-	return nil, fmt.Errorf("dummy method")
+	showType, err := s.Type()
+	if err != nil {
+		return nil, err
+	}
+
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return nil, err
+	}
+
+	var dateText string
+
+	if showType == Episode {
+		info, err := episodeInfo(mainPage)
+		if err != nil {
+			return nil, err
+		}
+
+		dateText = info[0]
+	} else {
+		releaseDateElements, err := mainPage.Search(
+			`//div[preceding-sibling::h5[contains(text(),'Release Date')]]`,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(releaseDateElements) == 0 {
+			return nil, fmt.Errorf("unable to find release date element")
+		}
+
+		matcher := regexp.MustCompile(`([0-9]{1,2} [A-Z][a-z]* [0-9]{4})`)
+		groups := matcher.FindStringSubmatch(releaseDateElements[0].Content())
+		if len(groups) < 2 {
+			return nil, fmt.Errorf("unable to find release date")
+		}
+
+		dateText = groups[1]
+	}
+
+	return parseDate(dateText)
 }
 
 func (s *Show) Tagline() (string, error) {
@@ -285,4 +324,12 @@ func idFromLink(link string) (int, error) {
 	}
 
 	return id, nil
+}
+
+func parseDate(text string) (*time.Time, error) {
+	time, err := time.Parse("2 January 2006", text)
+	if err != nil {
+		return nil, fmt.Errorf("can't parse date string '%s': %s", text, err)
+	}
+	return &time, nil
 }
