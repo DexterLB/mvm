@@ -2,7 +2,6 @@ package imdb
 
 import (
 	"fmt"
-	"strings"
 
 	_ "github.com/orchestrate-io/dvr"
 )
@@ -121,10 +120,20 @@ func ExampleShow_OtherTitles() {
 		return
 	}
 
-	fmt.Printf("other titles: %s\n", strings.Join(otherTitles, ", "))
+	versions := []string{
+		"UK",
+		"Russia",
+		"World-wide (English title)",
+	}
+
+	for _, version := range versions {
+		fmt.Printf("%s: %s\n", version, otherTitles[version])
+	}
 
 	// Output:
-	// other titles: Night Watch
+	// UK: Night Watch
+	// Russia: Ночной дозор
+	// World-wide (English title): Night Watch
 }
 
 func ExampleShow_ReleaseDate() {

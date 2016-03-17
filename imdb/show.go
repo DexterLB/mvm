@@ -12,12 +12,13 @@ import (
 
 // Show represents a single show (either a movie or an episode)
 type Show struct {
-	id               int
-	title            *string
-	showType         ShowType
-	season           *int
-	episode          *int
-	mainPageDocument *htmlParser.HtmlDocument
+	id                  int
+	title               *string
+	showType            ShowType
+	season              *int
+	episode             *int
+	mainPageDocument    *htmlParser.HtmlDocument
+	releaseInfoDocument *htmlParser.HtmlDocument
 }
 
 // ShowType is one of Unknown, Movie, Series and Episode
@@ -50,6 +51,11 @@ func (s *Show) Free() {
 		s.mainPageDocument.Free()
 		s.mainPageDocument = nil
 	}
+
+	if s.releaseInfoDocument != nil {
+		s.releaseInfoDocument.Free()
+		s.releaseInfoDocument = nil
+	}
 }
 
 func (s *Show) mainPage() (*xml.ElementNode, error) {
@@ -62,6 +68,18 @@ func (s *Show) mainPage() (*xml.ElementNode, error) {
 	}
 
 	return s.mainPageDocument.Root(), nil
+}
+
+func (s *Show) releaseInfoPage() (*xml.ElementNode, error) {
+	if s.releaseInfoDocument == nil {
+		page, err := s.parsePage("releaseinfo")
+		if err != nil {
+			return nil, err
+		}
+		s.releaseInfoDocument = page
+	}
+
+	return s.releaseInfoDocument.Root(), nil
 }
 
 func (s *Show) parsePage(name string) (*htmlParser.HtmlDocument, error) {

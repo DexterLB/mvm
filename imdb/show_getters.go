@@ -126,8 +126,35 @@ func (s *Show) Year() (int, error) {
 }
 
 // OtherTitles returns the show's alternative titles
-func (s *Show) OtherTitles() ([]string, error) {
-	return nil, fmt.Errorf("dummy method")
+func (s *Show) OtherTitles() (map[string]string, error) {
+	releaseInfoPage, err := s.releaseInfoPage()
+	if err != nil {
+		return nil, err
+	}
+
+	pairElements, err := releaseInfoPage.Search(`//*[@id='akas']/tr`)
+	if err != nil {
+		return nil, fmt.Errorf("can't find title elements")
+	}
+
+	titles := make(map[string]string)
+	for i := range pairElements {
+		versionElements, err := pairElements[i].Search(`td[position()=1]`)
+		if err != nil {
+			return nil, fmt.Errorf("can't parse title version element: %s", err)
+		}
+		titleElements, err := pairElements[i].Search(`td[position()=2]`)
+		if err != nil {
+			return nil, fmt.Errorf("can't parse title element: %s", err)
+		}
+		if len(versionElements) == 0 || len(titleElements) == 0 {
+			return nil, fmt.Errorf("can't find title")
+		}
+
+		titles[versionElements[0].Content()] = titleElements[0].Content()
+	}
+
+	return titles, nil
 }
 
 func (s *Show) ReleaseDate() (*time.Time, error) {
