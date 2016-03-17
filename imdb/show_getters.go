@@ -199,8 +199,27 @@ func (s *Show) Tagline() (string, error) {
 	return strings.Trim(sanitize.HTML(taglineElement.Content()), " \n\t"), nil
 }
 
-func (s *Show) Duration() (*time.Duration, error) {
-	return nil, fmt.Errorf("dummy method")
+func (s *Show) Duration() (time.Duration, error) {
+	durationElement, err := firstMatching(
+		s.mainPage,
+		`//div[preceding-sibling::h5[text()='Runtime:']]`,
+	)
+	if err != nil {
+		return 0, err
+	}
+
+	matcher := regexp.MustCompile(`(\d+) min`)
+	groups := matcher.FindStringSubmatch(durationElement.Content())
+	if len(groups) < 2 {
+		return 0, fmt.Errorf("unable to find duration")
+	}
+
+	minutes, err := strconv.Atoi(groups[1])
+	if err != nil {
+		return 0, fmt.Errorf("unable to parse duration: %s", err)
+	}
+
+	return time.Minute * time.Duration(minutes), nil
 }
 
 func (s *Show) Plot(level int) (string, error) {
@@ -232,6 +251,10 @@ func (s *Show) SeasonEpisode() (int, int, error) {
 
 	matcher := regexp.MustCompile(`Season (\d+).*Episode (\d+)`)
 	groups := matcher.FindStringSubmatch(info[len(info)-1])
+
+	if len(groups) < 2 {
+		return 0, 0, fmt.Errorf("can't find season/episode number")
+	}
 
 	season, err := strconv.Atoi(groups[1])
 	if err != nil {

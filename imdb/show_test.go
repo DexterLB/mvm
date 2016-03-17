@@ -197,7 +197,7 @@ func ExampleShow_Duration() {
 	fmt.Printf("duration: %s\n", duration)
 
 	// Output:
-	// duration: 1h 54m
+	// duration: 1h54m0s
 }
 
 func ExampleShow_Plot() {
