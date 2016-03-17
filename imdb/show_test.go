@@ -242,7 +242,7 @@ func ExampleShow_Rating() {
 		return
 	}
 
-	fmt.Printf("rating: %.1g\n", rating)
+	fmt.Printf("rating: %.2g\n", rating)
 
 	// Output:
 	// rating: 6.5

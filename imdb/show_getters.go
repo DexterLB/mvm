@@ -3,6 +3,7 @@ package imdb
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -199,6 +200,8 @@ func (s *Show) Tagline() (string, error) {
 	return strings.Trim(sanitize.HTML(taglineElement.Content()), " \n\t"), nil
 }
 
+// Duration returns the show's duration (rounded to minutes).
+// Probably only applicable to Movie and Episode
 func (s *Show) Duration() (time.Duration, error) {
 	durationElement, err := firstMatching(
 		s.mainPage,
@@ -230,8 +233,30 @@ func (s *Show) PosterURL() (string, error) {
 	return "", fmt.Errorf("dummy method")
 }
 
+// Rating returns the show's rating
 func (s *Show) Rating() (float32, error) {
-	return 0, fmt.Errorf("dummy method")
+	ratingElement, err := firstMatching(
+		s.mainPage,
+		`//*[@class='starbar-meta']/b`,
+	)
+	if err != nil {
+		return 0, err
+	}
+
+	matcher := regexp.MustCompile(`(\d.\d)\/10`)
+	groups := matcher.FindStringSubmatch(ratingElement.Content())
+
+	if len(groups) < 2 {
+		return 0, fmt.Errorf("can't find rating")
+	}
+
+	log.Printf(groups[1])
+	rating, err := strconv.ParseFloat(groups[1], 32)
+	if err != nil {
+		return 0, fmt.Errorf("unable to parse rating: %s", err)
+	}
+
+	return float32(rating), nil
 }
 
 func (s *Show) Votes() (int, error) {
