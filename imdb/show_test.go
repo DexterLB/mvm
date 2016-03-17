@@ -261,7 +261,7 @@ func ExampleShow_Votes() {
 	fmt.Printf("votes: %d\n", votes)
 
 	// Output:
-	// votes: 46450
+	// votes: 46484
 }
 
 func ExampleShow_Type() {

@@ -3,7 +3,6 @@ package imdb
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -250,7 +249,6 @@ func (s *Show) Rating() (float32, error) {
 		return 0, fmt.Errorf("can't find rating")
 	}
 
-	log.Printf(groups[1])
 	rating, err := strconv.ParseFloat(groups[1], 32)
 	if err != nil {
 		return 0, fmt.Errorf("unable to parse rating: %s", err)
@@ -259,8 +257,29 @@ func (s *Show) Rating() (float32, error) {
 	return float32(rating), nil
 }
 
+// Votes returns the show's rating's number of votes
 func (s *Show) Votes() (int, error) {
-	return 0, fmt.Errorf("dummy method")
+	votesElement, err := firstMatching(
+		s.mainPage,
+		`//div[@id='tn15rating']//a[@class='tn15more']`,
+	)
+	if err != nil {
+		return 0, err
+	}
+
+	matcher := regexp.MustCompile(`([\d,]+)`)
+	groups := matcher.FindStringSubmatch(votesElement.Content())
+
+	if len(groups) < 2 {
+		return 0, fmt.Errorf("can't find votes")
+	}
+
+	votes, err := strconv.Atoi(strings.Replace(groups[1], `,`, ``, 5))
+	if err != nil {
+		return 0, fmt.Errorf("unable to parse votes: %s", err)
+	}
+
+	return votes, nil
 }
 
 // SeasonEpisode returns an episode's season and episode numbers
