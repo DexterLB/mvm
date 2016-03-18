@@ -15,13 +15,15 @@ import (
 
 // Show represents a single show (either a movie or an episode)
 type Show struct {
-	id                  int
-	title               *string
-	showType            ShowType
-	season              *int
-	episode             *int
-	mainPageDocument    *htmlParser.HtmlDocument
-	releaseInfoDocument *htmlParser.HtmlDocument
+	id                   int
+	title                *string
+	showType             ShowType
+	season               *int
+	episode              *int
+	mainPageDocument     *htmlParser.HtmlDocument
+	plotSummaryDocument  *htmlParser.HtmlDocument
+	plotSynopsisDocument *htmlParser.HtmlDocument
+	releaseInfoDocument  *htmlParser.HtmlDocument
 }
 
 // ShowType is one of Unknown, Movie, Series and Episode
@@ -59,6 +61,16 @@ func (s *Show) Free() {
 		s.releaseInfoDocument.Free()
 		s.releaseInfoDocument = nil
 	}
+
+	if s.plotSummaryDocument != nil {
+		s.plotSummaryDocument.Free()
+		s.plotSummaryDocument = nil
+	}
+
+	if s.plotSynopsisDocument != nil {
+		s.plotSynopsisDocument.Free()
+		s.plotSynopsisDocument = nil
+	}
 }
 
 func (s *Show) mainPage() (*xml.ElementNode, error) {
@@ -83,6 +95,30 @@ func (s *Show) releaseInfoPage() (*xml.ElementNode, error) {
 	}
 
 	return s.releaseInfoDocument.Root(), nil
+}
+
+func (s *Show) plotSummaryPage() (*xml.ElementNode, error) {
+	if s.plotSummaryDocument == nil {
+		page, err := s.parsePage("plotsummary")
+		if err != nil {
+			return nil, err
+		}
+		s.plotSummaryDocument = page
+	}
+
+	return s.plotSummaryDocument.Root(), nil
+}
+
+func (s *Show) plotSynopsisPage() (*xml.ElementNode, error) {
+	if s.plotSynopsisDocument == nil {
+		page, err := s.parsePage("synopsis")
+		if err != nil {
+			return nil, err
+		}
+		s.plotSynopsisDocument = page
+	}
+
+	return s.plotSynopsisDocument.Root(), nil
 }
 
 func (s *Show) parsePage(name string) (*htmlParser.HtmlDocument, error) {

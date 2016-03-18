@@ -3,7 +3,6 @@ package imdb
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -234,10 +233,25 @@ func (s *Show) Plot() (string, error) {
 	if err != nil {
 		return "", err
 	}
-
-	log.Printf("plot: %s", plotElement.Content())
-
 	return strings.Trim(plotElement.Content(), " \t\n"), nil
+}
+
+// PlotMedium returns the show's medium-sized plot (summary)
+func (s *Show) PlotMedium() (string, error) {
+	summaryElement, err := firstMatching(
+		s.plotSummaryPage,
+		`//p[@class='plotSummary']`,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	return summaryElement.Content(), nil
+}
+
+// PlotLong returns the show's long synopsis of the plot
+func (s *Show) PlotLong() (string, error) {
+	return "", fmt.Errorf("dummy method")
 }
 
 func (s *Show) PosterURL() (string, error) {

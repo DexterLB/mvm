@@ -2,6 +2,7 @@ package imdb
 
 import (
 	"fmt"
+	"strings"
 
 	_ "github.com/orchestrate-io/dvr"
 )
@@ -214,6 +215,44 @@ func ExampleShow_Plot() {
 
 	// Output:
 	// short plot: A fantasy-thriller set in present-day Moscow where the respective forces that control daytime and nighttime do battle.
+}
+
+func ExampleShow_PlotMedium() {
+	movie := New(403358) // Nochnoy Dozor (2004)
+	defer movie.Free()
+
+	mediumPlot, err := movie.PlotMedium()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	sentences := strings.Split(mediumPlot, ". ")
+
+	fmt.Printf("medium plot sentence 3:\n%s\n", sentences[2])
+
+	// Output:
+	// medium plot sentence 3:
+	// Ever since, the forces of light govern the day while the night belongs to their dark opponents
+}
+
+func ExampleShow_PlotLong() {
+	movie := New(403358) // Nochnoy Dozor (2004)
+	defer movie.Free()
+
+	longPlot, err := movie.PlotLong()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	lines := strings.Split(longPlot, "\n")
+
+	fmt.Printf("long plot line 3:\n%s\n", lines[2])
+
+	// Output:
+	// long plot line 3:
+	// foo
 }
 
 func ExampleShow_PosterURL() {
