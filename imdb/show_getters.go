@@ -3,6 +3,7 @@ package imdb
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -224,8 +225,19 @@ func (s *Show) Duration() (time.Duration, error) {
 	return time.Minute * time.Duration(minutes), nil
 }
 
-func (s *Show) Plot(level int) (string, error) {
-	return "", fmt.Errorf("dummy method")
+// Plot returns the show's short plot summary
+func (s *Show) Plot() (string, error) {
+	plotElement, err := firstMatching(
+		s.mainPage,
+		`//div[@class='info-content' and preceding-sibling::h5[text()='Plot:']]/text()`,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	log.Printf("plot: %s", plotElement.Content())
+
+	return strings.Trim(plotElement.Content(), " \t\n"), nil
 }
 
 func (s *Show) PosterURL() (string, error) {

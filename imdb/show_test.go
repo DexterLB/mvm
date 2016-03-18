@@ -204,7 +204,7 @@ func ExampleShow_Plot() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
-	shortPlot, err := movie.Plot(0)
+	shortPlot, err := movie.Plot()
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return
