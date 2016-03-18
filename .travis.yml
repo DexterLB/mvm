@@ -5,5 +5,5 @@ go:
   - 1.6
 script: go test -v ./... -dvr.replay
 env:
-  - GO15VENDOREXPERIMENT=1
-  - GODEBUG=cgocheck=0  # must have this until the respective bug in gokogiri is fixed
+  # must have this until the respective bug in gokogiri is fixed
+  - GO15VENDOREXPERIMENT=1 GODEBUG=cgocheck=0
