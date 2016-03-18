@@ -262,8 +262,37 @@ func (s *Show) PlotLong() (string, error) {
 	return strings.Trim(synopsisElement.Content(), " \t\n"), nil
 }
 
+// PosterURL returns.. the show's Poster URL (jpg image)
 func (s *Show) PosterURL() (string, error) {
-	return "", fmt.Errorf("dummy method")
+	posterElement, err := firstMatching(
+		s.mainPage,
+		`//a[@name='poster']/img`,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	src := posterElement.Attribute("src")
+	if src == nil {
+		return "", fmt.Errorf("malformed poster image")
+	}
+
+	url := src.String()
+
+	firstMatcher := regexp.MustCompile(`^(http:.+@@)`)
+	secondMatcher := regexp.MustCompile(`^(http:.+?)\.[^\/]+$`)
+
+	groups := firstMatcher.FindStringSubmatch(url)
+	if len(groups) >= 2 {
+		return groups[1] + ".jpg", nil
+	}
+
+	groups = secondMatcher.FindStringSubmatch(url)
+	if len(groups) >= 2 {
+		return groups[1] + ".jpg", nil
+	}
+
+	return "", fmt.Errorf("can't parse poster url: '%s'", url)
 }
 
 // Rating returns the show's rating

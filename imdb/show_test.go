@@ -268,7 +268,7 @@ func ExampleShow_PosterURL() {
 	fmt.Printf("poster url: %s\n", posterURL)
 
 	// Output:
-	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@._V1_SX640_SY720_.jpg
+	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 }
 
 func ExampleShow_Rating() {
