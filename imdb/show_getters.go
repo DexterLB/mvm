@@ -440,3 +440,36 @@ func (s *Show) episodeInfo() ([]string, error) {
 
 	return lines, nil
 }
+
+// Seasons maps season numbers to their respective seasons
+func (s *Show) Seasons() (map[int]*Season, error) {
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return nil, err
+	}
+
+	seasonElements, err := mainPage.Search(
+		`//div[preceding-sibling::h5[text()='Seasons:']]/a[contains(@href,'episodes?season')]`,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("can't find season elements")
+	}
+
+	seasons := make(map[int]*Season)
+
+	for i := range seasonElements {
+		link := strings.Trim(seasonElements[i].Content(), " \t\n")
+		url := fmt.Sprintf(
+			"http://akas.imdb.com/title/tt%07d/episodes?season=%s",
+			s.ID(), link,
+		)
+		season := NewSeason(url)
+		number, err := season.Number()
+		if err != nil {
+			return nil, err
+		}
+
+		seasons[number] = season
+	}
+	return seasons, nil
+}

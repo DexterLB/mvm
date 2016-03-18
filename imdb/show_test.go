@@ -386,3 +386,33 @@ func ExampleShow_Series() {
 	// type: Series
 	// title: Doctor Who
 }
+
+func ExampleShow_Seasons_testnumbers() {
+	series := New(1286039) // Stargate Universe
+	defer series.Free()
+
+	seasons, err := series.Seasons()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("size: %d\n", len(seasons))
+	n1, err := seasons[1].Number()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	n2, err := seasons[2].Number()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("seasons: %d, %d\n", n1, n2)
+
+	// Output:
+	// size: 2
+	// seasons: 1, 2
+}
