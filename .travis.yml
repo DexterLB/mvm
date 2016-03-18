@@ -6,3 +6,4 @@ go:
 script: go test -v ./... -dvr.replay
 env:
   - GO15VENDOREXPERIMENT=1
+  - GODEBUG=cgocheck=0  # must have this until the respective bug in gokogiri is fixed
