@@ -246,12 +246,20 @@ func (s *Show) PlotMedium() (string, error) {
 		return "", err
 	}
 
-	return summaryElement.Content(), nil
+	return strings.Trim(summaryElement.Content(), " \t\n"), nil
 }
 
 // PlotLong returns the show's long synopsis of the plot
 func (s *Show) PlotLong() (string, error) {
-	return "", fmt.Errorf("dummy method")
+	synopsisElement, err := firstMatching(
+		s.plotSynopsisPage,
+		`//div[@id='swiki.2.1']`,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.Trim(synopsisElement.Content(), " \t\n"), nil
 }
 
 func (s *Show) PosterURL() (string, error) {

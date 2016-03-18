@@ -246,13 +246,13 @@ func ExampleShow_PlotLong() {
 		return
 	}
 
-	lines := strings.Split(longPlot, "\n")
+	sentences := strings.Split(longPlot, ". ")
 
-	fmt.Printf("long plot line 3:\n%s\n", lines[2])
+	fmt.Printf("long plot sentence 3:\n%s\n", sentences[2])
 
 	// Output:
-	// long plot line 3:
-	// foo
+	// long plot sentence 3:
+	// They are known as the Others and have co-existed with humans for as long as humanity has existed
 }
 
 func ExampleShow_PosterURL() {
