@@ -297,10 +297,10 @@ func ExampleShow_Votes() {
 		return
 	}
 
-	fmt.Printf("votes: %d\n", votes)
+	fmt.Printf("thousands of votes: %d\n", votes/1000)
 
 	// Output:
-	// votes: 46484
+	// thousands of votes: 46
 }
 
 func ExampleShow_Type() {
@@ -397,22 +397,81 @@ func ExampleShow_Seasons_testnumbers() {
 		return
 	}
 
-	fmt.Printf("size: %d\n", len(seasons))
-	n1, err := seasons[1].Number()
-	if err != nil {
-		fmt.Printf("error: %s\n", err)
-		return
-	}
+	fmt.Printf("seasons:\n")
+	for i := range seasons {
+		number, err := seasons[i].Number()
+		if err != nil {
+			fmt.Printf("error: %s\n", err)
+			return
+		}
 
-	n2, err := seasons[2].Number()
-	if err != nil {
-		fmt.Printf("error: %s\n", err)
-		return
+		fmt.Printf("%d\n", number)
 	}
-
-	fmt.Printf("seasons: %d, %d\n", n1, n2)
 
 	// Output:
-	// size: 2
-	// seasons: 1, 2
+	// seasons:
+	// 1
+	// 2
+}
+
+func ExampleShow_Seasons_episodes() {
+	series := New(1286039) // Stargate Universe
+	defer series.Free()
+
+	seasons, err := series.Seasons()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	if len(seasons) < 2 {
+		fmt.Printf("season 2 is missing :(\n")
+	}
+
+	season2 := seasons[1]
+
+	episodes, err := season2.Episodes()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	for i := range episodes {
+		title, err := episodes[i].Title()
+		if err != nil {
+			fmt.Printf("error: %s\n", err)
+			return
+		}
+
+		// please note that i != episodeNumber, and possibly i+1 != episodeNumber
+		seasonNumber, episodeNumber, err := episodes[i].SeasonEpisode()
+		if err != nil {
+			fmt.Printf("error: %s\n", err)
+			return
+		}
+
+		fmt.Printf("s%02de%02d: %s\n", seasonNumber, episodeNumber, title)
+	}
+
+	// Output:
+	// s02e01: Intervention
+	// s02e02: Aftermath
+	// s02e03: Awakening
+	// s02e04: Pathogen
+	// s02e05: Cloverdale
+	// s02e06: Trial and Error
+	// s02e07: The Greater Good
+	// s02e08: Malice
+	// s02e09: Visitation
+	// s02e10: Resurgence
+	// s02e11: Deliverance
+	// s02e12: Twin Destinies
+	// s02e13: Alliances
+	// s02e14: Hope
+	// s02e15: Seizure
+	// s02e16: The Hunt
+	// s02e17: Common Descent
+	// s02e18: Epilogue
+	// s02e19: Blockade
+	// s02e20: Gauntlet
 }

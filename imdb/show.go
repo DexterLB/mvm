@@ -157,7 +157,12 @@ func firstMatching(pageGetter func() (*xml.ElementNode, error), xpath string) (x
 		return nil, err
 	}
 
-	elements, err := page.Search(xpath)
+	return firstMatchingOnNode(page, xpath)
+}
+
+// firstMatchingOnNode finds its first child node which matches the xpath
+func firstMatchingOnNode(node xml.Node, xpath string) (xml.Node, error) {
+	elements, err := node.Search(xpath)
 	if err != nil {
 		return nil, err
 	}

@@ -441,8 +441,10 @@ func (s *Show) episodeInfo() ([]string, error) {
 	return lines, nil
 }
 
-// Seasons maps season numbers to their respective seasons
-func (s *Show) Seasons() (map[int]*Season, error) {
+// Seasons returns a slice of all seasons in this show (applicable for Series).
+// Please note that the indices in the slice might have nothing to do with
+// the respective season numbers. For that, call Number() on each season.
+func (s *Show) Seasons() ([]*Season, error) {
 	mainPage, err := s.mainPage()
 	if err != nil {
 		return nil, err
@@ -455,7 +457,7 @@ func (s *Show) Seasons() (map[int]*Season, error) {
 		return nil, fmt.Errorf("can't find season elements")
 	}
 
-	seasons := make(map[int]*Season)
+	seasons := make([]*Season, len(seasonElements))
 
 	for i := range seasonElements {
 		link := strings.Trim(seasonElements[i].Content(), " \t\n")
@@ -464,12 +466,8 @@ func (s *Show) Seasons() (map[int]*Season, error) {
 			s.ID(), link,
 		)
 		season := NewSeason(url)
-		number, err := season.Number()
-		if err != nil {
-			return nil, err
-		}
 
-		seasons[number] = season
+		seasons[i] = season
 	}
 	return seasons, nil
 }
