@@ -8,6 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/text/language"
+
 	"github.com/kennygrant/sanitize"
 )
 
@@ -125,7 +127,7 @@ func (s *Show) OtherTitles() (map[string]string, error) {
 
 	pairElements, err := releaseInfoPage.Search(`//*[@id='akas']/tr`)
 	if err != nil {
-		return nil, fmt.Errorf("can't find title elements")
+		return nil, fmt.Errorf("can't find title elements: %s", err)
 	}
 
 	titles := make(map[string]string)
@@ -222,6 +224,39 @@ func (s *Show) Duration() (time.Duration, error) {
 	}
 
 	return time.Minute * time.Duration(minutes), nil
+}
+
+// Languages returns a slice with the names of languages for the show
+func (s *Show) Languages() ([]language.Base, error) {
+	mainPage, err := s.mainPage()
+	if err != nil {
+		return nil, err
+	}
+
+	languageElements, err := mainPage.Search(
+		`//div[preceding-sibling::h5[text()='Language:']]//a[contains(@href,'/language/')]`,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("unable to find language elements: %s", err)
+	}
+
+	matcher := regexp.MustCompile(`\/language\/(\w+)`)
+
+	languages := make([]language.Base, len(languageElements))
+	for i := range languageElements {
+		groups := matcher.FindStringSubmatch(
+			languageElements[i].Attribute("href").String(),
+		)
+		if len(groups) < 2 {
+			return nil, fmt.Errorf("invalid language")
+		}
+		languages[i], err = language.ParseBase(groups[1])
+		if err != nil {
+			return nil, fmt.Errorf("invalid language: %s", err)
+		}
+	}
+
+	return languages, nil
 }
 
 // Plot returns the show's short plot summary

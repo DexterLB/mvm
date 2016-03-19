@@ -185,6 +185,72 @@ func ExampleShow_Tagline() {
 	// tagline: All That Stands Between Light And Darkness Is The Night Watch.
 }
 
+func ExampleShow_Languages_episode() {
+	episode := New(1577257) // Doctor Who s05e02
+	defer episode.Free()
+
+	languages, err := episode.Languages()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	languageNames := make([]string, len(languages))
+
+	for i, language := range languages {
+		languageNames[i] = language.String()
+	}
+
+	fmt.Printf("languages: %s\n", strings.Join(languageNames, ", "))
+
+	// Output:
+	// languages: en
+}
+
+func ExampleShow_Languages_movie() {
+	movie := New(403358) // Nochnoy Dozor (2004)
+	defer movie.Free()
+
+	languages, err := movie.Languages()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	languageNames := make([]string, len(languages))
+
+	for i, language := range languages {
+		languageNames[i] = language.String()
+	}
+
+	fmt.Printf("languages: %s\n", strings.Join(languageNames, ", "))
+
+	// Output:
+	// languages: ru, de
+}
+
+func ExampleShow_Languages_series() {
+	series := New(436992) // Doctor Who
+	defer series.Free()
+
+	languages, err := series.Languages()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	languageNames := make([]string, len(languages))
+
+	for i, language := range languages {
+		languageNames[i] = language.String()
+	}
+
+	fmt.Printf("languages: %s\n", strings.Join(languageNames, ", "))
+
+	// Output:
+	// languages: en
+}
+
 func ExampleShow_Duration() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
@@ -308,7 +374,7 @@ func ExampleShow_Type() {
 	defer movie.Free()
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
-	series := New(436992)
+	series := New(436992) // Doctor Who
 	defer series.Free()
 
 	movieType, err := movie.Type()
@@ -528,7 +594,8 @@ func ExampleShow_AllData_movie() {
 	// long plot: THE SETTING: In the world that is modern Moscow, there exists a parallel realm known as the Gloom (kind of like the Astral Plane)...
 	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 	// rating: 6.5
-	// votes: 46492
+	// votes: 46k
+	// languages: ru, de
 	// release date: 2005-10-07
 	// tagline: All That Stands Between Light And Darkness Is The Night Watch.
 }
@@ -558,7 +625,8 @@ func ExampleShow_AllData_episode() {
 	// long plot: Starship UK is floating through space and we can see the words 'Yorkshire', 'Kent' and 'Surrey' visible on some of the buildings...
 	// poster url: http://ia.media-imdb.com/images/M/MV5BNjY3MDI5OTE3N15BMl5BanBnXkFtZTcwMzA0MDU1NA@@.jpg
 	// rating: 7.7
-	// votes: 3054
+	// votes: 3k
+	// languages: en
 	// release date: 2010-04-10
 	// season number: 5
 	// episode number: 2
@@ -598,6 +666,7 @@ func ExampleShow_AllData_series() {
 	// long plot: An attack on a secret off-world base by a rebel organisation has stranded the remaining survivors on an Ancient ship "Destiny", a large unmanned ship launched millions of years ago...
 	// poster url: http://ia.media-imdb.com/images/M/MV5BOTEzNTY5NDY5M15BMl5BanBnXkFtZTcwMTY4MDQ3Mg@@.jpg
 	// rating: 7.7
-	// votes: 37824
+	// votes: 37k
+	// languages: en
 	// seasons: 1, 2
 }

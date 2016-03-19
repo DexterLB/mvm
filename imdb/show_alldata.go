@@ -5,6 +5,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"golang.org/x/text/language"
 )
 
 // ShowData holds all fields for a show
@@ -22,6 +24,7 @@ type ShowData struct {
 	PosterURL   string
 	Rating      float32
 	Votes       int
+	Languages   []language.Base
 
 	// Movie and Episode-only fields
 	ReleaseDate time.Time
@@ -40,6 +43,11 @@ type ShowData struct {
 
 // String returns the data in a human-readable form
 func (s *ShowData) String() string {
+	languageNames := make([]string, len(s.Languages))
+
+	for i, language := range s.Languages {
+		languageNames[i] = language.String()
+	}
 	text := fmt.Sprintf(`id: %d
 type: %s
 title: %s
@@ -52,7 +60,8 @@ medium plot: %s
 long plot: %s
 poster url: %s
 rating: %.2g
-votes: %d`,
+votes: %dk
+languages: %s`,
 		s.ID,
 		s.Type,
 		s.Title,
@@ -64,7 +73,8 @@ votes: %d`,
 		shorten(s.PlotLong),
 		s.PosterURL,
 		s.Rating,
-		s.Votes,
+		s.Votes/1000,
+		strings.Join(languageNames, ", "),
 	)
 
 	if s.Type == Movie || s.Type == Episode {
@@ -190,6 +200,11 @@ func (s *Show) AllData() (*ShowData, error) {
 	}
 
 	data.Votes, err = s.Votes()
+	if err != nil {
+		return nil, err
+	}
+
+	data.Languages, err = s.Languages()
 	if err != nil {
 		return nil, err
 	}
