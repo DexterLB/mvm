@@ -150,10 +150,10 @@ func (s *Show) OtherTitles() (map[string]string, error) {
 
 // ReleaseDate returns the show's release date.
 // Only applicable for Movie and Episode.
-func (s *Show) ReleaseDate() (*time.Time, error) {
+func (s *Show) ReleaseDate() (time.Time, error) {
 	showType, err := s.Type()
 	if err != nil {
-		return nil, err
+		return time.Time{}, err
 	}
 
 	var dateText string
@@ -161,7 +161,7 @@ func (s *Show) ReleaseDate() (*time.Time, error) {
 	if showType == Episode {
 		info, err := s.episodeInfo()
 		if err != nil {
-			return nil, err
+			return time.Time{}, err
 		}
 
 		dateText = info[0]
@@ -171,13 +171,13 @@ func (s *Show) ReleaseDate() (*time.Time, error) {
 			`//div[preceding-sibling::h5[contains(text(),'Release Date')]]`,
 		)
 		if err != nil {
-			return nil, fmt.Errorf("unable to find release date element: %s", err)
+			return time.Time{}, fmt.Errorf("unable to find release date element: %s", err)
 		}
 
 		matcher := regexp.MustCompile(`([0-9]{1,2} [A-Z][a-z]* [0-9]{4})`)
 		groups := matcher.FindStringSubmatch(releaseDateElement.Content())
 		if len(groups) < 2 {
-			return nil, fmt.Errorf("unable to find release date")
+			return time.Time{}, fmt.Errorf("unable to find release date")
 		}
 
 		dateText = groups[1]

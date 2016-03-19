@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
+	"sync"
 	"time"
 
 	htmlParser "github.com/moovweb/gokogiri/html"
@@ -68,6 +69,26 @@ func (s *Show) Free() {
 		s.plotSynopsisDocument.Free()
 		s.plotSynopsisDocument = nil
 	}
+}
+
+// PreloadAll loads all pages needed for this show by making parallel
+// requests to IMDB. All subsequent calls to methods will be fast
+// (won't generate a http request)
+func (s *Show) PreloadAll() {
+	wg := sync.WaitGroup{}
+	wg.Add(4)
+
+	load := func(getPage func() (*xml.ElementNode, error)) {
+		_, _ = getPage()
+		wg.Done()
+	}
+
+	go load(s.mainPage)
+	go load(s.releaseInfoPage)
+	go load(s.plotSummaryPage)
+	go load(s.plotSynopsisPage)
+
+	wg.Wait()
 }
 
 func (s *Show) mainPage() (*xml.ElementNode, error) {
@@ -141,12 +162,12 @@ func idFromLink(link string) (int, error) {
 }
 
 // parseDate parses a date from IMDB's default format
-func parseDate(text string) (*time.Time, error) {
-	time, err := time.Parse("2 January 2006", text)
+func parseDate(text string) (time.Time, error) {
+	t, err := time.Parse("2 January 2006", text)
 	if err != nil {
-		return nil, fmt.Errorf("can't parse date string '%s': %s", text, err)
+		return time.Time{}, fmt.Errorf("can't parse date string '%s': %s", text, err)
 	}
-	return &time, nil
+	return t, nil
 }
 
 // firstMatching obtains a root node by calling pageGetter,
