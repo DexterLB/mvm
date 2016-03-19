@@ -475,3 +475,129 @@ func ExampleShow_Seasons_episodes() {
 	// s02e19: Blockade
 	// s02e20: Gauntlet
 }
+
+func ExampleShow_AllData_movie() {
+	movie := New(403358) // Nochnoy Dozor (2004)
+	defer movie.Free()
+
+	data, err := movie.AllData()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", data)
+
+	// Output:
+	// id: 403358
+	// type: Movie
+	// title: Nochnoy dozor
+	// year: 2004
+	// other titles:
+	//  > Argentina -> Guardianes de la noche
+	//  > Brazil -> Guardiões da Noite
+	//  > Bulgaria (Bulgarian title) -> Нощна стража
+	//  > Denmark -> Mørkets vogtere
+	//  > Estonia -> Öine patrull
+	//  > Finland -> Night Watch - yövahti
+	//  > Finland (DVD title) -> Yövahti
+	//  > Finland (Swedish title) -> Nattens väktare - nochnoi dozor
+	//  > Finland (alternative title) -> Yövartija
+	//  > France -> Night Watch
+	//  > Georgia -> Gamis gushagi
+	//  > Germany -> Wächter der Nacht - Nochnoi Dozor
+	//  > Greece (transliterated ISO-LATIN-1 title) -> Oi fylakes tis nyhtas
+	//  > Hungary -> Éjszakai őrség
+	//  > Italy -> I guardiani della notte
+	//  > Italy (DVD title) -> Night watch - I guardiani della notte
+	//  > Latvia -> Nakts Sardze
+	//  > Panama -> Guardianes de la noche
+	//  > Peru -> Guardianes de la noche
+	//  > Poland -> Straz nocna
+	//  > Portugal -> Guardiões da Noite
+	//  > Russia -> Ночной дозор
+	//  > Serbia -> Noćna straža
+	//  > Spain -> Guardianes de la noche
+	//  > Sweden -> Nattens väktare
+	//  > Turkey (Turkish title) -> Gece nöbeti
+	//  > UK -> Night Watch
+	//  > World-wide (English title) -> Night Watch
+	// duration: 1h54m0s
+	// short plot: A fantasy-thriller set in present-day Moscow where the respective forces that control daytime and nighttime do battle.
+	// medium plot: Among normal humans live the "Others" possessing various supernatural powers...
+	// long plot: THE SETTING: In the world that is modern Moscow, there exists a parallel realm known as the Gloom (kind of like the Astral Plane)...
+	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
+	// rating: 6.5
+	// votes: 46492
+	// release date: 2005-10-07
+	// tagline: All That Stands Between Light And Darkness Is The Night Watch.
+}
+
+func ExampleShow_AllData_episode() {
+	episode := New(1577257) // Doctor Who s05e02
+	defer episode.Free()
+
+	data, err := episode.AllData()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", data)
+
+	// Output:
+	// id: 1577257
+	// type: Episode
+	// title: The Beast Below
+	// year: 2010
+	// other titles:
+	//
+	// duration: 42m0s
+	// short plot: The Doctor takes Amy to the future inside Starship UK, which contains in addition to British explorers, an intimidating race known as the Smilers.
+	// medium plot: The Doctor and Amy travel to a future time where all of the residents actually live in a orbiting spacecraft, Starship UK...
+	// long plot: Starship UK is floating through space and we can see the words 'Yorkshire', 'Kent' and 'Surrey' visible on some of the buildings...
+	// poster url: http://ia.media-imdb.com/images/M/MV5BNjY3MDI5OTE3N15BMl5BanBnXkFtZTcwMzA0MDU1NA@@.jpg
+	// rating: 7.7
+	// votes: 3054
+	// release date: 2010-04-10
+	// season number: 5
+	// episode number: 2
+	// series id: 0436992
+}
+
+func ExampleShow_AllData_series() {
+	series := New(1286039) // Stargate Universe
+	defer series.Free()
+
+	data, err := series.AllData()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", data)
+
+	// Output:
+	// id: 1286039
+	// type: Series
+	// title: SGU Stargate Universe
+	// year: 2009
+	// other titles:
+	//  > France -> Stargate: Universe
+	//  > Germany -> Stargate: Universe
+	//  > Hungary -> Csillagkapu: Univerzum
+	//  > Netherlands -> Stargate: Universe
+	//  > Poland -> Gwiezdne Wrota: Wszechswiat
+	//  > Russia -> Звёздные врата: Вселенная
+	//  > Turkey (Turkish title) (new title) -> Yildiz Geçidi: Evren
+	//  > USA (promotional title) -> SG.U Stargate Universe
+	//  > World-wide (alternative title) (English title) -> Stargate: Universe
+	// duration: 43m0s
+	// short plot: Trapped on an Ancient spaceship billions of light years from home, a group of soldiers and civilians struggle to survive and find their way back to Earth.
+	// medium plot: The Previously unknown purpose of the "Ninth Chevron" is revealed, and ends up taking a team to an Ancient ship "Destiny", a ship built millions of years ago by the Ancients, used to seed Distant galaxies with Stargates...
+	// long plot: An attack on a secret off-world base by a rebel organisation has stranded the remaining survivors on an Ancient ship "Destiny", a large unmanned ship launched millions of years ago...
+	// poster url: http://ia.media-imdb.com/images/M/MV5BOTEzNTY5NDY5M15BMl5BanBnXkFtZTcwMTY4MDQ3Mg@@.jpg
+	// rating: 7.7
+	// votes: 37824
+	// seasons: 1, 2
+}

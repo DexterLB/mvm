@@ -193,7 +193,7 @@ func (s *Show) Tagline() (string, error) {
 		`//div[preceding-sibling::h5[text()='Tagline:']]`,
 	)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to find tagline element: %s", err)
 	}
 
 	return strings.Trim(sanitize.HTML(taglineElement.Content()), " \n\t"), nil
@@ -207,7 +207,7 @@ func (s *Show) Duration() (time.Duration, error) {
 		`//div[preceding-sibling::h5[text()='Runtime:']]`,
 	)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("unable to find duration element: %s", err)
 	}
 
 	matcher := regexp.MustCompile(`(\d+) min`)
@@ -231,7 +231,7 @@ func (s *Show) Plot() (string, error) {
 		`//div[@class='info-content' and preceding-sibling::h5[text()='Plot:']]/text()`,
 	)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to find plot element: %s", err)
 	}
 	return strings.Trim(plotElement.Content(), " \t\n"), nil
 }
@@ -243,7 +243,7 @@ func (s *Show) PlotMedium() (string, error) {
 		`//p[@class='plotSummary']`,
 	)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to find medium plot element: %s", err)
 	}
 
 	return strings.Trim(summaryElement.Content(), " \t\n"), nil
@@ -256,7 +256,7 @@ func (s *Show) PlotLong() (string, error) {
 		`//div[@id='swiki.2.1']`,
 	)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to find long plot element: %s", err)
 	}
 
 	return strings.Trim(synopsisElement.Content(), " \t\n"), nil
@@ -269,7 +269,7 @@ func (s *Show) PosterURL() (string, error) {
 		`//a[@name='poster']/img`,
 	)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to find poster url element: %s", err)
 	}
 
 	src := posterElement.Attribute("src")
@@ -302,7 +302,7 @@ func (s *Show) Rating() (float32, error) {
 		`//*[@class='starbar-meta']/b`,
 	)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("unable to find rating element: %s", err)
 	}
 
 	matcher := regexp.MustCompile(`(\d.\d)\/10`)
@@ -327,7 +327,7 @@ func (s *Show) Votes() (int, error) {
 		`//div[@id='tn15rating']//a[@class='tn15more']`,
 	)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("unable to find rating element: %s", err)
 	}
 
 	matcher := regexp.MustCompile(`([\d,]+)`)
@@ -386,7 +386,7 @@ func (s *Show) Series() (*Show, error) {
 		`//div[preceding-sibling::h5[contains(text(),'TV Series:')]]/a`,
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to find series link element: %s", err)
 	}
 
 	href := seriesLinkElement.Attribute("href")
