@@ -60,6 +60,7 @@ type VideoFile struct {
 	Filename   string        `json:"filename"`
 	FileSize   uint          `json:"filesize"`
 	Resolution [2]uint       `json:"resolution"`
+	OsdbHash   uint          `json:"osdb_hash"`
 	Format     string        `json:"format"`
 	Duration   time.Duration `json:"duration"`
 
