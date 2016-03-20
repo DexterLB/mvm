@@ -15,7 +15,7 @@ type Season struct {
 	url          string
 	seasonNumber *int
 	document     *htmlParser.HtmlDocument
-	episodes     []*Show
+	episodes     []*Item
 }
 
 // NewSeason creates a season from its url
@@ -54,14 +54,14 @@ func (s *Season) Number() (int, error) {
 }
 
 // Episodes returns an ordered slice of all episodes in this season.
-// The returned shows will have be of type Episode, and their Title and
+// The returned items will have be of type Episode, and their Title and
 // SeasonEpisode methods will return pre-cached results.
 //
 // Please note that although the episodes will probably be in the order
 // they've come out, you shouldn't count on the fact that episode numbers
 // have anything to do with indices in the slice. If you need the episode
 // number, call SeasonEpisode on the episode itself.
-func (s *Season) Episodes() ([]*Show, error) {
+func (s *Season) Episodes() ([]*Item, error) {
 	if s.episodes != nil {
 		return s.episodes, nil
 	}
@@ -78,7 +78,7 @@ func (s *Season) Episodes() ([]*Show, error) {
 		return nil, fmt.Errorf("can't find episode elements: %s", err)
 	}
 
-	episodes := make([]*Show, len(episodeElements))
+	episodes := make([]*Item, len(episodeElements))
 
 	idMatcher := regexp.MustCompile(`tt([0-9]+)`)
 
@@ -118,10 +118,10 @@ func (s *Season) Episodes() ([]*Show, error) {
 			return nil, err
 		}
 
-		episodes[i] = &Show{
+		episodes[i] = &Item{
 			id:       id,
 			title:    &title,
-			showType: Episode,
+			itemType: Episode,
 			season:   &seasonNumber,
 			episode:  &number,
 		}

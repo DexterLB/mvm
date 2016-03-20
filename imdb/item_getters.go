@@ -13,15 +13,15 @@ import (
 	"github.com/kennygrant/sanitize"
 )
 
-// ID returns the show's IMDB ID
-func (s *Show) ID() int {
+// ID returns the item's IMDB ID
+func (s *Item) ID() int {
 	return s.id
 }
 
-// Type tells whether the show a movie, series or episode
-func (s *Show) Type() (ShowType, error) {
-	if s.showType != Unknown {
-		return s.showType, nil
+// Type tells whether the item a movie, series or episode
+func (s *Item) Type() (ItemType, error) {
+	if s.itemType != Unknown {
+		return s.itemType, nil
 	}
 
 	mainPage, err := s.mainPage()
@@ -31,22 +31,22 @@ func (s *Show) Type() (ShowType, error) {
 
 	_, err = s.episodeTitle()
 	if err == nil {
-		s.showType = Episode
+		s.itemType = Episode
 		return Episode, nil
 	}
 
 	eplist, err := mainPage.Search(`//h5[text()='Seasons:']`)
 	if err == nil && len(eplist) > 0 {
-		s.showType = Series
+		s.itemType = Series
 		return Series, nil
 	}
 
-	s.showType = Movie
+	s.itemType = Movie
 	return Movie, nil
 }
 
-// Title returns the show's title
-func (s *Show) Title() (string, error) {
+// Title returns the item's title
+func (s *Item) Title() (string, error) {
 	if s.title != nil {
 		return *s.title, nil
 	}
@@ -72,21 +72,21 @@ func (s *Show) Title() (string, error) {
 	return title, nil
 }
 
-// Year returns the show's airing year
-func (s *Show) Year() (int, error) {
+// Year returns the item's airing year
+func (s *Item) Year() (int, error) {
 	mainPage, err := s.mainPage()
 	if err != nil {
 		return 0, err
 	}
 
-	showType, err := s.Type()
+	itemType, err := s.Type()
 	if err != nil {
 		return 0, err
 	}
 
 	var yearText string
 
-	if showType == Episode {
+	if itemType == Episode {
 		yearSpans, err := mainPage.Search(`//h1//span`)
 		if err != nil {
 			return 0, err
@@ -118,8 +118,8 @@ func (s *Show) Year() (int, error) {
 	return year, nil
 }
 
-// OtherTitles returns the show's alternative titles
-func (s *Show) OtherTitles() (map[string]string, error) {
+// OtherTitles returns the item's alternative titles
+func (s *Item) OtherTitles() (map[string]string, error) {
 	releaseInfoPage, err := s.releaseInfoPage()
 	if err != nil {
 		return nil, err
@@ -150,17 +150,17 @@ func (s *Show) OtherTitles() (map[string]string, error) {
 	return titles, nil
 }
 
-// ReleaseDate returns the show's release date.
+// ReleaseDate returns the item's release date.
 // Only applicable for Movie and Episode.
-func (s *Show) ReleaseDate() (time.Time, error) {
-	showType, err := s.Type()
+func (s *Item) ReleaseDate() (time.Time, error) {
+	itemType, err := s.Type()
 	if err != nil {
 		return time.Time{}, err
 	}
 
 	var dateText string
 
-	if showType == Episode {
+	if itemType == Episode {
 		info, err := s.episodeInfo()
 		if err != nil {
 			return time.Time{}, err
@@ -189,7 +189,7 @@ func (s *Show) ReleaseDate() (time.Time, error) {
 }
 
 // Tagline returns the slogan. Probably only applicable for Movie.
-func (s *Show) Tagline() (string, error) {
+func (s *Item) Tagline() (string, error) {
 	taglineElement, err := firstMatching(
 		s.mainPage,
 		`//div[preceding-sibling::h5[text()='Tagline:']]`,
@@ -201,9 +201,9 @@ func (s *Show) Tagline() (string, error) {
 	return strings.Trim(sanitize.HTML(taglineElement.Content()), " \n\t"), nil
 }
 
-// Duration returns the show's duration (rounded to minutes).
+// Duration returns the item's duration (rounded to minutes).
 // Probably only applicable to Movie and Episode
-func (s *Show) Duration() (time.Duration, error) {
+func (s *Item) Duration() (time.Duration, error) {
 	durationElement, err := firstMatching(
 		s.mainPage,
 		`//div[preceding-sibling::h5[text()='Runtime:']]`,
@@ -226,8 +226,8 @@ func (s *Show) Duration() (time.Duration, error) {
 	return time.Minute * time.Duration(minutes), nil
 }
 
-// Languages returns a slice with the names of languages for the show
-func (s *Show) Languages() ([]language.Base, error) {
+// Languages returns a slice with the names of languages for the item
+func (s *Item) Languages() ([]language.Base, error) {
 	mainPage, err := s.mainPage()
 	if err != nil {
 		return nil, err
@@ -259,8 +259,8 @@ func (s *Show) Languages() ([]language.Base, error) {
 	return languages, nil
 }
 
-// Plot returns the show's short plot summary
-func (s *Show) Plot() (string, error) {
+// Plot returns the item's short plot summary
+func (s *Item) Plot() (string, error) {
 	plotElement, err := firstMatching(
 		s.mainPage,
 		`//div[@class='info-content' and preceding-sibling::h5[text()='Plot:']]/text()`,
@@ -271,8 +271,8 @@ func (s *Show) Plot() (string, error) {
 	return strings.Trim(plotElement.Content(), " \t\n"), nil
 }
 
-// PlotMedium returns the show's medium-sized plot (summary)
-func (s *Show) PlotMedium() (string, error) {
+// PlotMedium returns the item's medium-sized plot (summary)
+func (s *Item) PlotMedium() (string, error) {
 	summaryElement, err := firstMatching(
 		s.plotSummaryPage,
 		`//p[@class='plotSummary']`,
@@ -284,8 +284,8 @@ func (s *Show) PlotMedium() (string, error) {
 	return strings.Trim(summaryElement.Content(), " \t\n"), nil
 }
 
-// PlotLong returns the show's long synopsis of the plot
-func (s *Show) PlotLong() (string, error) {
+// PlotLong returns the item's long synopsis of the plot
+func (s *Item) PlotLong() (string, error) {
 	synopsisElement, err := firstMatching(
 		s.plotSynopsisPage,
 		`//div[@id='swiki.2.1']`,
@@ -297,8 +297,8 @@ func (s *Show) PlotLong() (string, error) {
 	return strings.Trim(synopsisElement.Content(), " \t\n"), nil
 }
 
-// PosterURL returns.. the show's Poster URL (jpg image)
-func (s *Show) PosterURL() (string, error) {
+// PosterURL returns.. the item's Poster URL (jpg image)
+func (s *Item) PosterURL() (string, error) {
 	posterElement, err := firstMatching(
 		s.mainPage,
 		`//a[@name='poster']/img`,
@@ -330,8 +330,8 @@ func (s *Show) PosterURL() (string, error) {
 	return "", fmt.Errorf("can't parse poster url: '%s'", url)
 }
 
-// Rating returns the show's rating
-func (s *Show) Rating() (float32, error) {
+// Rating returns the item's rating
+func (s *Item) Rating() (float32, error) {
 	ratingElement, err := firstMatching(
 		s.mainPage,
 		`//*[@class='starbar-meta']/b`,
@@ -355,8 +355,8 @@ func (s *Show) Rating() (float32, error) {
 	return float32(rating), nil
 }
 
-// Votes returns the show's rating's number of votes
-func (s *Show) Votes() (int, error) {
+// Votes returns the item's rating's number of votes
+func (s *Item) Votes() (int, error) {
 	votesElement, err := firstMatching(
 		s.mainPage,
 		`//div[@id='tn15rating']//a[@class='tn15more']`,
@@ -381,7 +381,7 @@ func (s *Show) Votes() (int, error) {
 }
 
 // SeasonEpisode returns an episode's season and episode numbers
-func (s *Show) SeasonEpisode() (int, int, error) {
+func (s *Item) SeasonEpisode() (int, int, error) {
 	if s.season != nil && s.episode != nil {
 		return *s.season, *s.episode, nil
 	}
@@ -415,7 +415,7 @@ func (s *Show) SeasonEpisode() (int, int, error) {
 }
 
 // Series returns the series this episode belongs to
-func (s *Show) Series() (*Show, error) {
+func (s *Item) Series() (*Item, error) {
 	seriesLinkElement, err := firstMatching(
 		s.mainPage,
 		`//div[preceding-sibling::h5[contains(text(),'TV Series:')]]/a`,
@@ -438,10 +438,10 @@ func (s *Show) Series() (*Show, error) {
 }
 
 // episodeTitle returns the title of an episode
-func (s *Show) episodeTitle() (string, error) {
+func (s *Item) episodeTitle() (string, error) {
 	titleElement, err := firstMatching(s.mainPage, `//h1//span//em`)
 	if err != nil {
-		return "", fmt.Errorf("show not an episode?: %s", err)
+		return "", fmt.Errorf("item not an episode?: %s", err)
 	}
 
 	title := titleElement.InnerHtml()
@@ -454,14 +454,14 @@ func (s *Show) episodeTitle() (string, error) {
 }
 
 // episodeInfo returns a text block containing the episode's air date and number
-func (s *Show) episodeInfo() ([]string, error) {
+func (s *Item) episodeInfo() ([]string, error) {
 	infoElement, err := firstMatching(
 		s.mainPage,
 		`//div[@class='info-content' and preceding-sibling::h5[contains(text(),'Original Air Date')]]`,
 	)
 
 	if err != nil {
-		return nil, fmt.Errorf("show not an episode?: %s", err)
+		return nil, fmt.Errorf("item not an episode?: %s", err)
 	}
 
 	var lines []string
@@ -476,10 +476,10 @@ func (s *Show) episodeInfo() ([]string, error) {
 	return lines, nil
 }
 
-// Seasons returns a slice of all seasons in this show (applicable for Series).
+// Seasons returns a slice of all seasons in this item (applicable for Series).
 // Please note that the indices in the slice might have nothing to do with
 // the respective season numbers. For that, call Number() on each season.
-func (s *Show) Seasons() ([]*Season, error) {
+func (s *Item) Seasons() ([]*Season, error) {
 	mainPage, err := s.mainPage()
 	if err != nil {
 		return nil, err

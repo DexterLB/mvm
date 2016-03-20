@@ -11,11 +11,11 @@ import (
 	"github.com/moovweb/gokogiri/xml"
 )
 
-// Show represents a single show (either a movie or an episode)
-type Show struct {
+// Item represents a single item (either a movie or an episode)
+type Item struct {
 	id                   int
 	title                *string
-	showType             ShowType
+	itemType             ItemType
 	season               *int
 	episode              *int
 	mainPageDocument     *htmlParser.HtmlDocument
@@ -24,32 +24,32 @@ type Show struct {
 	releaseInfoDocument  *htmlParser.HtmlDocument
 }
 
-// ShowType is one of Unknown, Movie, Series and Episode
-type ShowType int
+// ItemType is one of Unknown, Movie, Series and Episode
+type ItemType int
 
-//go:generate stringer -type=ShowType
+//go:generate stringer -type=ItemType
 
 const (
-	// Unknown is a null show type
-	Unknown ShowType = iota
-	// Movie is the type of a show which is a movie
+	// Unknown is a null item type
+	Unknown ItemType = iota
+	// Movie is the type of a item which is a movie
 	Movie
-	// Series is the type of a show which is a series
+	// Series is the type of a item which is a series
 	Series
-	// Episode is the type of a show which is an episode
+	// Episode is the type of a item which is an episode
 	Episode
 )
 
-// New creates a show from an IMDB ID
-func New(id int) *Show {
-	return &Show{
+// New creates a item from an IMDB ID
+func New(id int) *Item {
+	return &Item{
 		id: id,
 	}
 }
 
 // Free frees all resources used by the parser. You must always call it
 // after you finish reading the attributes
-func (s *Show) Free() {
+func (s *Item) Free() {
 	if s.mainPageDocument != nil {
 		s.mainPageDocument.Free()
 		s.mainPageDocument = nil
@@ -71,10 +71,10 @@ func (s *Show) Free() {
 	}
 }
 
-// PreloadAll loads all pages needed for this show by making parallel
+// PreloadAll loads all pages needed for this item by making parallel
 // requests to IMDB. All subsequent calls to methods will be fast
 // (won't generate a http request)
-func (s *Show) PreloadAll() {
+func (s *Item) PreloadAll() {
 	wg := sync.WaitGroup{}
 	wg.Add(4)
 
@@ -91,7 +91,7 @@ func (s *Show) PreloadAll() {
 	wg.Wait()
 }
 
-func (s *Show) mainPage() (*xml.ElementNode, error) {
+func (s *Item) mainPage() (*xml.ElementNode, error) {
 	if s.mainPageDocument == nil {
 		page, err := s.parsePage("combined")
 		if err != nil {
@@ -103,7 +103,7 @@ func (s *Show) mainPage() (*xml.ElementNode, error) {
 	return s.mainPageDocument.Root(), nil
 }
 
-func (s *Show) releaseInfoPage() (*xml.ElementNode, error) {
+func (s *Item) releaseInfoPage() (*xml.ElementNode, error) {
 	if s.releaseInfoDocument == nil {
 		page, err := s.parsePage("releaseinfo")
 		if err != nil {
@@ -115,7 +115,7 @@ func (s *Show) releaseInfoPage() (*xml.ElementNode, error) {
 	return s.releaseInfoDocument.Root(), nil
 }
 
-func (s *Show) plotSummaryPage() (*xml.ElementNode, error) {
+func (s *Item) plotSummaryPage() (*xml.ElementNode, error) {
 	if s.plotSummaryDocument == nil {
 		page, err := s.parsePage("plotsummary")
 		if err != nil {
@@ -127,7 +127,7 @@ func (s *Show) plotSummaryPage() (*xml.ElementNode, error) {
 	return s.plotSummaryDocument.Root(), nil
 }
 
-func (s *Show) plotSynopsisPage() (*xml.ElementNode, error) {
+func (s *Item) plotSynopsisPage() (*xml.ElementNode, error) {
 	if s.plotSynopsisDocument == nil {
 		page, err := s.parsePage("synopsis")
 		if err != nil {
@@ -139,7 +139,7 @@ func (s *Show) plotSynopsisPage() (*xml.ElementNode, error) {
 	return s.plotSynopsisDocument.Root(), nil
 }
 
-func (s *Show) parsePage(name string) (*htmlParser.HtmlDocument, error) {
+func (s *Item) parsePage(name string) (*htmlParser.HtmlDocument, error) {
 	url := fmt.Sprintf("http://akas.imdb.com/title/tt%07d/%s", s.id, name)
 	return parsePage(url)
 }

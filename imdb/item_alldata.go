@@ -9,10 +9,10 @@ import (
 	"golang.org/x/text/language"
 )
 
-// ShowData holds all fields for a show
-type ShowData struct {
+// ItemData holds all fields for a item
+type ItemData struct {
 	ID   int
-	Type ShowType
+	Type ItemType
 
 	Title       string
 	Year        int
@@ -35,14 +35,14 @@ type ShowData struct {
 	// Episode-only fields
 	SeasonNumber  int
 	EpisodeNumber int
-	Series        *Show
+	Series        *Item
 
 	// Series-only fields
 	Seasons []*Season
 }
 
 // String returns the data in a human-readable form
-func (s *ShowData) String() string {
+func (s *ItemData) String() string {
 	languageNames := make([]string, len(s.Languages))
 
 	for i, language := range s.Languages {
@@ -141,10 +141,10 @@ func humanReadableMap(m map[string]string) string {
 }
 
 // AllData fetches all possible fields and returns them
-func (s *Show) AllData() (*ShowData, error) {
+func (s *Item) AllData() (*ItemData, error) {
 	s.PreloadAll()
 
-	data := &ShowData{
+	data := &ItemData{
 		ID: s.ID(),
 	}
 	var err error

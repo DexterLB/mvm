@@ -7,7 +7,7 @@ import (
 	_ "github.com/orchestrate-io/dvr"
 )
 
-func ExampleShow_ID() {
+func ExampleItem_ID() {
 	movie := New(403358)
 	fmt.Printf("id: %d\n", movie.ID())
 
@@ -15,7 +15,7 @@ func ExampleShow_ID() {
 	// id: 403358
 }
 
-func ExampleShow_Title() {
+func ExampleItem_Title() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -31,7 +31,7 @@ func ExampleShow_Title() {
 	// title: Nochnoy dozor
 }
 
-func ExampleShow_Title_episode() {
+func ExampleItem_Title_episode() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -47,7 +47,7 @@ func ExampleShow_Title_episode() {
 	// title: The Beast Below
 }
 
-func ExampleShow_Title_series() {
+func ExampleItem_Title_series() {
 	series := New(436992) // Doctor Who
 	defer series.Free()
 
@@ -63,7 +63,7 @@ func ExampleShow_Title_series() {
 	// title: Doctor Who
 }
 
-func ExampleShow_Year() {
+func ExampleItem_Year() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -79,7 +79,7 @@ func ExampleShow_Year() {
 	// year: 2004
 }
 
-func ExampleShow_Year_episode() {
+func ExampleItem_Year_episode() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -95,7 +95,7 @@ func ExampleShow_Year_episode() {
 	// year: 2010
 }
 
-func ExampleShow_Year_series() {
+func ExampleItem_Year_series() {
 	series := New(436992) // Doctor Who
 	defer series.Free()
 
@@ -111,7 +111,7 @@ func ExampleShow_Year_series() {
 	// year: 2005
 }
 
-func ExampleShow_OtherTitles() {
+func ExampleItem_OtherTitles() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -137,7 +137,7 @@ func ExampleShow_OtherTitles() {
 	// World-wide (English title): Night Watch
 }
 
-func ExampleShow_ReleaseDate() {
+func ExampleItem_ReleaseDate() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -153,7 +153,7 @@ func ExampleShow_ReleaseDate() {
 	// release date: 2005-10-07
 }
 
-func ExampleShow_ReleaseDate_episode() {
+func ExampleItem_ReleaseDate_episode() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -169,7 +169,7 @@ func ExampleShow_ReleaseDate_episode() {
 	// release date: 2010-04-10
 }
 
-func ExampleShow_Tagline() {
+func ExampleItem_Tagline() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -185,7 +185,7 @@ func ExampleShow_Tagline() {
 	// tagline: All That Stands Between Light And Darkness Is The Night Watch.
 }
 
-func ExampleShow_Languages_episode() {
+func ExampleItem_Languages_episode() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -207,7 +207,7 @@ func ExampleShow_Languages_episode() {
 	// languages: en
 }
 
-func ExampleShow_Languages_movie() {
+func ExampleItem_Languages_movie() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -229,7 +229,7 @@ func ExampleShow_Languages_movie() {
 	// languages: ru, de
 }
 
-func ExampleShow_Languages_series() {
+func ExampleItem_Languages_series() {
 	series := New(436992) // Doctor Who
 	defer series.Free()
 
@@ -251,7 +251,7 @@ func ExampleShow_Languages_series() {
 	// languages: en
 }
 
-func ExampleShow_Duration() {
+func ExampleItem_Duration() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -267,7 +267,7 @@ func ExampleShow_Duration() {
 	// duration: 1h54m0s
 }
 
-func ExampleShow_Plot() {
+func ExampleItem_Plot() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -283,7 +283,7 @@ func ExampleShow_Plot() {
 	// short plot: A fantasy-thriller set in present-day Moscow where the respective forces that control daytime and nighttime do battle.
 }
 
-func ExampleShow_PlotMedium() {
+func ExampleItem_PlotMedium() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -302,7 +302,7 @@ func ExampleShow_PlotMedium() {
 	// Ever since, the forces of light govern the day while the night belongs to their dark opponents
 }
 
-func ExampleShow_PlotLong() {
+func ExampleItem_PlotLong() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -321,7 +321,7 @@ func ExampleShow_PlotLong() {
 	// They are known as the Others and have co-existed with humans for as long as humanity has existed
 }
 
-func ExampleShow_PosterURL() {
+func ExampleItem_PosterURL() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -337,7 +337,7 @@ func ExampleShow_PosterURL() {
 	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 }
 
-func ExampleShow_Rating() {
+func ExampleItem_Rating() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -353,7 +353,7 @@ func ExampleShow_Rating() {
 	// rating: 6.5
 }
 
-func ExampleShow_Votes() {
+func ExampleItem_Votes() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -369,7 +369,7 @@ func ExampleShow_Votes() {
 	// thousands of votes: 46
 }
 
-func ExampleShow_Type() {
+func ExampleItem_Type() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 	episode := New(1577257) // Doctor Who s05e02
@@ -405,7 +405,7 @@ func ExampleShow_Type() {
 	// Doctor Who's type is Series
 }
 
-func ExampleShow_SeasonEpisode() {
+func ExampleItem_SeasonEpisode() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -421,7 +421,7 @@ func ExampleShow_SeasonEpisode() {
 	// s05e02
 }
 
-func ExampleShow_Series() {
+func ExampleItem_Series() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -433,12 +433,12 @@ func ExampleShow_Series() {
 
 	fmt.Printf("id: %07d\n", series.ID())
 
-	showType, err := series.Type()
+	itemType, err := series.Type()
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return
 	}
-	fmt.Printf("type: %s\n", showType)
+	fmt.Printf("type: %s\n", itemType)
 
 	title, err := series.Title()
 	if err != nil {
@@ -453,7 +453,7 @@ func ExampleShow_Series() {
 	// title: Doctor Who
 }
 
-func ExampleShow_Seasons_testnumbers() {
+func ExampleItem_Seasons_testnumbers() {
 	series := New(1286039) // Stargate Universe
 	defer series.Free()
 
@@ -480,7 +480,7 @@ func ExampleShow_Seasons_testnumbers() {
 	// 2
 }
 
-func ExampleShow_Seasons_episodes() {
+func ExampleItem_Seasons_episodes() {
 	series := New(1286039) // Stargate Universe
 	defer series.Free()
 
@@ -542,7 +542,7 @@ func ExampleShow_Seasons_episodes() {
 	// s02e20: Gauntlet
 }
 
-func ExampleShow_AllData_movie() {
+func ExampleItem_AllData_movie() {
 	movie := New(403358) // Nochnoy Dozor (2004)
 	defer movie.Free()
 
@@ -600,7 +600,7 @@ func ExampleShow_AllData_movie() {
 	// tagline: All That Stands Between Light And Darkness Is The Night Watch.
 }
 
-func ExampleShow_AllData_episode() {
+func ExampleItem_AllData_episode() {
 	episode := New(1577257) // Doctor Who s05e02
 	defer episode.Free()
 
@@ -633,7 +633,7 @@ func ExampleShow_AllData_episode() {
 	// series id: 0436992
 }
 
-func ExampleShow_AllData_series() {
+func ExampleItem_AllData_series() {
 	series := New(1286039) // Stargate Universe
 	defer series.Free()
 
