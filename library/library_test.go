@@ -90,9 +90,10 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	assert.Equal(999999, movie2.ImdbID)
 	assert.Equal("title", movie2.Title)
 	assert.Equal(2048, movie2.Year)
-	assert.Equal("bar", movie2.OtherTitles["foo"])
-	assert.Equal("baz", movie2.OtherTitles["bar"])
-	assert.Equal(2, len(movie2.OtherTitles))
+	assert.Equal(
+		map[string]string{"foo": "bar", "bar": "baz"},
+		map[string]string(movie2.OtherTitles),
+	)
 	assert.Equal(3*time.Minute, time.Duration(movie2.Duration))
 	assert.Equal(plots[0], movie2.Plot)
 	assert.Equal(plots[1], movie2.PlotMedium)
@@ -100,7 +101,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	assert.Equal("http://example.com/foo.jpg", movie2.PosterURL)
 	assert.InDelta(3.14, movie2.ImdbRating, 0.0001)
 	assert.Equal(42, movie2.ImdbVotes)
-	assert.Equal(languages, movie2.Languages)
+	assert.Equal(languages, []string(movie2.Languages))
 	assert.Equal(
 		time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC),
 		movie2.ReleaseDate,

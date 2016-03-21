@@ -41,19 +41,10 @@ func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
 		return nil, err
 	}
 	show.ImdbID = id
-	err = show.onLoad()
 	return show, err
 }
 
 // Save saves the item to the library
-func (lib *Library) Save(item saver) error {
-	err := item.onSave()
-	if err != nil {
-		return err
-	}
+func (lib *Library) Save(item interface{}) error {
 	return lib.db.Save(item).Error
-}
-
-type saver interface {
-	onSave() error
 }
