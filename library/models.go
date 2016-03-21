@@ -27,7 +27,7 @@ type CommonData struct {
 	Title       string            `json:"title"`
 	Year        int               `json:"year"`
 	OtherTitles map[string]string `sql:"-",gorm:"-",json:"other_titles"`
-	Duration    time.Duration     `json:"duration"`
+	Duration    Duration          `json:"duration"`
 	Plot        string            `json:"plot"`
 	PlotMedium  string            `json:"plot_medium"`
 	PlotLong    string            `json:"plot_long"`
@@ -61,17 +61,29 @@ type Series struct {
 type VideoFile struct {
 	gorm.Model
 
-	Filename   string        `json:"filename"`
-	FileSize   uint          `json:"filesize"`
-	Resolution [2]uint       `json:"resolution"`
-	OsdbHash   uint          `json:"osdb_hash"`
-	Format     string        `json:"format"`
-	Duration   time.Duration `json:"duration"`
+	Filename   string   `json:"filename"`
+	FileSize   uint     `json:"filesize"`
+	Resolution [2]uint  `json:"resolution"`
+	OsdbHash   uint     `json:"osdb_hash"`
+	Format     string   `json:"format"`
+	Duration   Duration `json:"duration"`
 
-	LastPlayed   time.Time     `json:"last_played"`
-	LastPosition time.Duration `json:"last_position"`
+	LastPlayed   time.Time `json:"last_played"`
+	LastPosition Duration  `json:"last_position"`
 
 	ShowID uint
+}
+
+type Duration time.Duration
+
+func (d *Duration) Scan(src interface{}) error {
+	switch v := src.(type) {
+	case int64:
+		*d = Duration(Duration(v))
+	default:
+		return fmt.Errorf("unknown duration type")
+	}
+	return nil
 }
 
 func (c *CommonData) onSave() error {

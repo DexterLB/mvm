@@ -53,7 +53,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		"foo": "bar",
 		"bar": "baz",
 	}
-	movie.Duration = 3 * time.Minute
+	movie.Duration = Duration(3 * time.Minute)
 	movie.Plot = plots[0]
 	movie.PlotMedium = plots[1]
 	movie.PlotLong = plots[2]
@@ -93,7 +93,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	assert.Equal("bar", movie2.OtherTitles["foo"])
 	assert.Equal("baz", movie2.OtherTitles["bar"])
 	assert.Equal(2, len(movie2.OtherTitles))
-	assert.Equal(3*time.Minute, movie2.Duration)
+	assert.Equal(3*time.Minute, time.Duration(movie2.Duration))
 	assert.Equal(plots[0], movie2.Plot)
 	assert.Equal(plots[1], movie2.PlotMedium)
 	assert.Equal(plots[2], movie2.PlotLong)
