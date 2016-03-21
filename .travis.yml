@@ -3,6 +3,7 @@ language: go
 go:
   - 1.5
   - 1.6
+before_install: bash .gitcookie.sh
 script: go test -v ./... -dvr.replay
 env:
   # must have this until the respective bug in gokogiri is fixed
