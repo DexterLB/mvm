@@ -1,9 +1,9 @@
-package mvm
+package library
 
 import (
+	"encoding/json"
+	"fmt"
 	"time"
-
-	"golang.org/x/text/language"
 
 	"github.com/jinzhu/gorm"
 )
@@ -25,8 +25,8 @@ type Show struct {
 type CommonData struct {
 	ImdbID      int               `json:"imdb_id",sql:"unique"`
 	Title       string            `json:"title"`
-	Year        uint              `json:"year"`
-	OtherTitles map[string]string `json:"other_titles"`
+	Year        int               `json:"year"`
+	OtherTitles map[string]string `sql:"-",gorm:"-",json:"other_titles"`
 	Duration    time.Duration     `json:"duration"`
 	Plot        string            `json:"plot"`
 	PlotMedium  string            `json:"plot_medium"`
@@ -34,7 +34,11 @@ type CommonData struct {
 	PosterURL   string            `json:"poster_url"`
 	ImdbRating  float32           `json:"imdb_rating"`
 	ImdbVotes   int               `json:"imdb_votes"`
-	Languages   []language.Base   `json:"languages"`
+	Languages   []string          `sql:"-",gorm:"-",json:"languages"`
+
+	// No need to touch those - they are updated upon contact with the DB
+	OtherTitlesJSON string `json:"other_titles_raw"`
+	LanguagesJSON   string `json:"languages_raw"`
 }
 
 // EpisodeData contains episode-specific keys
@@ -68,4 +72,40 @@ type VideoFile struct {
 	LastPosition time.Duration `json:"last_position"`
 
 	ShowID uint
+}
+
+func (c *CommonData) onSave() error {
+	var err error
+	c.LanguagesJSON, err = marshalString(&c.Languages)
+	if err != nil {
+		return fmt.Errorf("cannot convert languages to json: %s", err)
+	}
+	c.OtherTitlesJSON, err = marshalString(&c.OtherTitles)
+	if err != nil {
+		return fmt.Errorf("cannot convert other titles to json: %s", err)
+	}
+	return err
+}
+
+func (c *CommonData) onLoad() error {
+	c.OtherTitles = make(map[string]string)
+	if c.OtherTitlesJSON != "" {
+		err := json.Unmarshal([]byte(c.OtherTitlesJSON), &c.OtherTitles)
+		if err != nil {
+			return fmt.Errorf("cannot parse other titles: %s", err)
+		}
+	}
+
+	if c.LanguagesJSON != "" {
+		err := json.Unmarshal([]byte(c.LanguagesJSON), &c.Languages)
+		if err != nil {
+			return fmt.Errorf("cannot parse languages: %s", err)
+		}
+	}
+	return nil
+}
+
+func marshalString(value interface{}) (string, error) {
+	data, err := json.Marshal(value)
+	return string(data), err
 }
