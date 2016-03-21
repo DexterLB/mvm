@@ -14,15 +14,15 @@ func New(dbDriver string, arguments ...interface{}) (*Library, error) {
 		return nil, err
 	}
 
-	db.AutoMigrate(&Show{}, &EpisodeData{}, &Series{})
+	db.AutoMigrate(&Show{}, &EpisodeData{}, &Series{}, &VideoFile{})
 
 	return &Library{
 		db: db,
 	}, nil
 }
 
-// HasImdbID checks if there exists a show with this id in the library
-func (lib *Library) HasImdbID(id int) (bool, error) {
+// HasShowWithImdbID checks if there exists a show with this id in the library
+func (lib *Library) HasShowWithImdbID(id int) (bool, error) {
 	err := lib.db.Where("imdb_id = ?", id).First(&Show{}).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -42,6 +42,29 @@ func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
 	}
 	show.ImdbID = id
 	return show, err
+}
+
+// HasFileWithPath checks if there exists a file with this path in the library
+func (lib *Library) HasFileWithPath(path string) (bool, error) {
+	err := lib.db.Where("path = ?", path).First(&VideoFile{}).Error
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
+// GetFileByPath finds the file by its path, creating it if it doesn't exist
+func (lib *Library) GetFileByPath(path string) (*VideoFile, error) {
+	file := &VideoFile{}
+	err := lib.db.Where("path = ?", path).FirstOrCreate(file).Error
+	if err != nil {
+		return nil, err
+	}
+	file.Path = path
+	return file, err
 }
 
 // Save saves the item to the library

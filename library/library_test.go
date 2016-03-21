@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDatabase(t *testing.T) {
+func TestShow(t *testing.T) {
 	plots := [...]string{
 		`Lorem ipsum dolor sit amet`,
 		`Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
@@ -33,7 +33,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		t.Fatal(err)
 	}
 
-	isin, err := lib.HasImdbID(999999)
+	isin, err := lib.HasShowWithImdbID(999999)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,7 +71,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		t.Fatal(err)
 	}
 
-	isin, err = lib.HasImdbID(999999)
+	isin, err = lib.HasShowWithImdbID(999999)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -109,4 +109,70 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 
 	assert.Nil(movie2.EpisodeData)
 	assert.Equal("foo!", movie2.Tagline)
+}
+
+func TestVideoFile(t *testing.T) {
+	lib, err := New("sqlite3", ":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	isin, err := lib.HasFileWithPath("/foo/bar")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if isin {
+		t.Fatalf("File already in the database?")
+	}
+
+	file, err := lib.GetFileByPath("/foo/bar")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	file.Size = 98765432
+	file.ResolutionX = 1920
+	file.ResolutionY = 1080
+	file.OsdbHash = 123456789
+	file.Format = "h264"
+	file.Duration = Duration(time.Minute * 20)
+
+	file.LastPlayed = time.Date(2012, time.February, 10, 23, 15, 32, 5, time.UTC)
+	file.LastPosition = Duration(time.Minute*12 + time.Second*38)
+
+	err = lib.Save(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	isin, err = lib.HasFileWithPath("/foo/bar")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !isin {
+		t.Fatalf("File not in the database?")
+	}
+
+	file2, err := lib.GetFileByPath("/foo/bar")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert := assert.New(t)
+	assert.Equal("/foo/bar", file2.Path)
+	assert.Equal(uint64(98765432), file2.Size)
+	assert.Equal(uint(1920), file2.ResolutionX)
+	assert.Equal(uint(1080), file2.ResolutionY)
+	assert.Equal(uint64(123456789), file2.OsdbHash)
+	assert.Equal("h264", file2.Format)
+	assert.Equal(time.Minute*20, time.Duration(file2.Duration))
+	assert.Equal(
+		file2.LastPlayed,
+		time.Date(2012, time.February, 10, 23, 15, 32, 5, time.UTC),
+	)
+	assert.Equal(
+		time.Duration(file2.LastPosition), time.Minute*12+time.Second*38,
+	)
 }
