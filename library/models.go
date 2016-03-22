@@ -10,11 +10,10 @@ import (
 type Show struct {
 	gorm.Model
 	CommonData
+	EpisodeData
 
 	ReleaseDate time.Time `json:"release_date"`
 	Tagline     string    `json:"tagline"`
-
-	EpisodeData *EpisodeData `json:"episode_data"`
 
 	Files []*VideoFile `json:"files",gorm:"ForeignKey:ShowID"`
 }
@@ -37,9 +36,8 @@ type CommonData struct {
 
 // EpisodeData contains episode-specific keys
 type EpisodeData struct {
-	ID       uint `gorm:"primary_key"`
-	Season   int  `json:"season"`
-	Episode  int  `json:"episode"`
+	Season   int `json:"season"`
+	Episode  int `json:"episode"`
 	SeriesID uint
 }
 

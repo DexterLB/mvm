@@ -40,8 +40,28 @@ func (lib *Library) GetSeriesByImdbID(id int) (*Series, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	series.ImdbID = id
+	err = lib.db.Model(series).Association("Episodes").Find(&series.Episodes).Error
+	if err != nil {
+		return nil, err
+	}
+
 	return series, err
+}
+
+// GetSeriesByEpisode returns the series this show belongs to (if it's an episode)
+// or nil otherwise
+func (lib *Library) GetSeriesByEpisode(episode *Show) (*Series, error) {
+	series := &Series{}
+	err := lib.db.Where("id = ?", episode.SeriesID).First(series).Error
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return series, nil
 }
 
 // HasShowWithImdbID checks if there exists a show with this id in the library
@@ -66,10 +86,10 @@ func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
 
 	show.ImdbID = id
 	err = lib.db.Model(show).Association("Files").Find(&show.Files).Error
-
 	if err != nil {
 		return nil, err
 	}
+
 	return show, err
 }
 

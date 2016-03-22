@@ -162,7 +162,6 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	movie.Languages = languages
 	movie.ReleaseDate = time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
 
-	movie.EpisodeData = nil
 	movie.Tagline = "foo!"
 
 	err = lib.Save(movie)
@@ -206,7 +205,6 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		movie2.ReleaseDate,
 	)
 
-	assert.Nil(movie2.EpisodeData)
 	assert.Equal("foo!", movie2.Tagline)
 }
 
@@ -317,4 +315,71 @@ func TestShowWithFiles(t *testing.T) {
 	assert.Equal("/baz/qux", show2.Files[1].Path)
 	assert.Equal(uint64(42), show2.Files[0].Size)
 	assert.Equal(uint64(56), show2.Files[1].Size)
+}
+
+func TestSeriesWithEpisodes(t *testing.T) {
+	lib, err := New("sqlite3", ":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	series, err := lib.GetSeriesByImdbID(555555)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	epA, err := lib.GetShowByImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	epA.Season = 5
+	epA.Episode = 2
+
+	series.Episodes = []*Show{epA}
+	lib.Save(epA)
+	lib.Save(series)
+
+	series2, err := lib.GetSeriesByImdbID(555555)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	epB, err := lib.GetShowByImdbID(888888)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	epB.Season = 5
+	epB.Episode = 3
+
+	series2.Episodes = append(series2.Episodes, epB)
+
+	lib.Save(epB)
+	lib.Save(series2)
+
+	series3, err := lib.GetSeriesByImdbID(555555)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert := assert.New(t)
+
+	assert.Equal(2, len(series3.Episodes))
+	assert.Equal(999999, series3.Episodes[0].ImdbID)
+	assert.Equal(888888, series3.Episodes[1].ImdbID)
+	assert.Equal(5, series3.Episodes[0].Season)
+	assert.Equal(5, series3.Episodes[1].Season)
+	assert.Equal(2, series3.Episodes[0].Episode)
+	assert.Equal(3, series3.Episodes[1].Episode)
+	series30, err := lib.GetSeriesByEpisode(series3.Episodes[0])
+	if err != nil {
+		t.Fatal(err)
+	}
+	series31, err := lib.GetSeriesByEpisode(series3.Episodes[1])
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(series3.ID, series30.ID)
+	assert.Equal(series3.ID, series31.ID)
 }
