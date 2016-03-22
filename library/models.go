@@ -32,7 +32,7 @@ type CommonData struct {
 	PosterURL   string          `json:"poster_url"`
 	ImdbRating  float32         `json:"imdb_rating"`
 	ImdbVotes   int             `json:"imdb_votes"`
-	Languages   SliceString     `gorm:"type:blob",json:"languages"`
+	Languages   Languages       `gorm:"type:text",json:"languages"`
 }
 
 // EpisodeData contains episode-specific keys

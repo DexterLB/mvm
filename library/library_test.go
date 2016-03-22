@@ -4,6 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/text/language"
+
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	_ "github.com/orchestrate-io/dvr"
 	"github.com/stretchr/testify/assert"
@@ -26,7 +28,10 @@ Aenean venenatis, velit rhoncus scelerisque dictum,
 lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	}
 
-	languages := []string{"ru", "en"}
+	languages := Languages{
+		NewLanguage(language.MustParseBase("en")),
+		NewLanguage(language.MustParseBase("ru")),
+	}
 
 	lib, err := New("sqlite3", ":memory:")
 	if err != nil {
@@ -101,7 +106,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	assert.Equal("http://example.com/foo.jpg", movie2.PosterURL)
 	assert.InDelta(3.14, movie2.ImdbRating, 0.0001)
 	assert.Equal(42, movie2.ImdbVotes)
-	assert.Equal(languages, []string(movie2.Languages))
+	assert.Equal(languages, movie2.Languages)
 	assert.Equal(
 		time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC),
 		movie2.ReleaseDate,
