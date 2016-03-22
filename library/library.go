@@ -63,7 +63,13 @@ func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	show.ImdbID = id
+	err = lib.db.Model(show).Association("Files").Find(&show.Files).Error
+
+	if err != nil {
+		return nil, err
+	}
 	return show, err
 }
 

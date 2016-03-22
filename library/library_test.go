@@ -275,3 +275,46 @@ func TestVideoFile(t *testing.T) {
 		time.Duration(file2.LastPosition), time.Minute*12+time.Second*38,
 	)
 }
+
+func TestShowWithFiles(t *testing.T) {
+	lib, err := New("sqlite3", ":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fileA, err := lib.GetFileByPath("/foo/bar")
+	if err != nil {
+		t.Fatal(err)
+	}
+	fileB, err := lib.GetFileByPath("/baz/qux")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	show, err := lib.GetShowByImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fileA.Size = 42
+	fileB.Size = 56
+
+	show.Files = []*VideoFile{fileA, fileB}
+
+	lib.Save(show)
+	lib.Save(fileA)
+	lib.Save(fileB)
+
+	show2, err := lib.GetShowByImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert := assert.New(t)
+
+	assert.Equal(2, len(show2.Files))
+	assert.Equal("/foo/bar", show2.Files[0].Path)
+	assert.Equal("/baz/qux", show2.Files[1].Path)
+	assert.Equal(uint64(42), show2.Files[0].Size)
+	assert.Equal(uint64(56), show2.Files[1].Size)
+}

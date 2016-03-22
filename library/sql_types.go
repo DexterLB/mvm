@@ -54,12 +54,19 @@ type Languages []Language
 func ParseLanguages(spaceSeparatedCodes string) (Languages, error) {
 	codes := strings.Split(spaceSeparatedCodes, " ")
 	languages := make(Languages, len(codes))
-	var err error
+
+	var (
+		err error
+		j   int
+	)
 
 	for i := range codes {
-		languages[i], err = ParseLanguage(codes[i])
-		if err != nil {
-			return nil, err
+		if codes[i] != "" {
+			languages[j], err = ParseLanguage(codes[i])
+			if err != nil {
+				return nil, err
+			}
+			j++
 		}
 	}
 
@@ -69,7 +76,7 @@ func ParseLanguages(spaceSeparatedCodes string) (Languages, error) {
 // String represents the languages as 2-letter codes separated by spaces
 func (l Languages) String() string {
 	codes := make([]string, len(l))
-	for i := range codes {
+	for i := range l {
 		codes[i] = l[i].String()
 	}
 	return strings.Join(codes, " ")
