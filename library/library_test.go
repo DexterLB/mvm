@@ -11,6 +11,100 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestSeries(t *testing.T) {
+	plots := [...]string{
+		`Lorem ipsum dolor sit amet`,
+		`Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+		`Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Ut est arcu, tempor quis accumsan quis, imperdiet ut ex.
+Pellentesque vel lobortis est. Vivamus lobortis eleifend dapibus.
+Nullam laoreet ipsum sed massa ornare tristique in nec lorem.
+In eleifend odio ac accumsan ultrices. Aenean lacinia vel risus quis mattis.
+Donec suscipit pretium euismod. 
+Etiam sed justo venenatis, interdum tortor quis, aliquet ipsum.
+Vestibulum a facilisis lectus.
+Fusce aliquam lectus vel vehicula consequat. 
+Aenean venenatis, velit rhoncus scelerisque dictum, 
+lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
+	}
+
+	languages := Languages{
+		NewLanguage(language.MustParseBase("en")),
+		NewLanguage(language.MustParseBase("ru")),
+	}
+
+	lib, err := New("sqlite3", ":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	isin, err := lib.HasSeriesWithImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if isin {
+		t.Fatalf("Series already in the database?")
+	}
+
+	series, err := lib.GetSeriesByImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	series.Title = "title"
+	series.Year = 2048
+	series.OtherTitles = map[string]string{
+		"foo": "bar",
+		"bar": "baz",
+	}
+	series.Duration = Duration(3 * time.Minute)
+	series.Plot = plots[0]
+	series.PlotMedium = plots[1]
+	series.PlotLong = plots[2]
+	series.PosterURL = "http://example.com/foo.jpg"
+	series.ImdbRating = 3.14
+	series.ImdbVotes = 42
+	series.Languages = languages
+
+	err = lib.Save(series)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	isin, err = lib.HasSeriesWithImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !isin {
+		t.Fatalf("Series not in the database?")
+	}
+
+	series2, err := lib.GetSeriesByImdbID(999999)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert := assert.New(t)
+
+	assert.Equal(999999, series2.ImdbID)
+	assert.Equal("title", series2.Title)
+	assert.Equal(2048, series2.Year)
+	assert.Equal(
+		map[string]string{"foo": "bar", "bar": "baz"},
+		map[string]string(series2.OtherTitles),
+	)
+	assert.Equal(3*time.Minute, time.Duration(series2.Duration))
+	assert.Equal(plots[0], series2.Plot)
+	assert.Equal(plots[1], series2.PlotMedium)
+	assert.Equal(plots[2], series2.PlotLong)
+	assert.Equal("http://example.com/foo.jpg", series2.PosterURL)
+	assert.InDelta(3.14, series2.ImdbRating, 0.0001)
+	assert.Equal(42, series2.ImdbVotes)
+	assert.Equal(languages, series2.Languages)
+}
+
 func TestShow(t *testing.T) {
 	plots := [...]string{
 		`Lorem ipsum dolor sit amet`,

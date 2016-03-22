@@ -21,6 +21,29 @@ func New(dbDriver string, arguments ...interface{}) (*Library, error) {
 	}, nil
 }
 
+// HasSeriesWithImdbID checks if there exists a series with this id in the library
+func (lib *Library) HasSeriesWithImdbID(id int) (bool, error) {
+	err := lib.db.Where("imdb_id = ?", id).First(&Series{}).Error
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
+// GetSeriesByImdbID finds the series by its imdb id, creating it if it doesn't exist
+func (lib *Library) GetSeriesByImdbID(id int) (*Series, error) {
+	series := &Series{}
+	err := lib.db.Where("imdb_id = ?", id).FirstOrCreate(series).Error
+	if err != nil {
+		return nil, err
+	}
+	series.ImdbID = id
+	return series, err
+}
+
 // HasShowWithImdbID checks if there exists a show with this id in the library
 func (lib *Library) HasShowWithImdbID(id int) (bool, error) {
 	err := lib.db.Where("imdb_id = ?", id).First(&Show{}).Error
