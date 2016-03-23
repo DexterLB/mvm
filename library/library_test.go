@@ -299,9 +299,18 @@ func TestShowWithFiles(t *testing.T) {
 
 	show.Files = []*VideoFile{fileA, fileB}
 
-	lib.Save(show)
-	lib.Save(fileA)
-	lib.Save(fileB)
+	err = lib.Save(show)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = lib.Save(fileA)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = lib.Save(fileB)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	show2, err := lib.GetShowByImdbID(999999)
 	if err != nil {
@@ -337,8 +346,14 @@ func TestSeriesWithEpisodes(t *testing.T) {
 	epA.Episode = 2
 
 	series.Episodes = []*Show{epA}
-	lib.Save(epA)
-	lib.Save(series)
+	err = lib.Save(epA)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = lib.Save(series)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	series2, err := lib.GetSeriesByImdbID(555555)
 	if err != nil {
@@ -355,8 +370,14 @@ func TestSeriesWithEpisodes(t *testing.T) {
 
 	series2.Episodes = append(series2.Episodes, epB)
 
-	lib.Save(epB)
-	lib.Save(series2)
+	err = lib.Save(epB)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = lib.Save(series2)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	series3, err := lib.GetSeriesByImdbID(555555)
 	if err != nil {
