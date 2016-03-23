@@ -13,5 +13,5 @@ type Context struct {
 }
 
 type Config struct {
-	fileRoot string
+	FileRoot string
 }

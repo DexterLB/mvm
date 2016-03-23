@@ -32,6 +32,8 @@ type CommonData struct {
 	ImdbRating  float32         `json:"imdb_rating"`
 	ImdbVotes   int             `json:"imdb_votes"`
 	Languages   Languages       `gorm:"type:text",json:"languages"`
+
+	Status MapStringStepStatus `gorm:"type:blob",json:"status"`
 }
 
 // EpisodeData contains episode-specific keys
@@ -65,4 +67,6 @@ type VideoFile struct {
 	LastPosition Duration  `json:"last_position"`
 
 	ShowID uint
+
+	Status MapStringStepStatus `gorm:"type:blob",json:"status"`
 }

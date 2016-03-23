@@ -163,7 +163,7 @@ func (m MapStringString) Value() (driver.Value, error) {
 
 // SliceString is an instance of []string which implements the SQL
 // Valuer and Scanner interfaces, so it can be stored in a database.
-// Its SQL type should be integer.
+// Its SQL type should be blob.
 type SliceString []string
 
 // Scan deserialises the object from raw database data
@@ -189,4 +189,70 @@ func (m SliceString) Value() (driver.Value, error) {
 		return nil, fmt.Errorf("unable to serialise slice: %s", err)
 	}
 	return data, nil
+}
+
+// MapStringStepStatus is an instance of map[string]*StepStatus which
+// implements the SQL Valuer and Scanner interfaces, so it can be stored
+// in a database. Its SQL type should be blob.
+type MapStringStepStatus map[string]*StepStatus
+
+// Scan deserialises the object from raw database data
+func (m *MapStringStepStatus) Scan(src interface{}) error {
+	switch data := src.(type) {
+	case []byte:
+		result := make(MapStringStepStatus)
+		err := json.Unmarshal(data, &result)
+		if err != nil {
+			return fmt.Errorf("unable to parse map: %s", err)
+		}
+		*m = result
+	default:
+		return fmt.Errorf("unknown type for map[string]*StepStatus")
+	}
+	return nil
+}
+
+// Value serialises the object to raw database data
+func (m MapStringStepStatus) Value() (driver.Value, error) {
+	data, err := json.Marshal(&m)
+	if err != nil {
+		return nil, fmt.Errorf("unable to serialise map: %s", err)
+	}
+	return data, nil
+}
+
+// Status represents the state of an import step
+type Status int
+
+//go:generate stringer -type=Status
+
+const (
+	Incomplete Status = iota
+	Skipped
+	Success
+	Error
+)
+
+// StepStatus contains the state of an import state and a string message
+type StepStatus struct {
+	Status  Status `json:"status"`
+	Message string `json:"message"`
+}
+
+// Errorf sets the status to Error and writes a message
+func (m *StepStatus) Errorf(message string, arguments ...interface{}) {
+	m.Status = Error
+	m.Message = fmt.Sprintf(message, arguments...)
+}
+
+// Succeed sets the status to Success
+func (m *StepStatus) Succeed() {
+	m.Status = Success
+	m.Message = ""
+}
+
+// Skip sets the status to Skipped
+func (m *StepStatus) Skip() {
+	m.Status = Skipped
+	m.Message = ""
 }
