@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/DexterLB/mvm/library"
+	"github.com/oz/osdb"
 )
 
 // FileImporter takes filenames and constructs video file data
@@ -30,6 +31,12 @@ func (c *Context) FileImporter(filenames <-chan string, files chan<- *library.Vi
 			file.Size, err = filesize(filename)
 			if err != nil {
 				file.Status.For("file").Errorf("unable to get file size: %s", err)
+				continue
+			}
+
+			file.OsdbHash, err = osdb.Hash(filename)
+			if err != nil {
+				file.Status.For("file").Errorf("unable to calculate file hash: %s", err)
 				continue
 			}
 
