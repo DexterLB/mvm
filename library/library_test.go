@@ -239,7 +239,11 @@ func TestVideoFile(t *testing.T) {
 	file.ResolutionX = 1920
 	file.ResolutionY = 1080
 	file.OsdbHash = 123456789
-	file.Format = "h264"
+	file.VideoFormat = "h264"
+	file.AudioFormat = "vorbis"
+	file.Framerate = 30
+	file.VideoBitrate = 800
+	file.AudioBitrate = 256
 	file.Duration = Duration(time.Minute * 20)
 
 	file.LastPlayed = time.Date(2012, time.February, 10, 23, 15, 32, 5, time.UTC)
@@ -274,7 +278,11 @@ func TestVideoFile(t *testing.T) {
 	assert.Equal(uint(1920), file2.ResolutionX)
 	assert.Equal(uint(1080), file2.ResolutionY)
 	assert.Equal(uint64(123456789), file2.OsdbHash)
-	assert.Equal("h264", file2.Format)
+	assert.Equal("h264", file2.VideoFormat)
+	assert.Equal("vorbis", file2.AudioFormat)
+	assert.InDelta(30, file2.Framerate, 0.0001)
+	assert.InDelta(800, file2.VideoBitrate, 0.0001)
+	assert.InDelta(256, file2.AudioBitrate, 0.0001)
 	assert.Equal(time.Minute*20, time.Duration(file2.Duration))
 	assert.Equal(
 		file2.LastPlayed,

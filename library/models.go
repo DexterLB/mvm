@@ -55,13 +55,17 @@ type Series struct {
 type VideoFile struct {
 	gorm.Model
 
-	Path        string   `json:"filename",sql:"unique"`
-	Size        uint64   `json:"filesize"`
-	ResolutionX uint     `json:"resolution"`
-	ResolutionY uint     `json:"resolution"`
-	OsdbHash    uint64   `json:"osdb_hash"`
-	Format      string   `json:"format"`
-	Duration    Duration `json:"duration"`
+	Path         string   `json:"filename",sql:"unique"`
+	Size         uint64   `json:"filesize"`
+	ResolutionX  uint     `json:"resolution"`
+	ResolutionY  uint     `json:"resolution"`
+	OsdbHash     uint64   `json:"osdb_hash"`
+	VideoFormat  string   `json:"video_format"`
+	AudioFormat  string   `json:"audio_format"`
+	Framerate    float32  `json:"framerate"`
+	VideoBitrate float32  `json:"video_bitrate"`
+	AudioBitrate float32  `json:"audio_bitrate"`
+	Duration     Duration `json:"duration"`
 
 	LastPlayed   time.Time `json:"last_played"`
 	LastPosition Duration  `json:"last_position"`
