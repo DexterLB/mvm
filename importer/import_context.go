@@ -1,6 +1,8 @@
 package importer
 
 import (
+	"fmt"
+
 	"github.com/DexterLB/mvm/library"
 )
 
@@ -18,7 +20,8 @@ type Context struct {
 
 // Config contains the configuration for all importers
 type Config struct {
-	FileRoot string
+	FileRoot   string      `toml:"file_root"`
+	OsdbConfig *OsdbConfig `toml:"osdb"`
 }
 
 // NewContext initializes a context with the given library and config
@@ -37,4 +40,9 @@ func NewContext(library *library.Library, config *Config) *Context {
 		}
 	}()
 	return context
+}
+
+// Errorf sends an error message to the Errors channel
+func (c *Context) Errorf(message string, arguments ...interface{}) {
+	c.Errors <- fmt.Errorf(message, arguments)
 }

@@ -1,7 +1,6 @@
 package importer
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -20,12 +19,14 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 			}
 			relativePath, err := relative(c.Config.FileRoot, filename)
 			if err != nil {
-				c.Errors <- fmt.Errorf("Invalid filename: %s", err)
+				c.Errorf("Invalid filename: %s", err)
+				return
 			}
 
 			file, err := c.Library.GetFileByPath(relativePath)
 			if err != nil {
-				c.Errors <- fmt.Errorf("Library error while looking up file: %s", err)
+				c.Errorf("Library error while looking up file: %s", err)
+				return
 			}
 
 			file.Size, err = filesize(filename)
