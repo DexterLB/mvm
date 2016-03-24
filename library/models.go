@@ -75,16 +75,19 @@ type VideoFile struct {
 	Status MapStringStepStatus `gorm:"type:blob",json:"status"`
 }
 
+// AfterCreate initializes values on an empty series
 func (s *Series) AfterCreate() error {
 	s.Status = make(MapStringStepStatus)
 	return nil
 }
 
+// AfterCreate initializes values on an empty show
 func (s *Show) AfterCreate() error {
 	s.Status = make(MapStringStepStatus)
 	return nil
 }
 
+// AfterCreate initializes values on an empty video file
 func (v *VideoFile) AfterCreate() error {
 	v.Status = make(MapStringStepStatus)
 	return nil

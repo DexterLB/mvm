@@ -13,7 +13,7 @@ func TestFileImporter(t *testing.T) {
 	filenames := make(chan string, 5)
 	files := make(chan *library.VideoFile, 5)
 
-	go context.FileImporter(filenames, files)
+	go context.FileInfo(filenames, files)
 
 	filenames <- "testdata/drop.avi"
 	close(filenames)

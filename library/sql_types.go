@@ -239,9 +239,13 @@ type Status int
 //go:generate stringer -type=Status
 
 const (
+	// Incomplete objects haven't been imported yet
 	Incomplete Status = iota
+	// Skipped objects have been skipped by user action
 	Skipped
+	// Success objects have been imported correctly
 	Success
+	// Error objects have failed importing
 	Error
 )
 
