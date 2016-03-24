@@ -67,6 +67,11 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	series.ImdbVotes = 42
 	series.Languages = languages
 
+	assert := assert.New(t)
+	assert.Equal(series.Status.For("foo").Status, Incomplete)
+
+	series.Status.For("foo").Succeed()
+
 	err = lib.Save(series)
 	if err != nil {
 		t.Fatal(err)
@@ -86,8 +91,6 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		t.Fatal(err)
 	}
 
-	assert := assert.New(t)
-
 	assert.Equal(999999, series2.ImdbID)
 	assert.Equal("title", series2.Title)
 	assert.Equal(2048, series2.Year)
@@ -103,6 +106,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	assert.InDelta(3.14, series2.ImdbRating, 0.0001)
 	assert.Equal(42, series2.ImdbVotes)
 	assert.Equal(languages, series2.Languages)
+	assert.Equal(Success, series.Status.For("foo").Status)
 }
 
 func TestShow(t *testing.T) {
@@ -164,6 +168,8 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 
 	movie.Tagline = "foo!"
 
+	movie.Status.For("foo").Succeed()
+
 	err = lib.Save(movie)
 	if err != nil {
 		t.Fatal(err)
@@ -206,6 +212,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	)
 
 	assert.Equal("foo!", movie2.Tagline)
+	assert.Equal(Success, movie2.Status.For("foo").Status)
 }
 
 func TestVideoFile(t *testing.T) {
@@ -238,6 +245,11 @@ func TestVideoFile(t *testing.T) {
 	file.LastPlayed = time.Date(2012, time.February, 10, 23, 15, 32, 5, time.UTC)
 	file.LastPosition = Duration(time.Minute*12 + time.Second*38)
 
+	assert := assert.New(t)
+	assert.Equal(file.Status.For("foo").Status, Incomplete)
+
+	file.Status.For("foo").Succeed()
+
 	err = lib.Save(file)
 	if err != nil {
 		t.Fatal(err)
@@ -257,7 +269,6 @@ func TestVideoFile(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	assert := assert.New(t)
 	assert.Equal("/foo/bar", file2.Path)
 	assert.Equal(uint64(98765432), file2.Size)
 	assert.Equal(uint(1920), file2.ResolutionX)
@@ -272,6 +283,7 @@ func TestVideoFile(t *testing.T) {
 	assert.Equal(
 		time.Duration(file2.LastPosition), time.Minute*12+time.Second*38,
 	)
+	assert.Equal(Success, file2.Status.For("foo").Status)
 }
 
 func TestShowWithFiles(t *testing.T) {

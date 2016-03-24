@@ -70,3 +70,18 @@ type VideoFile struct {
 
 	Status MapStringStepStatus `gorm:"type:blob",json:"status"`
 }
+
+func (s *Series) AfterCreate() error {
+	s.Status = make(MapStringStepStatus)
+	return nil
+}
+
+func (s *Show) AfterCreate() error {
+	s.Status = make(MapStringStepStatus)
+	return nil
+}
+
+func (v *VideoFile) AfterCreate() error {
+	v.Status = make(MapStringStepStatus)
+	return nil
+}

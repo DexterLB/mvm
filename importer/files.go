@@ -10,26 +10,26 @@ import (
 )
 
 // FileImporter takes filenames and constructs video file data
-func (c *Context) FileImporter(filenames <-chan string, files chan<- *library.VideoFile) error {
+func (c *Context) FileImporter(filenames <-chan string, files chan<- *library.VideoFile) {
 	for filename := range filenames {
 		relativePath, err := relative(c.Config.FileRoot, filename)
 		if err != nil {
-			return fmt.Errorf("Invalid filename: %s", err)
+			c.Errors <- fmt.Errorf("Invalid filename: %s", err)
 		}
 
 		file, err := c.Library.GetFileByPath(relativePath)
 		if err != nil {
-			return fmt.Errorf("Library error while looking up file: %s")
+			c.Errors <- fmt.Errorf("Library error while looking up file: %s", err)
 		}
 
 		file.Size, err = filesize(filename)
 		if err != nil {
-			file.Status["file"].Errorf("unable to get file size: %s", err)
+			file.Status.For("file").Errorf("unable to get file size: %s", err)
 		}
 
+		file.Status.For("file").Succeed()
 		files <- file
 	}
-	return nil
 }
 
 func filesize(filename string) (uint64, error) {
@@ -46,12 +46,20 @@ func filesize(filename string) (uint64, error) {
 }
 
 func relative(root string, path string) (string, error) {
-	absolute, err := filepath.Abs(path)
+	absoluteRoot, err := filepath.Abs(root)
+	if err != nil {
+		return "", err
+	}
+	absolutePath, err := filepath.Abs(path)
 	if err != nil {
 		return "", err
 	}
 
 	// todo: maybe return something in the form "../../../foo" for files
 	// outside the root dir
-	return strings.TrimPrefix(filepath.Clean(root), filepath.Clean(absolute)), nil
+
+	return strings.TrimPrefix(
+		filepath.Clean(absolutePath),
+		filepath.Clean(absoluteRoot)+"/",
+	), nil
 }

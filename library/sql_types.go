@@ -221,6 +221,18 @@ func (m MapStringStepStatus) Value() (driver.Value, error) {
 	return data, nil
 }
 
+// For returns the status for the given step (key). Same as using [], but
+// when the key is not found it fills it with a default status instead
+// of returning nil
+func (m MapStringStepStatus) For(key string) *StepStatus {
+	status := m[key]
+	if status == nil {
+		status = &StepStatus{}
+		m[key] = status
+	}
+	return status
+}
+
 // Status represents the state of an import step
 type Status int
 
