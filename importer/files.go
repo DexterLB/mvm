@@ -11,24 +11,33 @@ import (
 
 // FileImporter takes filenames and constructs video file data
 func (c *Context) FileImporter(filenames <-chan string, files chan<- *library.VideoFile) {
-	for filename := range filenames {
-		relativePath, err := relative(c.Config.FileRoot, filename)
-		if err != nil {
-			c.Errors <- fmt.Errorf("Invalid filename: %s", err)
-		}
+	for {
+		select {
+		case filename, ok := <-filenames:
+			if !ok {
+				return
+			}
+			relativePath, err := relative(c.Config.FileRoot, filename)
+			if err != nil {
+				c.Errors <- fmt.Errorf("Invalid filename: %s", err)
+			}
 
-		file, err := c.Library.GetFileByPath(relativePath)
-		if err != nil {
-			c.Errors <- fmt.Errorf("Library error while looking up file: %s", err)
-		}
+			file, err := c.Library.GetFileByPath(relativePath)
+			if err != nil {
+				c.Errors <- fmt.Errorf("Library error while looking up file: %s", err)
+			}
 
-		file.Size, err = filesize(filename)
-		if err != nil {
-			file.Status.For("file").Errorf("unable to get file size: %s", err)
-		}
+			file.Size, err = filesize(filename)
+			if err != nil {
+				file.Status.For("file").Errorf("unable to get file size: %s", err)
+				continue
+			}
 
-		file.Status.For("file").Succeed()
-		files <- file
+			file.Status.For("file").Succeed()
+			files <- file
+		case <-c.Stop:
+			return
+		}
 	}
 }
 
