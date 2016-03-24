@@ -5,6 +5,7 @@ import (
 
 	"github.com/DexterLB/mvm/library"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/orchestrate-io/dvr"
 )
 
 func testContext(t *testing.T) *Context {
