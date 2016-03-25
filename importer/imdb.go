@@ -96,17 +96,7 @@ func (c *Context) imdbProcessShow(show *library.Show) *imdb.Item {
 		return nil
 	}
 
-	show.Title = data.Title
-	show.Year = data.Year
-	show.OtherTitles = library.MapStringString(data.OtherTitles)
-	show.Duration = library.Duration(data.Duration)
-	show.Plot = data.Plot
-	show.PlotMedium = data.PlotMedium
-	show.PlotLong = data.PlotLong
-	show.PosterURL = data.PosterURL
-	show.ImdbRating = data.Rating
-	show.ImdbVotes = data.Votes
-	show.Languages = library.NewLanguages(data.Languages)
+	imdbSetCommonData(&show.CommonData, data)
 	show.ReleaseDate = data.ReleaseDate
 	show.Tagline = data.Tagline
 
@@ -121,8 +111,32 @@ func (c *Context) imdbProcessShow(show *library.Show) *imdb.Item {
 	return nil
 }
 
-func (c *Context) imdbProcessSeries(series *library.Series, data *imdb.Item) {
+func (c *Context) imdbProcessSeries(series *library.Series, imdbSeries *imdb.Item) {
+	defer imdbSeries.Free()
 
+	data, err := imdbSeries.AllData()
+	if err != nil {
+		series.Status.For("imdb_identify").Errorf(
+			"Error getting data from imdb: %s", err,
+		)
+		return
+	}
+
+	imdbSetCommonData(&series.CommonData, data)
+}
+
+func imdbSetCommonData(commonData *library.CommonData, data *imdb.ItemData) {
+	commonData.Title = data.Title
+	commonData.Year = data.Year
+	commonData.OtherTitles = library.MapStringString(data.OtherTitles)
+	commonData.Duration = library.Duration(data.Duration)
+	commonData.Plot = data.Plot
+	commonData.PlotMedium = data.PlotMedium
+	commonData.PlotLong = data.PlotLong
+	commonData.PosterURL = data.PosterURL
+	commonData.ImdbRating = data.Rating
+	commonData.ImdbVotes = data.Votes
+	commonData.Languages = library.NewLanguages(data.Languages)
 }
 
 type seriesCache struct {
