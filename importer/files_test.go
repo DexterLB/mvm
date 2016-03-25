@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFileImporter(t *testing.T) {
+func TestFileInfo(t *testing.T) {
 	context := testContext(t)
 
 	filenames := make(chan string, 5)
@@ -19,6 +19,10 @@ func TestFileImporter(t *testing.T) {
 	close(filenames)
 
 	dropFile := <-files
+
+	if _, ok := <-files; ok {
+		t.Errorf("files channel not closed after reading all files")
+	}
 
 	close(context.Stop)
 

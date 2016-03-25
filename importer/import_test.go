@@ -16,6 +16,10 @@ func testContext(t *testing.T) *Context {
 
 	context := NewContext(lib, &Config{
 		FileRoot: "./testdata",
+		OsdbConfig: OsdbConfig{
+			MaxMoviesPerRequest: 200,
+			MaxRequests:         3,
+		},
 	})
 
 	go func() {

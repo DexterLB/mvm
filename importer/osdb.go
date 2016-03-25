@@ -24,7 +24,10 @@ func (c *Context) OsdbIdentifier(
 	files <-chan *library.VideoFile, shows chan<- *library.Show,
 	done chan<- *library.VideoFile,
 ) {
-	config := c.Config.OsdbConfig
+	defer close(done)
+	defer close(shows)
+
+	config := &c.Config.OsdbConfig
 
 	client, err := osdb.NewClient()
 	if err != nil {
@@ -79,6 +82,10 @@ func (c *Context) osdbProcessFiles(
 	done chan<- *library.VideoFile,
 	client *osdb.Client,
 ) {
+	if len(files) == 0 {
+		return
+	}
+
 	hashes := make([]uint64, len(files))
 	for i := range files {
 		hashes[i] = files[i].OsdbHash
@@ -107,6 +114,7 @@ func (c *Context) osdbProcessFiles(
 					"Can't find show's imdb ID: %s", err,
 				)
 			} else {
+				// TODO: episode data
 				show.Files = append(show.Files, files[i])
 				show.Title = movies[i].Title
 				show.Year, _ = strconv.Atoi(movies[i].Year) // FIXME: check error

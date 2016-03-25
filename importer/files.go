@@ -11,6 +11,8 @@ import (
 
 // FileImporter takes filenames and constructs video file data
 func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoFile) {
+	defer close(files)
+
 	for {
 		select {
 		case filename, ok := <-filenames:

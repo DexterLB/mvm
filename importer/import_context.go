@@ -20,8 +20,8 @@ type Context struct {
 
 // Config contains the configuration for all importers
 type Config struct {
-	FileRoot   string      `toml:"file_root"`
-	OsdbConfig *OsdbConfig `toml:"osdb"`
+	FileRoot   string     `toml:"file_root"`
+	OsdbConfig OsdbConfig `toml:"osdb"`
 }
 
 // NewContext initializes a context with the given library and config
