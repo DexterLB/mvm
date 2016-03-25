@@ -51,6 +51,13 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 	}
 }
 
+func (c *Context) WalkPaths(paths []string, filenames chan<- string) {
+	// TODO: actually walk directories
+	for i := range paths {
+		filenames <- paths[i]
+	}
+}
+
 func filesize(filename string) (uint64, error) {
 	file, err := os.Open(filename)
 	defer file.Close()

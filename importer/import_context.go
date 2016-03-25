@@ -21,6 +21,7 @@ type Context struct {
 // Config contains the configuration for all importers
 type Config struct {
 	FileRoot   string     `toml:"file_root"`
+	BufferSize int        `toml:"buffer_size"`
 	OsdbConfig OsdbConfig `toml:"osdb"`
 	ImdbConfig ImdbConfig `toml:"imdb"`
 }
