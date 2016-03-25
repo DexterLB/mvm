@@ -22,6 +22,7 @@ type Context struct {
 type Config struct {
 	FileRoot   string     `toml:"file_root"`
 	OsdbConfig OsdbConfig `toml:"osdb"`
+	ImdbConfig ImdbConfig `toml:"imdb"`
 }
 
 // NewContext initializes a context with the given library and config

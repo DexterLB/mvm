@@ -1,6 +1,7 @@
 package library
 
 import (
+	"sync"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -9,6 +10,7 @@ import (
 // Show is a movie or an episode of a series
 type Show struct {
 	gorm.Model
+	sync.Mutex
 	CommonData
 	EpisodeData
 
@@ -46,6 +48,7 @@ type EpisodeData struct {
 // Series represents a series
 type Series struct {
 	gorm.Model
+	sync.Mutex
 	CommonData
 
 	Episodes []*Show `json:"episodes",gorm:"ForeignKey:SeriesID"`
@@ -54,6 +57,7 @@ type Series struct {
 // VideoFile reprsesents a file for an episode or movie
 type VideoFile struct {
 	gorm.Model
+	sync.Mutex
 
 	Path         string   `json:"filename",sql:"unique"`
 	Size         uint64   `json:"filesize"`
