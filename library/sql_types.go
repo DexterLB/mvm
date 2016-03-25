@@ -50,6 +50,15 @@ func (l *Language) ISO3() string {
 // (its SQL type should be text or varchar)
 type Languages []Language
 
+// NewLanguages creates a list of languages based on bases
+func NewLanguages(bases []language.Base) Languages {
+	languages := make(Languages, len(bases))
+	for i := range bases {
+		languages[i] = NewLanguage(bases[i])
+	}
+	return languages
+}
+
 // ParseLanguages parses languages from a space-separated list of language codes
 func ParseLanguages(spaceSeparatedCodes string) (Languages, error) {
 	codes := strings.Split(spaceSeparatedCodes, " ")

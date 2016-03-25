@@ -1,4 +1,4 @@
-// +build live
+// +build osdb_live
 
 package importer
 

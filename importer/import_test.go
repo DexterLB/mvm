@@ -20,6 +20,9 @@ func testContext(t *testing.T) *Context {
 			MaxMoviesPerRequest: 200,
 			MaxRequests:         3,
 		},
+		ImdbConfig: ImdbConfig{
+			MaxRequests: 8,
+		},
 	})
 
 	go func() {
