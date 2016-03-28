@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/DexterLB/mvm/config"
 	"github.com/cep21/xdgbasedir"
 	"github.com/voxelbrain/goptions"
 )
@@ -24,10 +25,16 @@ func main() {
 	goptions.ParseAndFail(options)
 
 	if options.ConfigFile == "" {
-		options.ConfigFile, err = xdgbasedir.GetConfigFileLocation("mvm.conf")
+		options.ConfigFile, err = xdgbasedir.GetConfigFileLocation("mvm.toml")
 		if err != nil {
 			log.Fatalf("can't find config file: %s", err)
 		}
 	}
-	fmt.Printf("config file: %s\n", options.ConfigFile)
+
+	config, err := config.Load(options.ConfigFile)
+	if err != nil {
+		log.Fatalf("can't load config file: %s", err)
+	}
+
+	fmt.Printf("config: %v\n", config)
 }
