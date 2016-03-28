@@ -37,11 +37,12 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 				continue
 			}
 
-			file.OsdbHash, err = osdb.Hash(filename)
+			hash, err := osdb.Hash(filename)
 			if err != nil {
 				file.Status.For("file").Errorf("unable to calculate file hash: %s", err)
 				continue
 			}
+			file.OsdbHash = library.BigUint64(hash)
 
 			file.Status.For("file").Succeed()
 			files <- file
@@ -52,6 +53,8 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 }
 
 func (c *Context) WalkPaths(paths []string, filenames chan<- string) {
+	defer close(filenames)
+
 	// TODO: actually walk directories
 	for i := range paths {
 		filenames <- paths[i]

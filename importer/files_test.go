@@ -31,7 +31,7 @@ func TestFileInfo(t *testing.T) {
 	assert.Equal(library.Success, dropFile.Status.For("file").Status)
 	assert.Equal("drop.avi", dropFile.Path)
 	assert.Equal(uint64(675840), dropFile.Size)
-	assert.Equal(uint64(0x450f3f0c98a1f11d), dropFile.OsdbHash)
+	assert.Equal(uint64(0x450f3f0c98a1f11d), uint64(dropFile.OsdbHash))
 
 	/* TODO
 	assert.Equal(256, dropFile.ResolutionX)

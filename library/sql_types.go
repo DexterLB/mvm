@@ -4,11 +4,44 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
 	"golang.org/x/text/language"
 )
+
+// BigUint64 is an encapsulated uint64 that can be stored in a database
+type BigUint64 uint64
+
+// Scan deserialises the object from raw database data
+func (b *BigUint64) Scan(src interface{}) error {
+	var (
+		intText string
+		err     error
+	)
+
+	switch data := src.(type) {
+	case string:
+		intText = data
+	case []byte:
+		intText = string(data)
+	default:
+		return fmt.Errorf("unknown uint64 type")
+	}
+
+	value, err := strconv.ParseUint(intText, 16, 64)
+	if err != nil {
+		return err
+	}
+	*b = BigUint64(value)
+	return nil
+}
+
+// Value serialises the object to raw database data
+func (b BigUint64) Value() (driver.Value, error) {
+	return fmt.Sprintf("%016x", uint64(b)), nil
+}
 
 // Language represents an ISO639 language
 type Language struct {

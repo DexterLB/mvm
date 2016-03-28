@@ -277,7 +277,7 @@ func TestVideoFile(t *testing.T) {
 	assert.Equal(uint64(98765432), file2.Size)
 	assert.Equal(uint(1920), file2.ResolutionX)
 	assert.Equal(uint(1080), file2.ResolutionY)
-	assert.Equal(uint64(123456789), file2.OsdbHash)
+	assert.Equal(uint64(123456789), uint64(file2.OsdbHash))
 	assert.Equal("h264", file2.VideoFormat)
 	assert.Equal("vorbis", file2.AudioFormat)
 	assert.InDelta(30, file2.Framerate, 0.0001)

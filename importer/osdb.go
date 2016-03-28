@@ -76,7 +76,7 @@ func (c *Context) osdbProcessFiles(
 
 	hashes := make([]uint64, len(files))
 	for i := range files {
-		hashes[i] = files[i].OsdbHash
+		hashes[i] = uint64(files[i].OsdbHash)
 	}
 	movies, err := client.BestMoviesByHashes(hashes)
 	if err != nil {

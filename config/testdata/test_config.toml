@@ -1,5 +1,9 @@
 file_root = "/foo/bar"
 
+[library]
+    database = "foosql"
+    database_dsn = "bar"
+
 [importer]
     buffer_size = 50
     

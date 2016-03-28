@@ -12,6 +12,7 @@ import (
 type Config struct {
 	FileRoot string   `toml:"file_root"`
 	Importer Importer `toml:"importer"`
+	Library  Library  `toml:"library"`
 }
 
 // Importer contains the configuration for all importers
@@ -19,6 +20,12 @@ type Importer struct {
 	BufferSize int  `toml:"buffer_size"`
 	Osdb       Osdb `toml:"osdb"`
 	Imdb       Imdb `toml:"imdb"`
+}
+
+// Importer contains the configuration for the library
+type Library struct {
+	Database    string `toml:"database"`
+	DatabaseDSN string `toml:"database_dsn"`
 }
 
 // Osdb contains the configuration related to the opensubtitles.org api

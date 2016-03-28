@@ -39,6 +39,8 @@ func (c *Context) Import(paths []string) {
 		wg.Done()
 	}()
 	wg.Wait()
+
+	close(c.Stop)
 }
 
 func (c *Context) saveAll(genericChannel interface{}) {

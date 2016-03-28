@@ -23,5 +23,8 @@ func TestLoad(t *testing.T) {
 	assert.Equal("foo", config.Importer.Osdb.Username)
 	assert.Equal("bar", config.Importer.Osdb.Password)
 
+	assert.Equal("foosql", config.Library.Database)
+	assert.Equal("bar", config.Library.DatabaseDSN)
+
 	assert.Equal(16, config.Importer.Imdb.MaxRequests)
 }
