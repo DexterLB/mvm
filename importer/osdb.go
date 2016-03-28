@@ -8,18 +8,6 @@ import (
 	"github.com/oz/osdb"
 )
 
-type OsdbConfig struct {
-	// Username for opensubtitles.org (leave blank for no user)
-	Username string `toml:"username"`
-	// Password for opensubtitles.org (leave blank for no password)
-	Password string `toml:"password"`
-	// MaxRequests is the maximum number of parallel requests to opensubtitles.org
-	MaxRequests int `toml:"max_requests"`
-	// MaxMoviesPerRequest is the maximum number of movies to ask for in a
-	// single request. Currently, opensubtitles limits this to 200
-	MaxMoviesPerRequest int `toml:"max_per_request"`
-}
-
 func (c *Context) OsdbIdentifier(
 	files <-chan *library.VideoFile, shows chan<- *library.Show,
 	done chan<- *library.VideoFile,
@@ -27,7 +15,7 @@ func (c *Context) OsdbIdentifier(
 	defer close(done)
 	defer close(shows)
 
-	config := &c.Config.OsdbConfig
+	config := &c.Config.Importer.Osdb
 
 	client, err := osdb.NewClient()
 	if err != nil {
@@ -57,7 +45,7 @@ func (c *Context) osdbIdentifierWorker(
 	client *osdb.Client,
 ) {
 	var currentFiles []*library.VideoFile
-	maxFiles := c.Config.OsdbConfig.MaxMoviesPerRequest
+	maxFiles := c.Config.Importer.Osdb.MaxMoviesPerRequest
 
 	for {
 		select {

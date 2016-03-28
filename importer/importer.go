@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Context) Import(paths []string) {
-	bufSize := c.Config.BufferSize
+	bufSize := c.Config.Importer.BufferSize
 
 	filenames := make(chan string, bufSize)
 	go c.WalkPaths(paths, filenames)

@@ -3,6 +3,7 @@ package importer
 import (
 	"testing"
 
+	"github.com/DexterLB/mvm/config"
 	"github.com/DexterLB/mvm/library"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	_ "github.com/orchestrate-io/dvr"
@@ -14,14 +15,16 @@ func testContext(t *testing.T) *Context {
 		t.Fatalf("unable to initialize library: %s\n", err)
 	}
 
-	context := NewContext(lib, &Config{
+	context := NewContext(lib, &config.Config{
 		FileRoot: "./testdata",
-		OsdbConfig: OsdbConfig{
-			MaxMoviesPerRequest: 200,
-			MaxRequests:         3,
-		},
-		ImdbConfig: ImdbConfig{
-			MaxRequests: 8,
+		Importer: config.Importer{
+			Osdb: config.Osdb{
+				MaxMoviesPerRequest: 200,
+				MaxRequests:         3,
+			},
+			Imdb: config.Imdb{
+				MaxRequests: 8,
+			},
 		},
 	})
 

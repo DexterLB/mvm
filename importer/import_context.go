@@ -3,6 +3,7 @@ package importer
 import (
 	"fmt"
 
+	"github.com/DexterLB/mvm/config"
 	"github.com/DexterLB/mvm/library"
 )
 
@@ -12,22 +13,14 @@ type Context struct {
 	Stop chan struct{}
 
 	Library *library.Library
-	Config  *Config
+	Config  *config.Config
 
 	// Channel for unrecoverable pipeline errors, to be read by a human
 	Errors chan error
 }
 
-// Config contains the configuration for all importers
-type Config struct {
-	FileRoot   string     `toml:"file_root"`
-	BufferSize int        `toml:"buffer_size"`
-	OsdbConfig OsdbConfig `toml:"osdb"`
-	ImdbConfig ImdbConfig `toml:"imdb"`
-}
-
 // NewContext initializes a context with the given library and config
-func NewContext(library *library.Library, config *Config) *Context {
+func NewContext(library *library.Library, config *config.Config) *Context {
 	context := &Context{
 		Stop:    make(chan struct{}),
 		Library: library,

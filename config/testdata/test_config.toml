@@ -1,0 +1,12 @@
+file_root = "/foo/bar"
+
+[importer]
+    buffer_size = 50
+    
+    [importer.osdb]
+        max_requests = 3
+        max_per_request = 199
+        username = "foo"
+        password = "bar"
+    [importer.imdb]
+        max_requests = 16

@@ -7,11 +7,6 @@ import (
 	"github.com/DexterLB/mvm/library"
 )
 
-type ImdbConfig struct {
-	// MaxRequests is the maximum number of parallel requests to imdb
-	MaxRequests int `toml:"max_requests"`
-}
-
 func (c *Context) ImdbIdentifier(
 	shows <-chan *library.Show,
 	doneSeries chan<- *library.Series,
@@ -22,7 +17,7 @@ func (c *Context) ImdbIdentifier(
 
 	cache := makeSeriesCache()
 
-	maxRequests := c.Config.ImdbConfig.MaxRequests
+	maxRequests := c.Config.Importer.Imdb.MaxRequests
 
 	wg := sync.WaitGroup{}
 	wg.Add(maxRequests)
