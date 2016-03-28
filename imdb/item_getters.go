@@ -336,8 +336,17 @@ func (s *Item) Rating() (float32, error) {
 		s.mainPage,
 		`//*[@class='starbar-meta']/b`,
 	)
+	var rating float64
+
 	if err != nil {
-		return 0, fmt.Errorf("unable to find rating element: %s", err)
+		ratingElement, err = firstMatching(
+			s.secondaryPage,
+			`//div[@class='ratingValue']`,
+		)
+
+		if err != nil {
+			return 0, fmt.Errorf("unable to find rating element: %s", err)
+		}
 	}
 
 	matcher := regexp.MustCompile(`(\d.\d)\/10`)
@@ -347,7 +356,7 @@ func (s *Item) Rating() (float32, error) {
 		return 0, fmt.Errorf("can't find rating")
 	}
 
-	rating, err := strconv.ParseFloat(groups[1], 32)
+	rating, err = strconv.ParseFloat(groups[1], 32)
 	if err != nil {
 		return 0, fmt.Errorf("unable to parse rating: %s", err)
 	}
@@ -362,7 +371,13 @@ func (s *Item) Votes() (int, error) {
 		`//div[@id='tn15rating']//a[@class='tn15more']`,
 	)
 	if err != nil {
-		return 0, fmt.Errorf("unable to find rating element: %s", err)
+		votesElement, err = firstMatching(
+			s.secondaryPage,
+			`//div[@class='imdbRating']//span[@class='small']`,
+		)
+		if err != nil {
+			return 0, fmt.Errorf("unable to find votes element: %s", err)
+		}
 	}
 
 	matcher := regexp.MustCompile(`([\d,]+)`)

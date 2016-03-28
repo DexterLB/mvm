@@ -13,15 +13,16 @@ import (
 
 // Item represents a single item (either a movie or an episode)
 type Item struct {
-	id                   int
-	title                *string
-	itemType             ItemType
-	season               *int
-	episode              *int
-	mainPageDocument     *htmlParser.HtmlDocument
-	plotSummaryDocument  *htmlParser.HtmlDocument
-	plotSynopsisDocument *htmlParser.HtmlDocument
-	releaseInfoDocument  *htmlParser.HtmlDocument
+	id                    int
+	title                 *string
+	itemType              ItemType
+	season                *int
+	episode               *int
+	mainPageDocument      *htmlParser.HtmlDocument
+	secondaryPageDocument *htmlParser.HtmlDocument
+	plotSummaryDocument   *htmlParser.HtmlDocument
+	plotSynopsisDocument  *htmlParser.HtmlDocument
+	releaseInfoDocument   *htmlParser.HtmlDocument
 }
 
 // ItemType is one of Unknown, Movie, Series and Episode
@@ -53,6 +54,11 @@ func (s *Item) Free() {
 	if s.mainPageDocument != nil {
 		s.mainPageDocument.Free()
 		s.mainPageDocument = nil
+	}
+
+	if s.secondaryPageDocument != nil {
+		s.secondaryPageDocument.Free()
+		s.secondaryPageDocument = nil
 	}
 
 	if s.releaseInfoDocument != nil {
@@ -101,6 +107,18 @@ func (s *Item) mainPage() (*xml.ElementNode, error) {
 	}
 
 	return s.mainPageDocument.Root(), nil
+}
+
+func (s *Item) secondaryPage() (*xml.ElementNode, error) {
+	if s.secondaryPageDocument == nil {
+		page, err := s.parsePage("")
+		if err != nil {
+			return nil, err
+		}
+		s.secondaryPageDocument = page
+	}
+
+	return s.secondaryPageDocument.Root(), nil
 }
 
 func (s *Item) releaseInfoPage() (*xml.ElementNode, error) {

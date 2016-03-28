@@ -9,6 +9,8 @@ import (
 
 func ExampleItem_ID() {
 	movie := New(403358)
+	defer movie.Free()
+
 	fmt.Printf("id: %d\n", movie.ID())
 
 	// Output:
