@@ -69,10 +69,11 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			Name:    "import",
-			Aliases: []string{"imp", "i"},
-			Usage:   "import a video file into the library",
-			Action:  runImport,
+			Name:      "import",
+			Aliases:   []string{"imp", "i"},
+			Usage:     "import video files into the library",
+			ArgsUsage: "<filename> [filename2] ...",
+			Action:    runImport,
 		},
 	}
 
