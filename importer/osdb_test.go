@@ -59,8 +59,8 @@ func TestOsdbIdentifierMultipleRequests(t *testing.T) {
 func testOsdbIdentifierParallel(t *testing.T, maxRequests int, maxPerRequest int) {
 	context := testContext(t)
 
-	context.Config.OsdbConfig.MaxRequests = maxRequests
-	context.Config.OsdbConfig.MaxMoviesPerRequest = maxPerRequest
+	context.Config.Importer.Osdb.MaxRequests = maxRequests
+	context.Config.Importer.Osdb.MaxMoviesPerRequest = maxPerRequest
 
 	files := make(chan *library.VideoFile, 5)
 	done := make(chan *library.VideoFile, 5)

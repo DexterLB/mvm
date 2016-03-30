@@ -20,16 +20,30 @@ func (c *Context) Import(paths []string) {
 	identifiedFiles := make(chan *library.VideoFile, bufSize)
 	go c.OsdbIdentifier(files, shows, identifiedFiles)
 
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		c.saveAll(identifiedFiles)
+		wg.Done()
+	}()
+	go func() {
+		c.ProcessShows(shows)
+		wg.Done()
+	}()
+	wg.Wait()
+
+	close(c.Stop)
+}
+
+func (c *Context) ProcessShows(shows <-chan *library.Show) {
+	bufSize := c.Config.Importer.BufferSize
+
 	identifiedSeries := make(chan *library.Series, bufSize)
 	identifiedShows := make(chan *library.Show, bufSize)
 	go c.ImdbIdentifier(shows, identifiedSeries, identifiedShows)
 
 	wg := sync.WaitGroup{}
-	wg.Add(3)
-	go func() {
-		c.saveAll(identifiedFiles)
-		wg.Done()
-	}()
+	wg.Add(2)
 	go func() {
 		c.saveAll(identifiedShows)
 		wg.Done()
@@ -39,8 +53,6 @@ func (c *Context) Import(paths []string) {
 		wg.Done()
 	}()
 	wg.Wait()
-
-	close(c.Stop)
 }
 
 func (c *Context) saveAll(genericChannel interface{}) {
