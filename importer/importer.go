@@ -23,7 +23,7 @@ func (c *Context) Import(paths []string) {
 	wg := sync.WaitGroup{}
 	wg.Add(2)
 	go func() {
-		c.saveAll(identifiedFiles)
+		c.saveAll(c.filterFilesWithErrors(identifiedFiles))
 		wg.Done()
 	}()
 	go func() {
@@ -60,4 +60,21 @@ func (c *Context) saveAll(genericChannel interface{}) {
 	for item := range channel {
 		c.Library.Save(item)
 	}
+}
+
+func (c *Context) filterFilesWithErrors(files <-chan *library.VideoFile) chan<- *library.VideoFile {
+	out := make(chan *library.VideoFile)
+
+	go func() {
+		defer close(out)
+
+		for file := range files {
+			out <- file
+			if file.ImportError != nil || file.OsdbError != nil {
+				c.FilesWithErrors = append(c.FilesWithErrors, file)
+			}
+		}
+	}()
+
+	return out
 }

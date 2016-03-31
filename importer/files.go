@@ -33,18 +33,22 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 
 			file.Size, err = filesize(filename)
 			if err != nil {
-				file.Status.For("file").Errorf("unable to get file size: %s", err)
+				file.ImportError = library.Errorf(
+					"unable to get file size: %s", err,
+				)
 				continue
 			}
 
 			hash, err := osdb.Hash(filename)
 			if err != nil {
-				file.Status.For("file").Errorf("unable to calculate file hash: %s", err)
+				file.ImportError = library.Errorf(
+					"unable to calculate file hash: %s", err,
+				)
 				continue
 			}
 			file.OsdbHash = library.BigUint64(hash)
 
-			file.Status.For("file").Succeed()
+			file.ImportError = nil
 			files <- file
 		case <-c.Stop:
 			return

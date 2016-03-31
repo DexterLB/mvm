@@ -314,3 +314,9 @@ func (m *StepStatus) Skip() {
 	m.Status = Skipped
 	m.Message = ""
 }
+
+// Errorf creates a string pointer to an error message
+func Errorf(message string, arguments ...interface{}) *string {
+	errorMessage := fmt.Sprintf(message, arguments...)
+	return &errorMessage
+}

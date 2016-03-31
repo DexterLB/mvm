@@ -68,9 +68,8 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	series.Languages = languages
 
 	assert := assert.New(t)
-	assert.Equal(series.Status.For("foo").Status, Incomplete)
 
-	series.Status.For("foo").Succeed()
+	series.ImdbError = Errorf("some error")
 
 	err = lib.Save(series)
 	if err != nil {
@@ -106,7 +105,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	assert.InDelta(3.14, series2.ImdbRating, 0.0001)
 	assert.Equal(42, series2.ImdbVotes)
 	assert.Equal(languages, series2.Languages)
-	assert.Equal(Success, series.Status.For("foo").Status)
+	assert.Equal("some error", *series.ImdbError)
 }
 
 func TestShow(t *testing.T) {
@@ -168,7 +167,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 
 	movie.Tagline = "foo!"
 
-	movie.Status.For("foo").Succeed()
+	movie.ImdbError = Errorf("some error")
 
 	err = lib.Save(movie)
 	if err != nil {
@@ -212,7 +211,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	)
 
 	assert.Equal("foo!", movie2.Tagline)
-	assert.Equal(Success, movie2.Status.For("foo").Status)
+	assert.Equal("some error", *movie2.ImdbError)
 }
 
 func TestVideoFile(t *testing.T) {
@@ -250,9 +249,9 @@ func TestVideoFile(t *testing.T) {
 	file.LastPosition = Duration(time.Minute*12 + time.Second*38)
 
 	assert := assert.New(t)
-	assert.Equal(file.Status.For("foo").Status, Incomplete)
 
-	file.Status.For("foo").Succeed()
+	file.ImportError = Errorf("some error")
+	file.OsdbError = Errorf("some other error")
 
 	err = lib.Save(file)
 	if err != nil {
@@ -291,7 +290,8 @@ func TestVideoFile(t *testing.T) {
 	assert.Equal(
 		time.Duration(file2.LastPosition), time.Minute*12+time.Second*38,
 	)
-	assert.Equal(Success, file2.Status.For("foo").Status)
+	assert.Equal("some error", *file2.ImportError)
+	assert.Equal("some other error", *file2.OsdbError)
 }
 
 func TestShowWithFiles(t *testing.T) {

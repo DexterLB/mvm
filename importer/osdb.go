@@ -81,7 +81,7 @@ func (c *Context) osdbProcessFiles(
 	movies, err := client.BestMoviesByHashes(hashes)
 	if err != nil {
 		for i := range files {
-			files[i].Status.For("osdb_identify").Errorf(
+			files[i].OsdbError = library.Errorf(
 				"Opensubtitles.org error: %s", err,
 			)
 			done <- files[i]
@@ -92,13 +92,13 @@ func (c *Context) osdbProcessFiles(
 	for i := range movies {
 		id, err := strconv.Atoi(movies[i].Id)
 		if err != nil {
-			files[i].Status.For("osdb_identify").Errorf(
+			files[i].OsdbError = library.Errorf(
 				"Can't parse show's imdb ID: %s", err,
 			)
 		} else {
 			show, err := c.Library.GetShowByImdbID(id)
 			if err != nil {
-				files[i].Status.For("osdb_identify").Errorf(
+				files[i].OsdbError = library.Errorf(
 					"Can't find show's imdb ID: %s", err,
 				)
 			} else {

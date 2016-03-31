@@ -46,7 +46,7 @@ func (c *Context) ImdbIdentifier(
 						if series, ok = cache.PrevSeries[id]; !ok {
 							series, err = c.Library.GetSeriesByImdbID(id)
 							if err != nil {
-								show.Status.For("imdb_identify").Errorf(
+								show.ImdbError = library.Errorf(
 									"Unable to get series from library: %s", err,
 								)
 								cache.Unlock()
@@ -85,7 +85,7 @@ func (c *Context) imdbProcessShow(show *library.Show) *imdb.Item {
 
 	data, err := connection.AllData()
 	if err != nil {
-		show.Status.For("imdb_identify").Errorf(
+		show.ImdbError = library.Errorf(
 			"Error getting data from imdb: %s", err,
 		)
 		return nil
@@ -95,7 +95,7 @@ func (c *Context) imdbProcessShow(show *library.Show) *imdb.Item {
 	show.ReleaseDate = data.ReleaseDate
 	show.Tagline = data.Tagline
 
-	show.Status.For("imdb_identify").Succeed()
+	show.ImdbError = nil
 
 	if data.Type == imdb.Episode {
 		show.Season = data.SeasonNumber
@@ -111,7 +111,7 @@ func (c *Context) imdbProcessSeries(series *library.Series, imdbSeries *imdb.Ite
 
 	data, err := imdbSeries.AllData()
 	if err != nil {
-		series.Status.For("imdb_identify").Errorf(
+		series.ImdbError = library.Errorf(
 			"Error getting data from imdb: %s", err,
 		)
 		return

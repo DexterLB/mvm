@@ -35,7 +35,7 @@ type CommonData struct {
 	ImdbVotes   int             `json:"imdb_votes"`
 	Languages   Languages       `gorm:"type:text",json:"languages"`
 
-	Status MapStringStepStatus `gorm:"type:blob",json:"status"`
+	ImdbError *string `json:"imdb_error"`
 }
 
 // EpisodeData contains episode-specific keys
@@ -76,23 +76,24 @@ type VideoFile struct {
 
 	ShowID uint
 
-	Status MapStringStepStatus `gorm:"type:blob",json:"status"`
+	ImportError *string `json:"import_error"`
+	OsdbError   *string `json:"osdb_error"`
 }
 
 // AfterCreate initializes values on an empty series
 func (s *Series) AfterCreate() error {
-	s.Status = make(MapStringStepStatus)
+	// nothing! FIXME: remove this function
 	return nil
 }
 
 // AfterCreate initializes values on an empty show
 func (s *Show) AfterCreate() error {
-	s.Status = make(MapStringStepStatus)
+	// nothing! FIXME: remove this function
 	return nil
 }
 
 // AfterCreate initializes values on an empty video file
 func (v *VideoFile) AfterCreate() error {
-	v.Status = make(MapStringStepStatus)
+	// nothing! FIXME: remove this function
 	return nil
 }

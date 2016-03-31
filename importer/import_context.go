@@ -17,6 +17,9 @@ type Context struct {
 
 	// Channel for unrecoverable pipeline errors, to be read by a human
 	Errors chan error
+
+	// Files which have failed to identify correctly during import
+	FilesWithErrors []*library.VideoFile
 }
 
 // NewContext initializes a context with the given library and config

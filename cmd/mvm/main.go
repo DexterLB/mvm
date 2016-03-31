@@ -83,6 +83,10 @@ func main() {
 			Value: "",
 			Usage: "path to the mvm configuration file",
 		},
+		cli.BoolFlag{
+			Name:  "non-interactive, n",
+			Usage: "commands will not display interactive prompts for humans",
+		},
 	}
 
 	app.RunAndExitOnError()
