@@ -1,6 +1,10 @@
 package library
 
-import "github.com/jinzhu/gorm"
+import (
+	"fmt"
+
+	"github.com/jinzhu/gorm"
+)
 
 // Library is a searchable library of movies, series and episodes
 type Library struct {
@@ -78,6 +82,10 @@ func (lib *Library) HasShowWithImdbID(id int) (bool, error) {
 
 // GetShowByImdbID finds the show by its imdb id, creating it if it doesn't exist
 func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
+	if id == 0 {
+		return nil, fmt.Errorf("imdb id can't be 0")
+	}
+
 	show := &Show{}
 	err := lib.db.Where("imdb_id = ?", id).FirstOrCreate(show).Error
 	if err != nil {
@@ -107,6 +115,10 @@ func (lib *Library) HasFileWithPath(path string) (bool, error) {
 
 // GetFileByPath finds the file by its path, creating it if it doesn't exist
 func (lib *Library) GetFileByPath(path string) (*VideoFile, error) {
+	if path == "" {
+		return nil, fmt.Errorf("path can't be empty")
+	}
+
 	file := &VideoFile{}
 	err := lib.db.Where("path = ?", path).FirstOrCreate(file).Error
 	if err != nil {

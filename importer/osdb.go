@@ -1,6 +1,7 @@
 package importer
 
 import (
+	"fmt"
 	"strconv"
 	"sync"
 
@@ -90,10 +91,22 @@ func (c *Context) osdbProcessFiles(
 	}
 
 	for i := range movies {
-		id, err := strconv.Atoi(movies[i].Id)
+		var (
+			err error
+			id  int
+		)
+		if movies[i] == nil {
+			err = fmt.Errorf("show not found in opensubtitles.org database")
+		} else {
+			id, err = strconv.Atoi(movies[i].Id)
+			if err != nil {
+				err = fmt.Errorf("can't parse imdb id: %s", err)
+			}
+		}
+
 		if err != nil {
 			files[i].OsdbError = library.Errorf(
-				"Can't parse show's imdb ID: %s", err,
+				"can't identify show: %s", err,
 			)
 		} else {
 			show, err := c.Library.GetShowByImdbID(id)

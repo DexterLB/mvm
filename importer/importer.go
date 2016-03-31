@@ -31,8 +31,6 @@ func (c *Context) Import(paths []string) {
 		wg.Done()
 	}()
 	wg.Wait()
-
-	close(c.Stop)
 }
 
 func (c *Context) ProcessShows(shows <-chan *library.Show) {
@@ -62,7 +60,7 @@ func (c *Context) saveAll(genericChannel interface{}) {
 	}
 }
 
-func (c *Context) filterFilesWithErrors(files <-chan *library.VideoFile) chan<- *library.VideoFile {
+func (c *Context) filterFilesWithErrors(files <-chan *library.VideoFile) <-chan *library.VideoFile {
 	out := make(chan *library.VideoFile)
 
 	go func() {

@@ -218,10 +218,7 @@ func (s *Item) AllData() (*ItemData, error) {
 
 	switch data.Type {
 	case Movie:
-		data.Tagline, err = s.Tagline()
-		if err != nil {
-			return nil, err
-		}
+		data.Tagline, _ = s.Tagline() // tagline is optional
 	case Episode:
 		data.SeasonNumber, data.EpisodeNumber, err = s.SeasonEpisode()
 		if err != nil {
