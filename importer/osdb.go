@@ -9,6 +9,8 @@ import (
 	"github.com/oz/osdb"
 )
 
+// OsdbIdentifier identifies the video files (matching them to shows) using
+// the opensubtitles.org database
 func (c *Context) OsdbIdentifier(
 	files <-chan *library.VideoFile, shows chan<- *library.Show,
 	done chan<- *library.VideoFile,

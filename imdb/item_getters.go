@@ -11,6 +11,7 @@ import (
 	"golang.org/x/text/language"
 
 	"github.com/kennygrant/sanitize"
+	"github.com/moovweb/gokogiri/xml"
 )
 
 // ID returns the item's IMDB ID
@@ -87,7 +88,8 @@ func (s *Item) Year() (int, error) {
 	var yearText string
 
 	if itemType == Episode {
-		yearSpans, err := mainPage.Search(`//h1//span`)
+		var yearSpans []xml.Node
+		yearSpans, err = mainPage.Search(`//h1//span`)
 		if err != nil {
 			return 0, err
 		}
@@ -98,7 +100,8 @@ func (s *Item) Year() (int, error) {
 
 		yearText = strings.Trim(yearSpans[0].LastChild().Content(), " ()")
 	} else {
-		yearLinks, err := mainPage.Search(`//a[contains(@href,'/year/')]`)
+		var yearLinks []xml.Node
+		yearLinks, err = mainPage.Search(`//a[contains(@href,'/year/')]`)
 		if err != nil {
 			return 0, err
 		}
@@ -110,7 +113,8 @@ func (s *Item) Year() (int, error) {
 		yearText = yearLinks[0].Content()
 	}
 
-	year, err := strconv.Atoi(yearText)
+	var year int
+	year, err = strconv.Atoi(yearText)
 	if err != nil {
 		return 0, fmt.Errorf("year is not a number: %s", err)
 	}

@@ -47,12 +47,12 @@ func openLibrary(config *config.Config) *library.Library {
 	return library
 }
 
-type UserState int
+type userState int
 
 const (
-	Success UserState = iota
-	Retry
-	Abort
+	success userState = iota
+	retry
+	abort
 )
 
 func manualImport(
@@ -60,7 +60,7 @@ func manualImport(
 	importer *importer.Context,
 	shows chan<- *library.Show,
 	file *library.VideoFile,
-) UserState {
+) userState {
 	input := bufio.NewScanner(os.Stdin)
 
 	fmt.Printf(
@@ -68,29 +68,29 @@ func manualImport(
 	)
 
 	if !input.Scan() {
-		return Abort
+		return abort
 	}
 	text := input.Text()
 
 	switch text {
 	case "f":
 		log.Printf("not implemented")
-		return Retry
+		return retry
 	case "d":
 		log.Printf("not implemented")
-		return Retry
+		return retry
 	case "a":
-		return Abort
+		return abort
 	default:
 		imdbID, err := strconv.Atoi(text)
 		if err != nil {
 			fmt.Printf("unable to read imdb id: %s\n", err)
-			return Retry
+			return retry
 		}
 		show, err := importer.Library.GetShowByImdbID(imdbID)
 		if err != nil {
 			fmt.Printf("unable to get parse imdb id: %s\n", err)
-			return Retry
+			return retry
 		}
 		fmt.Printf("adding show with imdb id %d\n", imdbID)
 
@@ -99,7 +99,7 @@ func manualImport(
 		show.Files = append(show.Files, file)
 		shows <- show
 
-		return Success
+		return success
 	}
 }
 
@@ -131,12 +131,12 @@ func fixFileErrors(c *cli.Context, importer *importer.Context) {
 
 		for {
 			switch manualImport(c, importer, shows, files[i]) {
-			case Abort:
+			case abort:
 				fmt.Printf("aborting.\n")
 				return
-			case Retry:
+			case retry:
 				continue
-			case Success:
+			case success:
 				break
 			}
 		}

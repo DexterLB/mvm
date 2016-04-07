@@ -7,6 +7,7 @@ import (
 	"github.com/eapache/channels"
 )
 
+// Import imports and processes all shows from the given paths into the library
 func (c *Context) Import(paths []string) {
 	bufSize := c.Config.Importer.BufferSize
 
@@ -33,6 +34,7 @@ func (c *Context) Import(paths []string) {
 	wg.Wait()
 }
 
+// ProcessShows fetches data for each show from online sources
 func (c *Context) ProcessShows(shows <-chan *library.Show) {
 	bufSize := c.Config.Importer.BufferSize
 
@@ -56,7 +58,10 @@ func (c *Context) ProcessShows(shows <-chan *library.Show) {
 func (c *Context) saveAll(genericChannel interface{}) {
 	channel := channels.Wrap(genericChannel).Out()
 	for item := range channel {
-		c.Library.Save(item)
+		err := c.Library.Save(item)
+		if err != nil {
+			c.Errors <- err
+		}
 	}
 }
 

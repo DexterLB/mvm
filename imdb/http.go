@@ -28,7 +28,10 @@ func openPage(url string) ([]byte, error) {
 		return nil, fmt.Errorf("unable to download imdb page: %s", err)
 	}
 
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
+
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read imdb page: %s", err)

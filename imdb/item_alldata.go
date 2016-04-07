@@ -140,79 +140,33 @@ func humanReadableMap(m map[string]string) string {
 	return strings.Join(lines, "\n")
 }
 
-// AllData fetches all possible fields and returns them
-func (s *Item) AllData() (*ItemData, error) {
-	s.PreloadAll()
-
-	data := &ItemData{
-		ID: s.ID(),
-	}
+func (s *Item) fillPlot(data *ItemData) error {
 	var err error
-
-	data.Type, err = s.Type()
-	if err != nil {
-		return nil, err
-	}
-
-	data.Title, err = s.Title()
-	if err != nil {
-		return nil, err
-	}
-
-	data.Year, err = s.Year()
-	if err != nil {
-		return nil, err
-	}
-
-	data.OtherTitles, err = s.OtherTitles()
-	if err != nil {
-		return nil, err
-	}
-
-	data.Duration, err = s.Duration()
-	if err != nil {
-		return nil, err
-	}
-
 	data.Plot, err = s.Plot()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	data.PlotMedium, err = s.PlotMedium()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	data.PlotLong, err = s.PlotLong()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	data.PosterURL, err = s.PosterURL()
-	if err != nil {
-		return nil, err
-	}
+	return nil
+}
 
-	data.Rating, err = s.Rating()
-	if err != nil {
-		return nil, err
-	}
-
-	data.Votes, err = s.Votes()
-	if err != nil {
-		return nil, err
-	}
-
-	data.Languages, err = s.Languages()
-	if err != nil {
-		return nil, err
-	}
+func (s *Item) fillSpecificData(data *ItemData) error {
+	var err error
 
 	if data.Type == Movie || data.Type == Episode {
 		data.ReleaseDate, err = s.ReleaseDate()
 		if err != nil {
-			return nil, err
+			return err
 		}
 	}
 
@@ -222,18 +176,95 @@ func (s *Item) AllData() (*ItemData, error) {
 	case Episode:
 		data.SeasonNumber, data.EpisodeNumber, err = s.SeasonEpisode()
 		if err != nil {
-			return nil, err
+			return err
 		}
 
 		data.Series, err = s.Series()
 		if err != nil {
-			return nil, err
+			return err
 		}
 	case Series:
 		data.Seasons, err = s.Seasons()
 		if err != nil {
-			return nil, err
+			return err
 		}
+	}
+
+	return nil
+}
+
+func (s *Item) fillCommonData(data *ItemData) error {
+	var err error
+
+	data.Type, err = s.Type()
+	if err != nil {
+		return err
+	}
+
+	data.Title, err = s.Title()
+	if err != nil {
+		return err
+	}
+
+	data.Year, err = s.Year()
+	if err != nil {
+		return err
+	}
+
+	data.OtherTitles, err = s.OtherTitles()
+	if err != nil {
+		return err
+	}
+
+	data.Duration, err = s.Duration()
+	if err != nil {
+		return err
+	}
+
+	data.PosterURL, err = s.PosterURL()
+	if err != nil {
+		return err
+	}
+
+	data.Rating, err = s.Rating()
+	if err != nil {
+		return err
+	}
+
+	data.Votes, err = s.Votes()
+	if err != nil {
+		return err
+	}
+
+	data.Languages, err = s.Languages()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// AllData fetches all possible fields and returns them
+func (s *Item) AllData() (*ItemData, error) {
+	s.PreloadAll()
+
+	data := &ItemData{
+		ID: s.ID(),
+	}
+
+	err := s.fillCommonData(data)
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.fillPlot(data)
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.fillSpecificData(data)
+	if err != nil {
+		return nil, err
 	}
 
 	return data, nil

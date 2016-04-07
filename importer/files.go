@@ -56,6 +56,8 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 	}
 }
 
+// WalkPaths recursively searches for video files in the given directories
+// and sends them on the channel. Non-folder paths are sent as-are.
 func (c *Context) WalkPaths(paths []string, filenames chan<- string) {
 	defer close(filenames)
 
@@ -67,7 +69,10 @@ func (c *Context) WalkPaths(paths []string, filenames chan<- string) {
 
 func filesize(filename string) (uint64, error) {
 	file, err := os.Open(filename)
-	defer file.Close()
+	defer func() {
+		_ = file.Close()
+	}()
+
 	if err != nil {
 		return 0, err
 	}

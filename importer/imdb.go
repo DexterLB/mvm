@@ -7,6 +7,9 @@ import (
 	"github.com/DexterLB/mvm/library"
 )
 
+// ImdbIdentifier fetches data from imdb for the given shows (they must
+// have an ImdbID). For shows which are episodes, it fetches the respective
+// series.
 func (c *Context) ImdbIdentifier(
 	shows <-chan *library.Show,
 	doneSeries chan<- *library.Series,
@@ -24,59 +27,67 @@ func (c *Context) ImdbIdentifier(
 	for i := 0; i < maxRequests; i++ {
 		go func() {
 			defer wg.Done()
-
-			for {
-				select {
-				case show, ok := <-shows:
-					if !ok {
-						return
-					}
-
-					seriesData := c.imdbProcessShow(show)
-
-					var (
-						series    *library.Series
-						newSeries bool
-						err       error
-					)
-
-					if seriesData != nil {
-						id := seriesData.ID()
-						cache.Lock()
-						if series, ok = cache.PrevSeries[id]; !ok {
-							series, err = c.Library.GetSeriesByImdbID(id)
-							if err != nil {
-								show.ImdbError = library.Errorf(
-									"Unable to get series from library: %s", err,
-								)
-								cache.Unlock()
-								continue
-							}
-							cache.PrevSeries[seriesData.ID()] = series
-							newSeries = true
-						}
-						cache.Unlock()
-
-						if newSeries {
-							c.imdbProcessSeries(series, seriesData)
-						}
-
-						series.Lock()
-						series.Episodes = append(series.Episodes, show)
-						series.Unlock()
-					}
-
-					done <- show
-					if newSeries {
-						doneSeries <- series
-					}
-				case <-c.Stop:
-					return
-				}
-			}
+			c.imdbIdentifierWorker(shows, doneSeries, done, cache)
 		}()
 	}
 	wg.Wait()
+}
+
+func (c *Context) imdbIdentifierWorker(
+	shows <-chan *library.Show,
+	doneSeries chan<- *library.Series,
+	done chan<- *library.Show,
+	cache *seriesCache,
+) {
+	for {
+		select {
+		case show, ok := <-shows:
+			if !ok {
+				return
+			}
+
+			seriesData := c.imdbProcessShow(show)
+
+			var (
+				series    *library.Series
+				newSeries bool
+				err       error
+			)
+
+			if seriesData != nil {
+				id := seriesData.ID()
+				cache.Lock()
+				if series, ok = cache.PrevSeries[id]; !ok {
+					series, err = c.Library.GetSeriesByImdbID(id)
+					if err != nil {
+						show.ImdbError = library.Errorf(
+							"Unable to get series from library: %s", err,
+						)
+						cache.Unlock()
+						continue
+					}
+					cache.PrevSeries[seriesData.ID()] = series
+					newSeries = true
+				}
+				cache.Unlock()
+
+				if newSeries {
+					c.imdbProcessSeries(series, seriesData)
+				}
+
+				series.Lock()
+				series.Episodes = append(series.Episodes, show)
+				series.Unlock()
+			}
+
+			done <- show
+			if newSeries {
+				doneSeries <- series
+			}
+		case <-c.Stop:
+			return
+		}
+	}
 }
 
 func (c *Context) imdbProcessShow(show *library.Show) *imdb.Item {
