@@ -98,7 +98,7 @@ func (c *Context) osdbProcessFiles(
 		if movies[i] == nil {
 			err = fmt.Errorf("show not found in opensubtitles.org database")
 		} else {
-			id, err = strconv.Atoi(movies[i].Id)
+			id, err = strconv.Atoi(movies[i].ID)
 			if err != nil {
 				err = fmt.Errorf("can't parse imdb id: %s", err)
 			}
