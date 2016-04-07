@@ -32,7 +32,15 @@
     - [ ] set arbitrary fields in series
     - [ ] set preferred subtitle
     - [ ] manually add subtitle file
+- database
+    - [x] don't panic when unable to connect to the database
+    - [ ] don't panic when there's an error in a chained query
+    - [ ] indexes (not indices)
+    - [ ] don't use gorm
 - progress
     - [ ] display some sort of progress bar during import
 - api
     - [ ] some sort of json api
+- console interface
+    - [x] support TOML configuration files
+    - [ ] support setting configuration values from cli options
