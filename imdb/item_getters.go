@@ -24,7 +24,7 @@ func (s *Item) Type() (ItemType, error) {
 		return s.itemType, nil
 	}
 
-	mainPage, err := s.mainPage()
+	mainPage, err := s.page("combined")
 	if err != nil {
 		return -1, err
 	}
@@ -57,7 +57,7 @@ func (s *Item) Title() (string, error) {
 		return episodeTitle, nil
 	}
 
-	h1, err := firstMatching(s.mainPage, `//h1`)
+	h1, err := s.firstMatching("combined", `//h1`)
 	if err != nil {
 		return "", fmt.Errorf("unable to find title element: %s", err)
 	}
@@ -74,7 +74,7 @@ func (s *Item) Title() (string, error) {
 
 // Year returns the item's airing year
 func (s *Item) Year() (int, error) {
-	mainPage, err := s.mainPage()
+	mainPage, err := s.page("combined")
 	if err != nil {
 		return 0, err
 	}
@@ -120,7 +120,7 @@ func (s *Item) Year() (int, error) {
 
 // OtherTitles returns the item's alternative titles
 func (s *Item) OtherTitles() (map[string]string, error) {
-	releaseInfoPage, err := s.releaseInfoPage()
+	releaseInfoPage, err := s.page("releaseinfo")
 	if err != nil {
 		return nil, err
 	}
@@ -168,8 +168,8 @@ func (s *Item) ReleaseDate() (time.Time, error) {
 
 		dateText = info[0]
 	} else {
-		releaseDateElement, err := firstMatching(
-			s.mainPage,
+		releaseDateElement, err := s.firstMatching(
+			"combined",
 			`//div[preceding-sibling::h5[contains(text(),'Release Date')]]`,
 		)
 		if err != nil {
@@ -190,8 +190,8 @@ func (s *Item) ReleaseDate() (time.Time, error) {
 
 // Tagline returns the slogan. Probably only applicable for Movie.
 func (s *Item) Tagline() (string, error) {
-	taglineElement, err := firstMatching(
-		s.mainPage,
+	taglineElement, err := s.firstMatching(
+		"combined",
 		`//div[preceding-sibling::h5[text()='Tagline:']]`,
 	)
 	if err != nil {
@@ -204,8 +204,8 @@ func (s *Item) Tagline() (string, error) {
 // Duration returns the item's duration (rounded to minutes).
 // Probably only applicable to Movie and Episode
 func (s *Item) Duration() (time.Duration, error) {
-	durationElement, err := firstMatching(
-		s.mainPage,
+	durationElement, err := s.firstMatching(
+		"combined",
 		`//div[preceding-sibling::h5[text()='Runtime:']]`,
 	)
 	if err != nil {
@@ -228,7 +228,7 @@ func (s *Item) Duration() (time.Duration, error) {
 
 // Languages returns a slice with the names of languages for the item
 func (s *Item) Languages() ([]language.Base, error) {
-	mainPage, err := s.mainPage()
+	mainPage, err := s.page("combined")
 	if err != nil {
 		return nil, err
 	}
@@ -261,8 +261,8 @@ func (s *Item) Languages() ([]language.Base, error) {
 
 // Plot returns the item's short plot summary
 func (s *Item) Plot() (string, error) {
-	plotElement, err := firstMatching(
-		s.mainPage,
+	plotElement, err := s.firstMatching(
+		"combined",
 		`//div[@class='info-content' and preceding-sibling::h5[text()='Plot:']]/text()`,
 	)
 	if err != nil {
@@ -273,8 +273,8 @@ func (s *Item) Plot() (string, error) {
 
 // PlotMedium returns the item's medium-sized plot (summary)
 func (s *Item) PlotMedium() (string, error) {
-	summaryElement, err := firstMatching(
-		s.plotSummaryPage,
+	summaryElement, err := s.firstMatching(
+		"plotsummary",
 		`//p[@class='plotSummary']`,
 	)
 	if err != nil {
@@ -286,8 +286,8 @@ func (s *Item) PlotMedium() (string, error) {
 
 // PlotLong returns the item's long synopsis of the plot
 func (s *Item) PlotLong() (string, error) {
-	synopsisElement, err := firstMatching(
-		s.plotSynopsisPage,
+	synopsisElement, err := s.firstMatching(
+		"synopsis",
 		`//div[@id='swiki.2.1']`,
 	)
 	if err != nil {
@@ -299,8 +299,8 @@ func (s *Item) PlotLong() (string, error) {
 
 // PosterURL returns.. the item's Poster URL (jpg image)
 func (s *Item) PosterURL() (string, error) {
-	posterElement, err := firstMatching(
-		s.mainPage,
+	posterElement, err := s.firstMatching(
+		"combined",
 		`//a[@name='poster']/img`,
 	)
 	if err != nil {
@@ -332,15 +332,15 @@ func (s *Item) PosterURL() (string, error) {
 
 // Rating returns the item's rating
 func (s *Item) Rating() (float32, error) {
-	ratingElement, err := firstMatching(
-		s.mainPage,
+	ratingElement, err := s.firstMatching(
+		"combined",
 		`//*[@class='starbar-meta']/b`,
 	)
 	var rating float64
 
 	if err != nil {
-		ratingElement, err = firstMatching(
-			s.secondaryPage,
+		ratingElement, err = s.firstMatching(
+			"",
 			`//div[@class='ratingValue']`,
 		)
 
@@ -366,13 +366,13 @@ func (s *Item) Rating() (float32, error) {
 
 // Votes returns the item's rating's number of votes
 func (s *Item) Votes() (int, error) {
-	votesElement, err := firstMatching(
-		s.mainPage,
+	votesElement, err := s.firstMatching(
+		"combined",
 		`//div[@id='tn15rating']//a[@class='tn15more']`,
 	)
 	if err != nil {
-		votesElement, err = firstMatching(
-			s.secondaryPage,
+		votesElement, err = s.firstMatching(
+			"",
 			`//div[@class='imdbRating']//span[@class='small']`,
 		)
 		if err != nil {
@@ -431,8 +431,8 @@ func (s *Item) SeasonEpisode() (int, int, error) {
 
 // Series returns the series this episode belongs to
 func (s *Item) Series() (*Item, error) {
-	seriesLinkElement, err := firstMatching(
-		s.mainPage,
+	seriesLinkElement, err := s.firstMatching(
+		"combined",
 		`//div[preceding-sibling::h5[contains(text(),'TV Series:')]]/a`,
 	)
 	if err != nil {
@@ -454,7 +454,7 @@ func (s *Item) Series() (*Item, error) {
 
 // episodeTitle returns the title of an episode
 func (s *Item) episodeTitle() (string, error) {
-	titleElement, err := firstMatching(s.mainPage, `//h1//span//em`)
+	titleElement, err := s.firstMatching("combined", `//h1//span//em`)
 	if err != nil {
 		return "", fmt.Errorf("item not an episode?: %s", err)
 	}
@@ -470,8 +470,8 @@ func (s *Item) episodeTitle() (string, error) {
 
 // episodeInfo returns a text block containing the episode's air date and number
 func (s *Item) episodeInfo() ([]string, error) {
-	infoElement, err := firstMatching(
-		s.mainPage,
+	infoElement, err := s.firstMatching(
+		"combined",
 		`//div[@class='info-content' and preceding-sibling::h5[contains(text(),'Original Air Date')]]`,
 	)
 
@@ -495,7 +495,7 @@ func (s *Item) episodeInfo() ([]string, error) {
 // Please note that the indices in the slice might have nothing to do with
 // the respective season numbers. For that, call Number() on each season.
 func (s *Item) Seasons() ([]*Season, error) {
-	mainPage, err := s.mainPage()
+	mainPage, err := s.page("combined")
 	if err != nil {
 		return nil, err
 	}

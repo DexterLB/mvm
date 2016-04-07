@@ -13,16 +13,12 @@ import (
 
 // Item represents a single item (either a movie or an episode)
 type Item struct {
-	id                    int
-	title                 *string
-	itemType              ItemType
-	season                *int
-	episode               *int
-	mainPageDocument      *htmlParser.HtmlDocument
-	secondaryPageDocument *htmlParser.HtmlDocument
-	plotSummaryDocument   *htmlParser.HtmlDocument
-	plotSynopsisDocument  *htmlParser.HtmlDocument
-	releaseInfoDocument   *htmlParser.HtmlDocument
+	id              int
+	title           *string
+	itemType        ItemType
+	season          *int
+	episode         *int
+	cachedDocuments map[string]*htmlParser.HtmlDocument
 }
 
 // ItemType is one of Unknown, Movie, Series and Episode
@@ -44,36 +40,17 @@ const (
 // New creates a item from an IMDB ID
 func New(id int) *Item {
 	return &Item{
-		id: id,
+		id:              id,
+		cachedDocuments: make(map[string]*htmlParser.HtmlDocument),
 	}
 }
 
 // Free frees all resources used by the parser. You must always call it
 // after you finish reading the attributes
 func (s *Item) Free() {
-	if s.mainPageDocument != nil {
-		s.mainPageDocument.Free()
-		s.mainPageDocument = nil
-	}
-
-	if s.secondaryPageDocument != nil {
-		s.secondaryPageDocument.Free()
-		s.secondaryPageDocument = nil
-	}
-
-	if s.releaseInfoDocument != nil {
-		s.releaseInfoDocument.Free()
-		s.releaseInfoDocument = nil
-	}
-
-	if s.plotSummaryDocument != nil {
-		s.plotSummaryDocument.Free()
-		s.plotSummaryDocument = nil
-	}
-
-	if s.plotSynopsisDocument != nil {
-		s.plotSynopsisDocument.Free()
-		s.plotSynopsisDocument = nil
+	for name := range s.cachedDocuments {
+		s.cachedDocuments[name].Free()
+		delete(s.cachedDocuments, name)
 	}
 }
 
@@ -84,77 +61,34 @@ func (s *Item) PreloadAll() {
 	wg := sync.WaitGroup{}
 	wg.Add(4)
 
-	load := func(getPage func() (*xml.ElementNode, error)) {
-		_, _ = getPage()
+	load := func(name string) {
+		_, _ = s.page(name)
 		wg.Done()
 	}
 
-	go load(s.mainPage)
-	go load(s.releaseInfoPage)
-	go load(s.plotSummaryPage)
-	go load(s.plotSynopsisPage)
+	go load("combined")
+	go load("releaseinfo")
+	go load("plotsummary")
+	go load("synopsis")
 
 	wg.Wait()
 }
 
-func (s *Item) mainPage() (*xml.ElementNode, error) {
-	if s.mainPageDocument == nil {
-		page, err := s.parsePage("combined")
+// page returns the html contents of the page at
+// http://akas.imdb.com/title/tt<s.ID>/<name>
+func (s *Item) page(name string) (*xml.ElementNode, error) {
+	document, ok := s.cachedDocuments[name]
+	if !ok {
+		var err error
+
+		document, err = s.parsePage(name)
 		if err != nil {
 			return nil, err
 		}
-		s.mainPageDocument = page
+		s.cachedDocuments[name] = document
 	}
 
-	return s.mainPageDocument.Root(), nil
-}
-
-func (s *Item) secondaryPage() (*xml.ElementNode, error) {
-	if s.secondaryPageDocument == nil {
-		page, err := s.parsePage("")
-		if err != nil {
-			return nil, err
-		}
-		s.secondaryPageDocument = page
-	}
-
-	return s.secondaryPageDocument.Root(), nil
-}
-
-func (s *Item) releaseInfoPage() (*xml.ElementNode, error) {
-	if s.releaseInfoDocument == nil {
-		page, err := s.parsePage("releaseinfo")
-		if err != nil {
-			return nil, err
-		}
-		s.releaseInfoDocument = page
-	}
-
-	return s.releaseInfoDocument.Root(), nil
-}
-
-func (s *Item) plotSummaryPage() (*xml.ElementNode, error) {
-	if s.plotSummaryDocument == nil {
-		page, err := s.parsePage("plotsummary")
-		if err != nil {
-			return nil, err
-		}
-		s.plotSummaryDocument = page
-	}
-
-	return s.plotSummaryDocument.Root(), nil
-}
-
-func (s *Item) plotSynopsisPage() (*xml.ElementNode, error) {
-	if s.plotSynopsisDocument == nil {
-		page, err := s.parsePage("synopsis")
-		if err != nil {
-			return nil, err
-		}
-		s.plotSynopsisDocument = page
-	}
-
-	return s.plotSynopsisDocument.Root(), nil
+	return document.Root(), nil
 }
 
 func (s *Item) parsePage(name string) (*htmlParser.HtmlDocument, error) {
@@ -188,10 +122,10 @@ func parseDate(text string) (time.Time, error) {
 	return t, nil
 }
 
-// firstMatching obtains a root node by calling pageGetter,
+// firstMatching obtains a root node by calling page(),
 // and then finds its first child node which matches the xpath
-func firstMatching(pageGetter func() (*xml.ElementNode, error), xpath string) (xml.Node, error) {
-	page, err := pageGetter()
+func (s *Item) firstMatching(pageName string, xpath string) (xml.Node, error) {
+	page, err := s.page(pageName)
 	if err != nil {
 		return nil, err
 	}
