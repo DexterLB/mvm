@@ -43,7 +43,7 @@ func (b BigUint64) Value() (driver.Value, error) {
 	return fmt.Sprintf("%016x", uint64(b)), nil
 }
 
-// Language represents an ISO639 language
+// Language represents an ISO639 language. Its SQL type could be varchar(3).
 type Language struct {
 	base language.Base
 }
@@ -145,6 +145,34 @@ func (l *Languages) Scan(src interface{}) error {
 		return err
 	}
 	return nil
+}
+
+// Scan deserialises the object from raw database data
+func (l *Language) Scan(src interface{}) error {
+	var (
+		err  error
+		code string
+	)
+
+	switch data := src.(type) {
+	case string:
+		code = data
+	case []byte:
+		code = string(data)
+	default:
+		return fmt.Errorf("unknown language type")
+	}
+
+	*l, err = ParseLanguage(code)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Value serialises the object to raw database data
+func (l Language) Value() (driver.Value, error) {
+	return l.String(), nil
 }
 
 // Value serialises the object to raw database data
