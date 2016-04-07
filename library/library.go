@@ -18,7 +18,7 @@ func New(dbDriver string, arguments ...interface{}) (*Library, error) {
 		return nil, err
 	}
 
-	db.AutoMigrate(&Show{}, &EpisodeData{}, &Series{}, &VideoFile{})
+	db.AutoMigrate(&Show{}, &EpisodeData{}, &Series{}, &VideoFile{}, &Subtitle{})
 
 	return &Library{
 		db: db,
@@ -93,7 +93,13 @@ func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
 	}
 
 	show.ImdbID = id
+
 	err = lib.db.Model(show).Association("Files").Find(&show.Files).Error
+	if err != nil {
+		return nil, err
+	}
+
+	err = lib.db.Model(show).Association("Subtitles").Find(&show.Subtitles).Error
 	if err != nil {
 		return nil, err
 	}
@@ -126,6 +132,17 @@ func (lib *Library) GetFileByPath(path string) (*VideoFile, error) {
 	}
 	file.Path = path
 	return file, err
+}
+
+// GetSubtitleByHash finds the subtitle by its hash, creating it if it doesn't exist
+func (lib *Library) GetSubtitleByHash(hash string) (*Subtitle, error) {
+	subtitle := &Subtitle{}
+	err := lib.db.Where("hash = ?", hash).FirstOrCreate(subtitle).Error
+	if err != nil {
+		return nil, err
+	}
+	subtitle.Hash = hash
+	return subtitle, err
 }
 
 // Save saves the item to the library
