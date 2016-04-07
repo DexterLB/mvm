@@ -47,9 +47,64 @@ func openLibrary(config *config.Config) *library.Library {
 	return library
 }
 
+type UserState int
+
+const (
+	Success UserState = iota
+	Retry
+	Abort
+)
+
+func manualImport(
+	c *cli.Context,
+	importer *importer.Context,
+	shows chan<- *library.Show,
+	file *library.VideoFile,
+) UserState {
+	input := bufio.NewScanner(os.Stdin)
+
+	fmt.Printf(
+		"What do you want to do? Manually enter [imdb id or link], [f] forget the file, [d] delete the file: ",
+	)
+
+	if !input.Scan() {
+		return Abort
+	}
+	text := input.Text()
+
+	switch text {
+	case "f":
+		log.Printf("not implemented")
+		return Retry
+	case "d":
+		log.Printf("not implemented")
+		return Retry
+	case "a":
+		return Abort
+	default:
+		imdbID, err := strconv.Atoi(text)
+		if err != nil {
+			fmt.Printf("unable to read imdb id: %s\n", err)
+			return Retry
+		}
+		show, err := importer.Library.GetShowByImdbID(imdbID)
+		if err != nil {
+			fmt.Printf("unable to get parse imdb id: %s\n", err)
+			return Retry
+		}
+		fmt.Printf("adding show with imdb id %d\n", imdbID)
+
+		file.OsdbError = nil
+
+		show.Files = append(show.Files, file)
+		shows <- show
+
+		return Success
+	}
+}
+
 func fixFileErrors(c *cli.Context, importer *importer.Context) {
 	files := importer.FilesWithErrors
-	input := bufio.NewScanner(os.Stdin)
 	fmt.Printf(
 		"%d of the files have errors. Let's walk through them:\n", len(files),
 	)
@@ -74,47 +129,15 @@ func fixFileErrors(c *cli.Context, importer *importer.Context) {
 			fmt.Printf("%s\n", *files[i].OsdbError)
 		}
 
-		var done bool
-		for !done {
-			fmt.Printf(
-				"What do you want to do? Manually enter [imdb id or link], [f] forget the file, [d] delete the file: ",
-			)
-
-			if !input.Scan() {
+		for {
+			switch manualImport(c, importer, shows, files[i]) {
+			case Abort:
 				fmt.Printf("aborting.\n")
 				return
-			}
-			text := input.Text()
-
-			switch text {
-			case "f":
-				log.Printf("not implemented")
+			case Retry:
 				continue
-			case "d":
-				log.Printf("not implemented")
-				continue
-			case "a":
-				fmt.Printf("aborting.\n")
-				return
-			default:
-				imdbID, err := strconv.Atoi(text)
-				if err != nil {
-					fmt.Printf("unable to read imdb id: %s\n", err)
-					continue
-				}
-				show, err := importer.Library.GetShowByImdbID(imdbID)
-				if err != nil {
-					fmt.Printf("unable to get parse imdb id: %s\n", err)
-					continue
-				}
-				fmt.Printf("adding show with imdb id %d\n", imdbID)
-
-				files[i].OsdbError = nil
-
-				show.Files = append(show.Files, files[i])
-				shows <- show
-
-				done = true
+			case Success:
+				break
 			}
 		}
 	}

@@ -31,11 +31,8 @@ func NewContext(library *library.Library, config *config.Config) *Context {
 		Errors:  make(chan error),
 	}
 	go func() {
-		select {
-		case <-context.Stop:
-			close(context.Errors)
-			return
-		}
+		<-context.Stop
+		close(context.Errors)
 	}()
 	return context
 }

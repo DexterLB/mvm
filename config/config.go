@@ -22,7 +22,7 @@ type Importer struct {
 	Imdb       Imdb `toml:"imdb"`
 }
 
-// Importer contains the configuration for the library
+// Library contains the configuration for the library
 type Library struct {
 	Database    string `toml:"database"`
 	DatabaseDSN string `toml:"database_dsn"`

@@ -161,7 +161,7 @@ type Duration time.Duration
 func (d *Duration) Scan(src interface{}) error {
 	switch data := src.(type) {
 	case int64:
-		*d = Duration(Duration(data))
+		*d = Duration(data)
 	default:
 		return fmt.Errorf("unknown duration type")
 	}
