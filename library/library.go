@@ -2,6 +2,7 @@ package library
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/jinzhu/gorm"
 )
@@ -99,11 +100,6 @@ func (lib *Library) GetShowByImdbID(id int) (*Show, error) {
 		return nil, err
 	}
 
-	err = lib.db.Model(show).Association("Subtitles").Find(&show.Subtitles).Error
-	if err != nil {
-		return nil, err
-	}
-
 	return show, err
 }
 
@@ -131,6 +127,13 @@ func (lib *Library) GetFileByPath(path string) (*VideoFile, error) {
 		return nil, err
 	}
 	file.Path = path
+
+	log.Printf("subtitles: %v", lib.db.Model(file).Association("Subtitles"))
+	err = lib.db.Model(file).Association("Subtitles").Find(&file.Subtitles).Error
+	if err != nil {
+		return nil, err
+	}
+
 	return file, err
 }
 

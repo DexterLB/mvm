@@ -294,7 +294,7 @@ func TestVideoFile(t *testing.T) {
 	assert.Equal("some other error", *file2.OsdbError)
 }
 
-func TestShowWithSubtitles(t *testing.T) {
+func TestFileWithSubtitles(t *testing.T) {
 	lib, err := New("sqlite3", ":memory:")
 	if err != nil {
 		t.Fatal(err)
@@ -309,7 +309,7 @@ func TestShowWithSubtitles(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	show, err := lib.GetShowByImdbID(999999)
+	file, err := lib.GetFileByPath("/a/b")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -322,9 +322,9 @@ func TestShowWithSubtitles(t *testing.T) {
 	subtitleB.HearingImpaired = true
 	subtitleB.Filename = "/baz/qux"
 
-	show.Subtitles = []*Subtitle{subtitleA, subtitleB}
+	file.Subtitles = []*Subtitle{subtitleA, subtitleB}
 
-	err = lib.Save(show)
+	err = lib.Save(file)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -337,20 +337,20 @@ func TestShowWithSubtitles(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	show2, err := lib.GetShowByImdbID(999999)
+	file2, err := lib.GetFileByPath("/a/b")
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	assert := assert.New(t)
 
-	assert.Equal(2, len(show2.Subtitles))
-	assert.Equal("123", show2.Subtitles[0].Hash)
-	assert.Equal("456", show2.Subtitles[1].Hash)
-	assert.Equal("/foo/bar", show2.Subtitles[0].Filename)
-	assert.Equal("/baz/qux", show2.Subtitles[1].Filename)
-	assert.Equal("en", show2.Subtitles[0].Language.String())
-	assert.Equal("de", show2.Subtitles[1].Language.String())
+	assert.Equal(2, len(file2.Subtitles))
+	assert.Equal("123", file2.Subtitles[0].Hash)
+	assert.Equal("456", file2.Subtitles[1].Hash)
+	assert.Equal("/foo/bar", file2.Subtitles[0].Filename)
+	assert.Equal("/baz/qux", file2.Subtitles[1].Filename)
+	assert.Equal("en", file2.Subtitles[0].Language.String())
+	assert.Equal("de", file2.Subtitles[1].Language.String())
 }
 
 func TestShowWithFiles(t *testing.T) {

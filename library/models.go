@@ -17,8 +17,7 @@ type Show struct {
 	ReleaseDate time.Time `json:"release_date"`
 	Tagline     string    `json:"tagline"`
 
-	Files     []*VideoFile `json:"files",gorm:"ForeignKey:ShowID"`
-	Subtitles []*Subtitle  `json:"subtitles",gorm:"ForeignKey:ShowID"`
+	Files []*VideoFile `json:"files",gorm:"ForeignKey:ShowID"`
 }
 
 // CommonData contains fields shared by movies, episodes and series
@@ -77,6 +76,8 @@ type VideoFile struct {
 
 	ShowID uint
 
+	Subtitles []*Subtitle `json:"subtitles",gorm:"ForeignKey:FileID"`
+
 	ImportError *string `json:"import_error"`
 	OsdbError   *string `json:"osdb_error"`
 }
@@ -91,7 +92,7 @@ type Subtitle struct {
 	HearingImpaired bool     `json:"hearing_impaired"`
 	Filename        string   `json:"filename"`
 
-	ShowID uint
+	FileID uint
 }
 
 // AfterCreate initializes values on an empty series
