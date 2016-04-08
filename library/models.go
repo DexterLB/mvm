@@ -76,7 +76,7 @@ type VideoFile struct {
 
 	ShowID uint
 
-	Subtitles []*Subtitle `json:"subtitles",gorm:"ForeignKey:FileID"`
+	Subtitles []*Subtitle `json:"subtitles",gorm:"ForeignKey:VideoFileID"`
 
 	ImportError *string `json:"import_error"`
 	OsdbError   *string `json:"osdb_error"`
@@ -92,7 +92,7 @@ type Subtitle struct {
 	HearingImpaired bool     `json:"hearing_impaired"`
 	Filename        string   `json:"filename"`
 
-	FileID uint
+	VideoFileID uint
 }
 
 // AfterCreate initializes values on an empty series

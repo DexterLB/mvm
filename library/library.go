@@ -2,7 +2,6 @@ package library
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/jinzhu/gorm"
 )
@@ -128,7 +127,6 @@ func (lib *Library) GetFileByPath(path string) (*VideoFile, error) {
 	}
 	file.Path = path
 
-	log.Printf("subtitles: %v", lib.db.Model(file).Association("Subtitles"))
 	err = lib.db.Model(file).Association("Subtitles").Find(&file.Subtitles).Error
 	if err != nil {
 		return nil, err
