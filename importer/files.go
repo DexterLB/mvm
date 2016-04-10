@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/DexterLB/mvm/library"
+	"github.com/DexterLB/mvm/types"
 	"github.com/oz/osdb"
 )
 
@@ -33,7 +34,7 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 
 			file.Size, err = filesize(filename)
 			if err != nil {
-				file.ImportError = library.Errorf(
+				file.ImportError = types.Errorf(
 					"unable to get file size: %s", err,
 				)
 				continue
@@ -41,12 +42,12 @@ func (c *Context) FileInfo(filenames <-chan string, files chan<- *library.VideoF
 
 			hash, err := osdb.Hash(filename)
 			if err != nil {
-				file.ImportError = library.Errorf(
+				file.ImportError = types.Errorf(
 					"unable to calculate file hash: %s", err,
 				)
 				continue
 			}
-			file.OsdbHash = library.BigUint64(hash)
+			file.OsdbHash = types.BigUint64(hash)
 
 			file.ImportError = nil
 			files <- file

@@ -5,6 +5,7 @@ import (
 
 	"github.com/DexterLB/mvm/imdb"
 	"github.com/DexterLB/mvm/library"
+	"github.com/DexterLB/mvm/types"
 )
 
 // ImdbIdentifier fetches data from imdb for the given shows (they must
@@ -60,7 +61,7 @@ func (c *Context) imdbIdentifierWorker(
 				if series, ok = cache.PrevSeries[id]; !ok {
 					series, err = c.Library.GetSeriesByImdbID(id)
 					if err != nil {
-						show.ImdbError = library.Errorf(
+						show.ImdbError = types.Errorf(
 							"Unable to get series from library: %s", err,
 						)
 						cache.Unlock()
@@ -96,7 +97,7 @@ func (c *Context) imdbProcessShow(show *library.Show) *imdb.Item {
 
 	data, err := connection.AllData()
 	if err != nil {
-		show.ImdbError = library.Errorf(
+		show.ImdbError = types.Errorf(
 			"Error getting data from imdb: %s", err,
 		)
 		return nil
@@ -122,7 +123,7 @@ func (c *Context) imdbProcessSeries(series *library.Series, imdbSeries *imdb.Ite
 
 	data, err := imdbSeries.AllData()
 	if err != nil {
-		series.ImdbError = library.Errorf(
+		series.ImdbError = types.Errorf(
 			"Error getting data from imdb: %s", err,
 		)
 		return
@@ -134,15 +135,15 @@ func (c *Context) imdbProcessSeries(series *library.Series, imdbSeries *imdb.Ite
 func imdbSetCommonData(commonData *library.CommonData, data *imdb.ItemData) {
 	commonData.Title = data.Title
 	commonData.Year = data.Year
-	commonData.OtherTitles = library.MapStringString(data.OtherTitles)
-	commonData.Duration = library.Duration(data.Duration)
+	commonData.OtherTitles = types.MapStringString(data.OtherTitles)
+	commonData.Duration = types.Duration(data.Duration)
 	commonData.Plot = data.Plot
 	commonData.PlotMedium = data.PlotMedium
 	commonData.PlotLong = data.PlotLong
 	commonData.PosterURL = data.PosterURL
 	commonData.ImdbRating = data.Rating
 	commonData.ImdbVotes = data.Votes
-	commonData.Languages = library.NewLanguages(data.Languages)
+	commonData.Languages = types.NewLanguages(data.Languages)
 }
 
 type seriesCache struct {

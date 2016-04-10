@@ -52,7 +52,7 @@ type Imdb struct {
 // Subtitles contains the configuration for the subtitle downloader
 type Subtitles struct {
 	Languages            types.Languages `toml:"languages"`
-	Filename             types.Template  `toml:"filename"`
+	Filename             *types.Template `toml:"filename"`
 	SubtitlesPerLanguage int             `toml:"subtitles_per_language"`
 }
 

@@ -1,10 +1,14 @@
 package importer
 
 import (
+	"crypto/md5"
+	"io"
+	"os"
 	"testing"
 
 	"github.com/DexterLB/mvm/config"
 	"github.com/DexterLB/mvm/library"
+	"github.com/DexterLB/mvm/types"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	_ "github.com/orchestrate-io/dvr"
 )
@@ -25,6 +29,13 @@ func testContext(t *testing.T) *Context {
 			Imdb: config.Imdb{
 				MaxRequests: 8,
 			},
+			Subtitles: config.Subtitles{
+				Languages: types.MustParseLanguages("en de"),
+				Filename: types.MustParseTemplate(
+					"{{.NoExtPath}}.{{.Language}}.{{.Score}}.{{.Format}}",
+				),
+				SubtitlesPerLanguage: 2,
+			},
 		},
 	})
 
@@ -35,4 +46,20 @@ func testContext(t *testing.T) *Context {
 	}()
 
 	return context
+}
+
+func md5File(t *testing.T, filename string) [16]byte {
+	hasher := md5.New()
+	f, err := os.Open(filename)
+	if err != nil {
+		t.Errorf("can't open file: %s", err)
+		return [16]byte{}
+	}
+	defer f.Close()
+	_, err = io.Copy(f, hasher)
+	if err != nil {
+		t.Errorf("can't read from file: %s", err)
+		return [16]byte{}
+	}
+	return hasher.Sum(nil)
 }

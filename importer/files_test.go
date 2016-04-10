@@ -39,6 +39,6 @@ func TestFileInfo(t *testing.T) {
 	assert.Equal("yuv410p", dropFile.VideoFormat)
 	assert.InDelta(30, dropFile.Framerate)
 	assert.InDelta(887, dropFile.VideoBitrate)
-	assert.Equal(library.Duration(6.07 * float32(time.Second)), dropFile.Duration)
+	assert.Equal(types.Duration(6.07 * float32(time.Second)), dropFile.Duration)
 	*/
 }

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/DexterLB/mvm/library"
+	"github.com/DexterLB/mvm/types"
 	"github.com/oz/osdb"
 )
 
@@ -84,7 +85,7 @@ func (c *Context) osdbProcessFiles(
 	movies, err := client.BestMoviesByHashes(hashes)
 	if err != nil {
 		for i := range files {
-			files[i].OsdbError = library.Errorf(
+			files[i].OsdbError = types.Errorf(
 				"Opensubtitles.org error: %s", err,
 			)
 			done <- files[i]
@@ -100,20 +101,20 @@ func (c *Context) osdbProcessFiles(
 		if movies[i] == nil {
 			err = fmt.Errorf("show not found in opensubtitles.org database")
 		} else {
-			id, err = strconv.Atoi(movies[i].ID)
+			id, err = strconv.Atoi(movies[i].Id)
 			if err != nil {
 				err = fmt.Errorf("can't parse imdb id: %s", err)
 			}
 		}
 
 		if err != nil {
-			files[i].OsdbError = library.Errorf(
+			files[i].OsdbError = types.Errorf(
 				"can't identify show: %s", err,
 			)
 		} else {
 			show, err := c.Library.GetShowByImdbID(id)
 			if err != nil {
-				files[i].OsdbError = library.Errorf(
+				files[i].OsdbError = types.Errorf(
 					"Can't find show's imdb ID: %s", err,
 				)
 			} else {
