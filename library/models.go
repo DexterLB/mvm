@@ -4,6 +4,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/DexterLB/mvm/types"
 	"github.com/jinzhu/gorm"
 )
 
@@ -22,18 +23,18 @@ type Show struct {
 
 // CommonData contains fields shared by movies, episodes and series
 type CommonData struct {
-	ImdbID      int             `json:"imdb_id",sql:"unique"`
-	Title       string          `json:"title"`
-	Year        int             `json:"year"`
-	OtherTitles MapStringString `gorm:"type:blob",json:"other_titles"`
-	Duration    Duration        `gorm:"type:integer",json:"duration"`
-	Plot        string          `json:"plot"`
-	PlotMedium  string          `json:"plot_medium"`
-	PlotLong    string          `json:"plot_long"`
-	PosterURL   string          `json:"poster_url"`
-	ImdbRating  float32         `json:"imdb_rating"`
-	ImdbVotes   int             `json:"imdb_votes"`
-	Languages   Languages       `gorm:"type:text",json:"languages"`
+	ImdbID      int                   `json:"imdb_id",sql:"unique"`
+	Title       string                `json:"title"`
+	Year        int                   `json:"year"`
+	OtherTitles types.MapStringString `gorm:"type:blob",json:"other_titles"`
+	Duration    types.Duration        `gorm:"type:integer",json:"duration"`
+	Plot        string                `json:"plot"`
+	PlotMedium  string                `json:"plot_medium"`
+	PlotLong    string                `json:"plot_long"`
+	PosterURL   string                `json:"poster_url"`
+	ImdbRating  float32               `json:"imdb_rating"`
+	ImdbVotes   int                   `json:"imdb_votes"`
+	Languages   types.Languages       `gorm:"type:text",json:"languages"`
 
 	ImdbError *string `json:"imdb_error"`
 }
@@ -59,20 +60,20 @@ type VideoFile struct {
 	gorm.Model
 	sync.Mutex
 
-	Path         string    `json:"filename",sql:"unique"`
-	Size         uint64    `json:"filesize"`
-	ResolutionX  uint      `json:"resolution"`
-	ResolutionY  uint      `json:"resolution"`
-	OsdbHash     BigUint64 `gorm:"type:varchar(16)",json:"osdb_hash"`
-	VideoFormat  string    `json:"video_format"`
-	AudioFormat  string    `json:"audio_format"`
-	Framerate    float32   `json:"framerate"`
-	VideoBitrate float32   `json:"video_bitrate"`
-	AudioBitrate float32   `json:"audio_bitrate"`
-	Duration     Duration  `json:"duration"`
+	Path         string          `json:"filename",sql:"unique"`
+	Size         uint64          `json:"filesize"`
+	ResolutionX  uint            `json:"resolution"`
+	ResolutionY  uint            `json:"resolution"`
+	OsdbHash     types.BigUint64 `gorm:"type:varchar(16)",json:"osdb_hash"`
+	VideoFormat  string          `json:"video_format"`
+	AudioFormat  string          `json:"audio_format"`
+	Framerate    float32         `json:"framerate"`
+	VideoBitrate float32         `json:"video_bitrate"`
+	AudioBitrate float32         `json:"audio_bitrate"`
+	Duration     types.Duration  `json:"duration"`
 
-	LastPlayed   time.Time `json:"last_played"`
-	LastPosition Duration  `json:"last_position"`
+	LastPlayed   time.Time      `json:"last_played"`
+	LastPosition types.Duration `json:"last_position"`
 
 	ShowID uint
 
@@ -87,10 +88,11 @@ type Subtitle struct {
 	gorm.Model
 	sync.Mutex
 
-	Hash            string   `json:"hash"`
-	Language        Language `gorm:"type:varchar(3)",json:"language"`
-	HearingImpaired bool     `json:"hearing_impaired"`
-	Filename        string   `json:"filename"`
+	Hash            string         `json:"hash"`
+	Language        types.Language `gorm:"type:varchar(3)",json:"language"`
+	HearingImpaired bool           `json:"hearing_impaired"`
+	Filename        string         `json:"filename"`
+	Score           int            `json:"score"`
 
 	VideoFileID uint
 }

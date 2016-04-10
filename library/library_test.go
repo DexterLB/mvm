@@ -4,8 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"golang.org/x/text/language"
-
+	"github.com/DexterLB/mvm/types"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	_ "github.com/orchestrate-io/dvr"
 	"github.com/stretchr/testify/assert"
@@ -28,9 +27,9 @@ Aenean venenatis, velit rhoncus scelerisque dictum,
 lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	}
 
-	languages := Languages{
-		NewLanguage(language.MustParseBase("en")),
-		NewLanguage(language.MustParseBase("ru")),
+	languages := types.Languages{
+		types.MustParseLanguage("en"),
+		types.MustParseLanguage("ru"),
 	}
 
 	lib, err := New("sqlite3", ":memory:")
@@ -58,7 +57,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		"foo": "bar",
 		"bar": "baz",
 	}
-	series.Duration = Duration(3 * time.Minute)
+	series.Duration = types.Duration(3 * time.Minute)
 	series.Plot = plots[0]
 	series.PlotMedium = plots[1]
 	series.PlotLong = plots[2]
@@ -69,7 +68,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 
 	assert := assert.New(t)
 
-	series.ImdbError = Errorf("some error")
+	series.ImdbError = types.Errorf("some error")
 
 	err = lib.Save(series)
 	if err != nil {
@@ -125,9 +124,9 @@ Aenean venenatis, velit rhoncus scelerisque dictum,
 lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 	}
 
-	languages := Languages{
-		NewLanguage(language.MustParseBase("en")),
-		NewLanguage(language.MustParseBase("ru")),
+	languages := types.Languages{
+		types.MustParseLanguage("en"),
+		types.MustParseLanguage("ru"),
 	}
 
 	lib, err := New("sqlite3", ":memory:")
@@ -155,7 +154,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 		"foo": "bar",
 		"bar": "baz",
 	}
-	movie.Duration = Duration(3 * time.Minute)
+	movie.Duration = types.Duration(3 * time.Minute)
 	movie.Plot = plots[0]
 	movie.PlotMedium = plots[1]
 	movie.PlotLong = plots[2]
@@ -167,7 +166,7 @@ lorem neque auctor velit, id pretium dui dolor ut ex. Sed quis augue.`,
 
 	movie.Tagline = "foo!"
 
-	movie.ImdbError = Errorf("some error")
+	movie.ImdbError = types.Errorf("some error")
 
 	err = lib.Save(movie)
 	if err != nil {
@@ -243,15 +242,15 @@ func TestVideoFile(t *testing.T) {
 	file.Framerate = 30
 	file.VideoBitrate = 800
 	file.AudioBitrate = 256
-	file.Duration = Duration(time.Minute * 20)
+	file.Duration = types.Duration(time.Minute * 20)
 
 	file.LastPlayed = time.Date(2012, time.February, 10, 23, 15, 32, 5, time.UTC)
-	file.LastPosition = Duration(time.Minute*12 + time.Second*38)
+	file.LastPosition = types.Duration(time.Minute*12 + time.Second*38)
 
 	assert := assert.New(t)
 
-	file.ImportError = Errorf("some error")
-	file.OsdbError = Errorf("some other error")
+	file.ImportError = types.Errorf("some error")
+	file.OsdbError = types.Errorf("some other error")
 
 	err = lib.Save(file)
 	if err != nil {
@@ -314,11 +313,11 @@ func TestFileWithSubtitles(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	subtitleA.Language = NewLanguage(language.MustParseBase("en"))
+	subtitleA.Language = types.MustParseLanguage("en")
 	subtitleA.HearingImpaired = false
 	subtitleA.Filename = "/foo/bar"
 
-	subtitleB.Language = NewLanguage(language.MustParseBase("de"))
+	subtitleB.Language = types.MustParseLanguage("de")
 	subtitleB.HearingImpaired = true
 	subtitleB.Filename = "/baz/qux"
 

@@ -3,6 +3,7 @@ package config
 import (
 	"testing"
 
+	"github.com/DexterLB/mvm/types"
 	_ "github.com/orchestrate-io/dvr"
 	"github.com/stretchr/testify/assert"
 )
@@ -27,4 +28,23 @@ func TestLoad(t *testing.T) {
 	assert.Equal("bar", config.Library.DatabaseDSN)
 
 	assert.Equal(16, config.Importer.Imdb.MaxRequests)
+
+	assert.Equal(
+		types.Languages{
+			types.MustParseLanguage("en"),
+			types.MustParseLanguage("de"),
+		},
+		config.Importer.Subtitles.Languages,
+	)
+
+	filename, err := config.Importer.Subtitles.Filename.On(
+		&struct{ Extension string }{Extension: "foo"},
+	)
+	if err != nil {
+		t.Error(err)
+	} else {
+		assert.Equal("test.foo", filename)
+	}
+
+	assert.Equal(2, config.Importer.Subtitles.SubtitlesPerLanguage)
 }

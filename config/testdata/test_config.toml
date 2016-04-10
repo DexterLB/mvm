@@ -12,5 +12,11 @@ file_root = "/foo/bar"
         max_per_request = 199
         username = "foo"
         password = "bar"
+    
     [importer.imdb]
         max_requests = 16
+    
+    [importer.subtitles]
+        languages = ["en", "de"]
+        filename = "test.{{.Extension}}"
+        subtitles_per_language = 2
