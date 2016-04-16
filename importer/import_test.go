@@ -48,18 +48,20 @@ func testContext(t *testing.T) *Context {
 	return context
 }
 
-func md5File(t *testing.T, filename string) [16]byte {
+func md5File(t *testing.T, filename string) (hash [16]byte) {
 	hasher := md5.New()
 	f, err := os.Open(filename)
 	if err != nil {
 		t.Errorf("can't open file: %s", err)
-		return [16]byte{}
+		return
 	}
 	defer f.Close()
-	_, err = io.Copy(f, hasher)
+	_, err = io.Copy(hasher, f)
 	if err != nil {
 		t.Errorf("can't read from file: %s", err)
-		return [16]byte{}
+		return
 	}
-	return hasher.Sum(nil)
+	hashData := hasher.Sum(nil)
+	copy(hash[:], hashData)
+	return hash
 }

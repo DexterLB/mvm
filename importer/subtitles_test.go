@@ -6,6 +6,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/DexterLB/mvm/library"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -40,7 +41,7 @@ func TestSubtitleDownloader(t *testing.T) {
 	file.OsdbHash = 0x09a2c497663259cb
 	file.Size = 673935402
 
-	movie.Files = []*VideoFile{file}
+	movie.Files = []*library.VideoFile{file}
 
 	files <- file
 	close(files)
@@ -59,8 +60,8 @@ func TestSubtitleDownloader(t *testing.T) {
 		allSubtitles = append(allSubtitles, s)
 	}
 
-	if len(s) != 4 {
-		t.Fatalf("Downloaded %d subtitles instead of 4", len(s))
+	if len(allSubtitles) != 4 {
+		t.Fatalf("Downloaded %d subtitles instead of 4", len(allSubtitles))
 	}
 
 	assert := assert.New(t)
