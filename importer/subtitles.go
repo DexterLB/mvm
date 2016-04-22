@@ -1,17 +1,13 @@
 package importer
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/DexterLB/mvm/library"
 	"github.com/DexterLB/mvm/types"
 	"github.com/oz/osdb"
 )
-
-type undownloadedSubtitle struct {
-	subtitle *osdb.Subtitle
-	forFile  *library.VideoFile
-}
 
 func (c *Context) SubtitleDownloader(
 	files <-chan *library.VideoFile,
@@ -24,6 +20,7 @@ func (c *Context) SubtitleDownloader(
 	maxRequests := c.Config.Importer.Osdb.MaxRequests
 
 	undownloaded := make(chan *undownloadedSubtitle, c.Config.Importer.BufferSize)
+	undownloadedCounts := newSubtitleCounts()
 
 	go func() {
 		defer close(undownloaded)
@@ -33,7 +30,7 @@ func (c *Context) SubtitleDownloader(
 		for i := 0; i < maxRequests; i++ {
 			go func() {
 				defer wg.Done()
-				c.subtitleSearcherWorker(files, undownloaded)
+				c.subtitleSearcherWorker(files, undownloaded, done, undownloadedCounts)
 			}()
 		}
 		wg.Wait()
@@ -44,7 +41,7 @@ func (c *Context) SubtitleDownloader(
 	for i := 0; i < maxRequests; i++ {
 		go func() {
 			defer wg.Done()
-			c.subtitleDownloaderWorker(undownloaded, subtitles, done)
+			c.subtitleDownloaderWorker(undownloaded, subtitles, done, undownloadedCounts)
 		}()
 	}
 	wg.Wait()
@@ -54,15 +51,24 @@ func (c *Context) subtitleDownloaderWorker(
 	undownloaded <-chan *undownloadedSubtitle,
 	subtitles chan<- *library.Subtitle,
 	done chan<- *library.VideoFile,
+	undownloadedCounts *subtitleCounts,
 ) {
+	var currentSubtitles []*undownloadedSubtitle
+	maxSubtitles := c.Config.Importer.Osdb.MaxSubtitlesPerRequest
+
 	for {
 		select {
 		case us, ok := <-undownloaded:
 			if !ok {
+				c.downloadSubtitles(currentSubtitles, subtitles, done, undownloadedCounts)
 				return
 			}
 
-			done <- us.forFile
+			currentSubtitles = append(currentSubtitles, us)
+			if len(currentSubtitles) >= maxSubtitles {
+				c.downloadSubtitles(currentSubtitles, subtitles, done, undownloadedCounts)
+				currentSubtitles = currentSubtitles[0:0]
+			}
 		case <-c.Stop:
 			return
 		}
@@ -72,6 +78,8 @@ func (c *Context) subtitleDownloaderWorker(
 func (c *Context) subtitleSearcherWorker(
 	files <-chan *library.VideoFile,
 	undownloaded chan<- *undownloadedSubtitle,
+	filesWithNoSubtitles chan<- *library.VideoFile,
+	undownloadedCounts *subtitleCounts,
 ) {
 	for {
 		select {
@@ -87,14 +95,111 @@ func (c *Context) subtitleSearcherWorker(
 				)
 			}
 
+			if len(subtitles) == 0 && undownloadedCounts.Done(file.ID) {
+				filesWithNoSubtitles <- file
+			}
+
 			for i := range subtitles {
+				undownloadedCounts.Push(file.ID)
 				undownloaded <- &undownloadedSubtitle{
 					forFile:  file,
-					subtitle: subtitles[i],
+					subtitle: &subtitles[i],
 				}
 			}
 		case <-c.Stop:
 			return
 		}
 	}
+}
+
+func (c *Context) downloadSubtitles(
+	undownloaded []*undownloadedSubtitle,
+	subtitles chan<- *library.Subtitle,
+	done chan<- *library.VideoFile,
+	undownloadedCounts *subtitleCounts,
+) {
+	defer func() {
+		for i := range undownloaded {
+			undownloadedCounts[i].Pop(undownloaded[i].forFile.ID)
+			if undownloadedCounts[i].Done(undownloaded[i].forFile.ID) {
+				done <- undownloaded[i].forFile
+			}
+		}
+	}()
+
+	toDownload := make(osdb.Subtitles, len(undownloaded))
+	for i := range undownloaded {
+		toDownload[i] = undownloaded[i].subtitle
+	}
+
+	data, err := c.OsdbClient().DownloadSubtitles(toDownload)
+	if err != nil {
+		for i := range undownloaded {
+			undownloaded[i].forFile.SubtitlesError = types.Errorf(
+				"unable to download subtitles: %s", // FIXME: what if there's already another error?
+				err,
+			)
+		}
+		return
+	}
+
+	for i := range data {
+		subtitle, err := c.saveSubtitle(data[i], undownloaded[i].forFile)
+		if err != nil {
+			undownloaded[i].forFile.SubtitlesError = types.Errorf(
+				"unable to save subtitles: %s",
+				err,
+			)
+		} else {
+			subtitles <- subtitle
+		}
+	}
+}
+
+func (c *Context) saveSubtitle(
+	data *osdb.SubtitleFile,
+	file *library.VideoFile,
+) (
+	*library.Subtitle,
+	error,
+) {
+	return nil, fmt.Errorf("not implemented")
+}
+
+type undownloadedSubtitle struct {
+	subtitle *osdb.Subtitle
+	forFile  *library.VideoFile
+}
+
+type subtitleCounts struct {
+	sync.Mutex
+
+	counts map[int]int
+}
+
+func newSubtitleCounts() *subtitleCounts {
+	return &subtitleCounts{
+		counts: make(map[int]int),
+	}
+}
+
+func (s *subtitleCounts) Push(id int) {
+	s.Lock()
+	defer s.Unlock()
+
+	s.counts[id]++
+}
+
+func (s *subtitleCounts) Pop(id int) {
+	s.Lock()
+	defer s.Unlock()
+
+	s.counts[id]--
+}
+
+func (s *subtitleCounts) Done(id int) bool {
+	s.Lock()
+	defer s.Unlock()
+
+	return (s.counts[id] == 0)
 }
