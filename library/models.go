@@ -79,8 +79,9 @@ type VideoFile struct {
 
 	Subtitles []*Subtitle `json:"subtitles",gorm:"ForeignKey:VideoFileID"`
 
-	ImportError *string `json:"import_error"`
-	OsdbError   *string `json:"osdb_error"`
+	ImportError    *string `json:"import_error"`
+	OsdbError      *string `json:"osdb_error"`
+	SubtitlesError *string `json:"subtitles_error"`
 }
 
 // Subtitle represents a subtitle file
