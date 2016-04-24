@@ -2,9 +2,11 @@ package importer
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/DexterLB/mvm/config"
 	"github.com/DexterLB/mvm/library"
+	"github.com/oz/osdb"
 )
 
 // Context contains common data for all importers
@@ -20,6 +22,9 @@ type Context struct {
 
 	// Files which have failed to identify correctly during import
 	FilesWithErrors []*library.VideoFile
+
+	osdbClient *osdb.Client
+	osdbLock   sync.Mutex
 }
 
 // NewContext initializes a context with the given library and config

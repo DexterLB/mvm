@@ -33,6 +33,10 @@ func TestImdbIdentifier(t *testing.T) {
 		t.Errorf("Wrong movie is done")
 	}
 
+	if doneMovie.ImdbError != nil {
+		t.Fatalf("Imdb error: %s", *doneMovie.ImdbError)
+	}
+
 	if _, ok := <-doneSeries; ok {
 		t.Errorf("Series channel not closed after reading all series")
 	}

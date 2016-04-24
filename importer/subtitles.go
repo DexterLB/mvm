@@ -132,7 +132,13 @@ func (c *Context) downloadSubtitles(
 		toDownload[i] = *undownloaded[i].subtitle
 	}
 
-	data, err := c.OsdbClient().DownloadSubtitles(toDownload)
+	var data []osdb.SubtitleFile
+
+	client, err := c.OsdbClient()
+	if err == nil {
+		data, err = client.DownloadSubtitles(toDownload)
+	}
+
 	if err != nil {
 		for i := range undownloaded {
 			undownloaded[i].forFile.SubtitlesError = types.Errorf(
@@ -144,7 +150,7 @@ func (c *Context) downloadSubtitles(
 	}
 
 	for i := range data {
-		subtitle, err := c.saveSubtitle(data[i], undownloaded[i].forFile)
+		subtitle, err := c.saveSubtitle(&data[i], undownloaded[i].forFile)
 		if err != nil {
 			undownloaded[i].forFile.SubtitlesError = types.Errorf(
 				"unable to save subtitles: %s",

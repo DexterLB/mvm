@@ -10,6 +10,30 @@ import (
 	"github.com/oz/osdb"
 )
 
+// OsdbClient returns a logged in Osdb client
+func (c *Context) OsdbClient() (*osdb.Client, error) {
+	c.osdbLock.Lock()
+	defer c.osdbLock.Unlock()
+
+	if c.osdbClient != nil {
+		return c.osdbClient, nil
+	}
+
+	config := &c.Config.Importer.Osdb
+
+	client, err := osdb.NewClient()
+	if err != nil {
+		return nil, fmt.Errorf("Can't initialize osdb client: %s", err)
+	}
+	err = client.LogIn(config.Username, config.Password, "")
+	if err != nil {
+		return nil, fmt.Errorf("Can't login to osdb: %s", err)
+	}
+
+	c.osdbClient = client
+	return client, nil
+}
+
 // OsdbIdentifier identifies the video files (matching them to shows) using
 // the opensubtitles.org database
 func (c *Context) OsdbIdentifier(
@@ -21,14 +45,9 @@ func (c *Context) OsdbIdentifier(
 
 	config := &c.Config.Importer.Osdb
 
-	client, err := osdb.NewClient()
+	client, err := c.OsdbClient()
 	if err != nil {
-		c.Errorf("Can't initialize osdb client: %s", err)
-		return
-	}
-	err = client.LogIn(config.Username, config.Password, "")
-	if err != nil {
-		c.Errorf("Can't login to osdb: %s", err)
+		c.Errorf("%s", err)
 		return
 	}
 
@@ -101,7 +120,7 @@ func (c *Context) osdbProcessFiles(
 		if movies[i] == nil {
 			err = fmt.Errorf("show not found in opensubtitles.org database")
 		} else {
-			id, err = strconv.Atoi(movies[i].Id)
+			id, err = strconv.Atoi(movies[i].ID)
 			if err != nil {
 				err = fmt.Errorf("can't parse imdb id: %s", err)
 			}
