@@ -103,7 +103,7 @@ func (c *Context) subtitleSearcherWorker(
 				undownloadedCounts.Push(file.ID)
 				undownloaded <- &undownloadedSubtitle{
 					forFile:  file,
-					subtitle: &subtitles[i],
+					subtitle: subtitles[i],
 				}
 			}
 		case <-c.Stop:
@@ -120,8 +120,8 @@ func (c *Context) downloadSubtitles(
 ) {
 	defer func() {
 		for i := range undownloaded {
-			undownloadedCounts[i].Pop(undownloaded[i].forFile.ID)
-			if undownloadedCounts[i].Done(undownloaded[i].forFile.ID) {
+			undownloadedCounts.Pop(undownloaded[i].forFile.ID)
+			if undownloadedCounts.Done(undownloaded[i].forFile.ID) {
 				done <- undownloaded[i].forFile
 			}
 		}
@@ -129,7 +129,7 @@ func (c *Context) downloadSubtitles(
 
 	toDownload := make(osdb.Subtitles, len(undownloaded))
 	for i := range undownloaded {
-		toDownload[i] = undownloaded[i].subtitle
+		toDownload[i] = *undownloaded[i].subtitle
 	}
 
 	data, err := c.OsdbClient().DownloadSubtitles(toDownload)
@@ -166,6 +166,15 @@ func (c *Context) saveSubtitle(
 	return nil, fmt.Errorf("not implemented")
 }
 
+func (c *Context) searchSubtitlesForFile(
+	file *library.VideoFile,
+) (
+	[]*osdb.Subtitle,
+	error,
+) {
+	return nil, fmt.Errorf("not implemented")
+}
+
 type undownloadedSubtitle struct {
 	subtitle *osdb.Subtitle
 	forFile  *library.VideoFile
@@ -174,30 +183,30 @@ type undownloadedSubtitle struct {
 type subtitleCounts struct {
 	sync.Mutex
 
-	counts map[int]int
+	counts map[uint]uint
 }
 
 func newSubtitleCounts() *subtitleCounts {
 	return &subtitleCounts{
-		counts: make(map[int]int),
+		counts: make(map[uint]uint),
 	}
 }
 
-func (s *subtitleCounts) Push(id int) {
+func (s *subtitleCounts) Push(id uint) {
 	s.Lock()
 	defer s.Unlock()
 
 	s.counts[id]++
 }
 
-func (s *subtitleCounts) Pop(id int) {
+func (s *subtitleCounts) Pop(id uint) {
 	s.Lock()
 	defer s.Unlock()
 
 	s.counts[id]--
 }
 
-func (s *subtitleCounts) Done(id int) bool {
+func (s *subtitleCounts) Done(id uint) bool {
 	s.Lock()
 	defer s.Unlock()
 

@@ -40,7 +40,10 @@ type Osdb struct {
 	MaxRequests int `toml:"max_requests"`
 	// MaxMoviesPerRequest is the maximum number of movies to ask for in a
 	// single request. Currently, opensubtitles limits this to 200
-	MaxMoviesPerRequest int `toml:"max_per_request"`
+	MaxMoviesPerRequest int `toml:"max_movies_per_request"`
+	// MaxSubtitlesPerRequest is the maximum number of subtitles to ask for in a
+	// single request. Currently, opensubtitles limits this to 20
+	MaxSubtitlesPerRequest int `toml:"max_subtitles_per_request"`
 }
 
 // Imdb contains the configuration related to imdb.com

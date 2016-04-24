@@ -21,6 +21,7 @@ func TestLoad(t *testing.T) {
 
 	assert.Equal(3, config.Importer.Osdb.MaxRequests)
 	assert.Equal(199, config.Importer.Osdb.MaxMoviesPerRequest)
+	assert.Equal(19, config.Importer.Osdb.MaxSubtitlesPerRequest)
 	assert.Equal("foo", config.Importer.Osdb.Username)
 	assert.Equal("bar", config.Importer.Osdb.Password)
 
