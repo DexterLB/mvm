@@ -19,6 +19,7 @@ type Item struct {
 	season          *int
 	episode         *int
 	cachedDocuments map[string]*htmlParser.HtmlDocument
+	cacheLock       sync.Mutex
 }
 
 // ItemType is one of Unknown, Movie, Series and Episode
@@ -85,7 +86,9 @@ func (s *Item) page(name string) (*xml.ElementNode, error) {
 		if err != nil {
 			return nil, err
 		}
+		s.cacheLock.Lock()
 		s.cachedDocuments[name] = document
+		s.cacheLock.Unlock()
 	}
 
 	return document.Root(), nil
