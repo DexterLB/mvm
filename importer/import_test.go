@@ -23,8 +23,9 @@ func testContext(t *testing.T) *Context {
 		FileRoot: "./testdata",
 		Importer: config.Importer{
 			Osdb: config.Osdb{
-				MaxMoviesPerRequest: 200,
-				MaxRequests:         3,
+				MaxMoviesPerRequest:    200,
+				MaxSubtitlesPerRequest: 19,
+				MaxRequests:            3,
 			},
 			Imdb: config.Imdb{
 				MaxRequests: 8,

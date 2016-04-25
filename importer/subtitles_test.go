@@ -55,6 +55,10 @@ func TestSubtitleDownloader(t *testing.T) {
 		t.Errorf("Wrong file is done")
 	}
 
+	if doneFile.SubtitlesError != nil {
+		t.Fatalf("Subtitles error: %s", *doneFile.SubtitlesError)
+	}
+
 	var allSubtitles []*library.Subtitle
 	for s := range subtitles {
 		allSubtitles = append(allSubtitles, s)

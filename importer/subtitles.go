@@ -55,7 +55,6 @@ func (c *Context) subtitleDownloaderWorker(
 ) {
 	var currentSubtitles []*undownloadedSubtitle
 	maxSubtitles := c.Config.Importer.Osdb.MaxSubtitlesPerRequest
-
 	for {
 		select {
 		case us, ok := <-undownloaded:
@@ -118,6 +117,10 @@ func (c *Context) downloadSubtitles(
 	done chan<- *library.VideoFile,
 	undownloadedCounts *subtitleCounts,
 ) {
+	if len(undownloaded) == 0 {
+		return
+	}
+
 	defer func() {
 		for i := range undownloaded {
 			undownloadedCounts.Pop(undownloaded[i].forFile.ID)
