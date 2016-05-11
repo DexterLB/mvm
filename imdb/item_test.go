@@ -668,7 +668,7 @@ func ExampleItem_AllData_series() {
 	// long plot: An attack on a secret off-world base by a rebel organisation has stranded the remaining survivors on an Ancient ship "Destiny", a large unmanned ship launched millions of years ago...
 	// poster url: http://ia.media-imdb.com/images/M/MV5BOTEzNTY5NDY5M15BMl5BanBnXkFtZTcwMTY4MDQ3Mg@@.jpg
 	// rating: 7.7
-	// votes: 37k
+	// votes: 38k
 	// languages: en
 	// seasons: 1, 2
 }
