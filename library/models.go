@@ -60,17 +60,18 @@ type VideoFile struct {
 	gorm.Model
 	sync.Mutex
 
-	Path         string          `json:"filename",sql:"unique"`
-	Size         uint64          `json:"filesize"`
-	ResolutionX  uint            `json:"resolution"`
-	ResolutionY  uint            `json:"resolution"`
-	OsdbHash     types.BigUint64 `gorm:"type:varchar(16)",json:"osdb_hash"`
-	VideoFormat  string          `json:"video_format"`
-	AudioFormat  string          `json:"audio_format"`
-	Framerate    float32         `json:"framerate"`
-	VideoBitrate float32         `json:"video_bitrate"`
-	AudioBitrate float32         `json:"audio_bitrate"`
-	Duration     types.Duration  `json:"duration"`
+	Path             string          `json:"filename",sql:"unique"`
+	OriginalBasename string          `json:"original_basename"`
+	Size             uint64          `json:"filesize"`
+	ResolutionX      uint            `json:"resolution"`
+	ResolutionY      uint            `json:"resolution"`
+	OsdbHash         types.BigUint64 `gorm:"type:varchar(16)",json:"osdb_hash"`
+	VideoFormat      string          `json:"video_format"`
+	AudioFormat      string          `json:"audio_format"`
+	Framerate        float32         `json:"framerate"`
+	VideoBitrate     float32         `json:"video_bitrate"`
+	AudioBitrate     float32         `json:"audio_bitrate"`
+	Duration         types.Duration  `json:"duration"`
 
 	LastPlayed   time.Time      `json:"last_played"`
 	LastPosition types.Duration `json:"last_position"`

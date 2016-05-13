@@ -87,7 +87,7 @@ func (c *Context) subtitleSearcherWorker(
 				return
 			}
 
-			subtitles, err := c.searchSubtitlesForFile(file)
+			subtitles, err := c.searchForSubtitles(file)
 			if err != nil {
 				file.File.SubtitlesError = types.Errorf(
 					"unable to search for subtitles: %s", err,
@@ -175,13 +175,72 @@ func (c *Context) saveSubtitle(
 	return nil, fmt.Errorf("not implemented")
 }
 
-func (c *Context) searchSubtitlesForFile(
-	file library.ShowWithFile,
+func (c *Context) searchForSubtitles(
+	pair library.ShowWithFile,
 ) (
 	[]*osdb.Subtitle,
 	error,
 ) {
+	// need to loop over all needed languages and search in parallel
 	return nil, fmt.Errorf("not implemented")
+}
+
+func (c *Context) searchForSubtitlesWithLanguage(
+	pair library.ShowWithFile,
+	language types.Language,
+) (
+	[]*osdb.Subtitle,
+	error,
+) {
+	client, err := c.OsdbClient()
+	if err != nil {
+		return nil, err
+	}
+
+	file := pair.File
+	show := pair.Show
+
+	// FIXME: this is retarded. Modify the osdb library to contain a params struct
+	params := []interface{}{
+		client.Token,
+		[]struct {
+			Hash      string `xmlrpc:"moviehash"`
+			Size      uint64 `xmlrpc:"moviebytesize"`
+			Filename  string `xmlrpc:"tag"`
+			ImdbID    int    `xmlrpc:"imdbid"`
+			Languages string `xmlrpc:"sublanguageid"`
+			Title     string `xmlrpc:"query"`
+			Season    string `xmlrpc:"season"`
+			Episode   string `xmlrpc:"episode"`
+		}{{
+			Hash:      fmt.Sprintf("%016x", file.OsdbHash),
+			Size:      file.Size,
+			Filename:  file.OriginalBasename,
+			ImdbID:    show.ImdbID,
+			Title:     show.Title,
+			Season:    fmt.Sprintf("%d", show.Season),
+			Episode:   fmt.Sprintf("%d", show.Episode),
+			Languages: language.ISO3(),
+		}},
+		struct {
+			NumberOfResults int `xmlrpc:"limit"`
+		}{
+			NumberOfResults: c.Config.Importer.Subtitles.SubtitlesPerLanguage,
+		},
+	}
+
+	// FIXME: this is even more retarded. Modify the osdb library.
+	monolithicSubtitles, err := client.SearchSubtitles(&params)
+	if err != nil {
+		return nil, err
+	}
+
+	subtitles := make([]*osdb.Subtitle, len(monolithicSubtitles))
+	for i := range monolithicSubtitles {
+		subtitles[i] = &monolithicSubtitles[i]
+	}
+
+	return subtitles, nil
 }
 
 type undownloadedSubtitle struct {
