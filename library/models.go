@@ -98,6 +98,14 @@ type Subtitle struct {
 	VideoFileID uint
 }
 
+// ShowWithFile is a pair of a Show and a VideoFile
+// Used for cases where Show.ID == File.ShowID, but we don't want to
+// search in the library for the show with this ID every time.
+type ShowWithFile struct {
+	Show *Show
+	File *VideoFile
+}
+
 // AfterCreate initializes values on an empty series
 func (s *Series) AfterCreate() error {
 	// nothing! FIXME: remove this function

@@ -10,9 +10,9 @@ import (
 )
 
 func (c *Context) SubtitleDownloader(
-	files <-chan *library.VideoFile,
+	files <-chan library.ShowWithFile,
 	subtitles chan<- *library.Subtitle,
-	done chan<- *library.VideoFile,
+	done chan<- library.ShowWithFile,
 ) {
 	defer close(done)
 	defer close(subtitles)
@@ -50,7 +50,7 @@ func (c *Context) SubtitleDownloader(
 func (c *Context) subtitleDownloaderWorker(
 	undownloaded <-chan *undownloadedSubtitle,
 	subtitles chan<- *library.Subtitle,
-	done chan<- *library.VideoFile,
+	done chan<- library.ShowWithFile,
 	undownloadedCounts *subtitleCounts,
 ) {
 	var currentSubtitles []*undownloadedSubtitle
@@ -75,9 +75,9 @@ func (c *Context) subtitleDownloaderWorker(
 }
 
 func (c *Context) subtitleSearcherWorker(
-	files <-chan *library.VideoFile,
+	files <-chan library.ShowWithFile,
 	undownloaded chan<- *undownloadedSubtitle,
-	filesWithNoSubtitles chan<- *library.VideoFile,
+	filesWithNoSubtitles chan<- library.ShowWithFile,
 	undownloadedCounts *subtitleCounts,
 ) {
 	for {
@@ -89,17 +89,17 @@ func (c *Context) subtitleSearcherWorker(
 
 			subtitles, err := c.searchSubtitlesForFile(file)
 			if err != nil {
-				file.SubtitlesError = types.Errorf(
+				file.File.SubtitlesError = types.Errorf(
 					"unable to search for subtitles: %s", err,
 				)
 			}
 
-			if len(subtitles) == 0 && undownloadedCounts.Done(file.ID) {
+			if len(subtitles) == 0 && undownloadedCounts.Done(file.File.ID) {
 				filesWithNoSubtitles <- file
 			}
 
 			for i := range subtitles {
-				undownloadedCounts.Push(file.ID)
+				undownloadedCounts.Push(file.File.ID)
 				undownloaded <- &undownloadedSubtitle{
 					forFile:  file,
 					subtitle: subtitles[i],
@@ -114,7 +114,7 @@ func (c *Context) subtitleSearcherWorker(
 func (c *Context) downloadSubtitles(
 	undownloaded []*undownloadedSubtitle,
 	subtitles chan<- *library.Subtitle,
-	done chan<- *library.VideoFile,
+	done chan<- library.ShowWithFile,
 	undownloadedCounts *subtitleCounts,
 ) {
 	if len(undownloaded) == 0 {
@@ -123,8 +123,8 @@ func (c *Context) downloadSubtitles(
 
 	defer func() {
 		for i := range undownloaded {
-			undownloadedCounts.Pop(undownloaded[i].forFile.ID)
-			if undownloadedCounts.Done(undownloaded[i].forFile.ID) {
+			undownloadedCounts.Pop(undownloaded[i].forFile.File.ID)
+			if undownloadedCounts.Done(undownloaded[i].forFile.File.ID) {
 				done <- undownloaded[i].forFile
 			}
 		}
@@ -144,7 +144,7 @@ func (c *Context) downloadSubtitles(
 
 	if err != nil {
 		for i := range undownloaded {
-			undownloaded[i].forFile.SubtitlesError = types.Errorf(
+			undownloaded[i].forFile.File.SubtitlesError = types.Errorf(
 				"unable to download subtitles: %s", // FIXME: what if there's already another error?
 				err,
 			)
@@ -153,9 +153,9 @@ func (c *Context) downloadSubtitles(
 	}
 
 	for i := range data {
-		subtitle, err := c.saveSubtitle(&data[i], undownloaded[i].forFile)
+		subtitle, err := c.saveSubtitle(&data[i], undownloaded[i].forFile.File)
 		if err != nil {
-			undownloaded[i].forFile.SubtitlesError = types.Errorf(
+			undownloaded[i].forFile.File.SubtitlesError = types.Errorf(
 				"unable to save subtitles: %s",
 				err,
 			)
@@ -176,7 +176,7 @@ func (c *Context) saveSubtitle(
 }
 
 func (c *Context) searchSubtitlesForFile(
-	file *library.VideoFile,
+	file library.ShowWithFile,
 ) (
 	[]*osdb.Subtitle,
 	error,
@@ -186,7 +186,7 @@ func (c *Context) searchSubtitlesForFile(
 
 type undownloadedSubtitle struct {
 	subtitle *osdb.Subtitle
-	forFile  *library.VideoFile
+	forFile  library.ShowWithFile
 }
 
 type subtitleCounts struct {

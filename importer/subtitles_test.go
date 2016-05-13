@@ -13,8 +13,8 @@ import (
 func TestSubtitleDownloader(t *testing.T) {
 	context := testContext(t)
 
-	files := make(chan *library.VideoFile, 5)
-	done := make(chan *library.VideoFile, 5)
+	files := make(chan library.ShowWithFile, 5)
+	done := make(chan library.ShowWithFile, 5)
 	subtitles := make(chan *library.Subtitle, 10)
 
 	go context.SubtitleDownloader(files, subtitles, done)
@@ -43,7 +43,7 @@ func TestSubtitleDownloader(t *testing.T) {
 
 	movie.Files = []*library.VideoFile{file}
 
-	files <- file
+	files <- library.ShowWithFile{Show: movie, File: file}
 	close(files)
 
 	doneFile := <-done
@@ -51,12 +51,16 @@ func TestSubtitleDownloader(t *testing.T) {
 		t.Errorf("Done channel not closed after reading all files")
 	}
 
-	if doneFile != file {
+	if doneFile.File != file {
 		t.Errorf("Wrong file is done")
 	}
 
-	if doneFile.SubtitlesError != nil {
-		t.Fatalf("Subtitles error: %s", *doneFile.SubtitlesError)
+	if doneFile.Show != movie {
+		t.Errorf("Wrong movie is done")
+	}
+
+	if doneFile.File.SubtitlesError != nil {
+		t.Fatalf("Subtitles error: %s", *doneFile.File.SubtitlesError)
 	}
 
 	var allSubtitles []*library.Subtitle
