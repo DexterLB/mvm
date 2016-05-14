@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/moovweb/gokogiri"
-	htmlParser "github.com/moovweb/gokogiri/html"
+	"github.com/jbowtie/gokogiri"
+	htmlParser "github.com/jbowtie/gokogiri/html"
 )
 
 func parsePage(url string) (*htmlParser.HtmlDocument, error) {

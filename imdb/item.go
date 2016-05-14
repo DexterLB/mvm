@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	htmlParser "github.com/moovweb/gokogiri/html"
-	"github.com/moovweb/gokogiri/xml"
+	htmlParser "github.com/jbowtie/gokogiri/html"
+	"github.com/jbowtie/gokogiri/xml"
 )
 
 // Item represents a single item (either a movie or an episode)

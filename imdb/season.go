@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	htmlParser "github.com/moovweb/gokogiri/html"
-	"github.com/moovweb/gokogiri/xml"
+	htmlParser "github.com/jbowtie/gokogiri/html"
+	"github.com/jbowtie/gokogiri/xml"
 )
 
 // Season represents a single season from a series

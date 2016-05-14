@@ -10,8 +10,8 @@ import (
 
 	"golang.org/x/text/language"
 
+	"github.com/jbowtie/gokogiri/xml"
 	"github.com/kennygrant/sanitize"
-	"github.com/moovweb/gokogiri/xml"
 )
 
 // ID returns the item's IMDB ID
