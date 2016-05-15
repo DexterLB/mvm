@@ -2,6 +2,12 @@ package importer
 
 import (
 	"fmt"
+	"io"
+	"log"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
 	"sync"
 
 	"github.com/DexterLB/mvm/library"
@@ -89,9 +95,7 @@ func (c *Context) subtitleSearcherWorker(
 
 			subtitles, err := c.searchForSubtitles(file)
 			if err != nil {
-				file.File.SubtitlesError = types.Errorf(
-					"unable to search for subtitles: %s", err,
-				)
+				file.File.SubtitlesError = types.Errorf("%s", err)
 			}
 
 			if len(subtitles) == 0 && undownloadedCounts.Done(file.File.ID) {
@@ -153,7 +157,7 @@ func (c *Context) downloadSubtitles(
 	}
 
 	for i := range data {
-		subtitle, err := c.saveSubtitle(&data[i], undownloaded[i].File)
+		subtitle, err := c.saveSubtitle(&data[i], undownloaded[i])
 		if err != nil {
 			undownloaded[i].File.SubtitlesError = types.Errorf(
 				"unable to save subtitles: %s",
@@ -167,34 +171,138 @@ func (c *Context) downloadSubtitles(
 
 func (c *Context) saveSubtitle(
 	data *osdb.SubtitleFile,
-	file *library.VideoFile,
+	info *undownloadedSubtitle,
 ) (
 	*library.Subtitle,
 	error,
 ) {
-	return nil, fmt.Errorf("not implemented")
+	language, err := types.ParseLanguage(info.Subtitle.ISO639)
+	if err != nil { // TODO: maybe check if the returned language is correct
+		return nil, fmt.Errorf("unknown subtitle language")
+	}
+
+	score, err := strconv.Atoi(info.Subtitle.SubDownloadsCnt)
+	if err != nil {
+		return nil, fmt.Errorf("cannot determine subtitle score: %s", err)
+	}
+	score = 99999999 - score
+
+	description := &struct {
+		NoExtPath string
+		Language  string
+		Score     string
+		Format    string
+	}{
+		NoExtPath: strings.TrimSuffix(info.File.Path, filepath.Ext(info.File.Path)),
+		Language:  language.ISO2(),
+		Score:     fmt.Sprintf("%08d", score),
+		Format:    info.Subtitle.SubFormat,
+	}
+
+	filename, err := c.Config.Importer.Subtitles.Filename.On(description)
+	if err != nil {
+		return nil, fmt.Errorf("unable to determine subtitle filename: %s", err)
+	}
+
+	reader, err := data.Reader()
+	if err != nil {
+		return nil, fmt.Errorf("unable to read subtitle data: %s", err)
+	}
+
+	f, err := os.Create(filename)
+	if err != nil {
+		return nil, fmt.Errorf("unable to open subtitle file for writing: %s", err)
+	}
+
+	defer func() {
+		_ = f.Close()
+	}()
+
+	_, err = io.Copy(f, reader)
+	if err != nil {
+		return nil, fmt.Errorf("unble to write subtitle data: %s", err)
+	}
+
+	subtitle, err := c.Library.GetSubtitleByFilename(filename)
+	if err != nil {
+		return nil, fmt.Errorf("unable to create subtitle in library: %s", err)
+	}
+
+	subtitle.Hash = info.Subtitle.SubHash
+	subtitle.Language = language
+	subtitle.HearingImpaired = (info.Subtitle.SubHearingImpaired == "true")
+	subtitle.Score = score
+
+	info.File.Lock()
+	info.File.Subtitles = append(info.File.Subtitles, subtitle)
+	info.File.Unlock()
+
+	return subtitle, nil
 }
 
+// searchForSubtitles searches for subtitles for all languages specified
+// in the config, and returns the matched subtitle objects. It might
+// return valid subtitles _and_ an error if some, but not all of the languages
+// fail to execute.
 func (c *Context) searchForSubtitles(
 	pair library.ShowWithFile,
 ) (
 	[]*osdb.Subtitle,
 	error,
 ) {
-	// need to loop over all needed languages and search in parallel
-	return nil, fmt.Errorf("not implemented")
+	languages := c.Config.Importer.Subtitles.Languages
+	// TODO: native languages
+
+	wg := sync.WaitGroup{}
+	wg.Add(len(languages))
+
+	errors := make([]string, 0, len(languages))
+	errorLock := sync.Mutex{}
+
+	results := make(chan *osdb.Subtitle, c.Config.Importer.BufferSize)
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	// FIXME: this will launch too many requests for >1 languages.
+	// it should also not rely on the assumption that the number of
+	// languages is less than the number of allowed simoultaneous requests
+	for i := range languages {
+		go func(errors *[]string, i int) {
+			defer wg.Done()
+			err := c.searchForSubtitlesWithLanguage(pair, languages[i], results)
+			if err != nil {
+				errorLock.Lock()
+				*errors = append(*errors, fmt.Sprintf("%s", err))
+			}
+		}(&errors, i)
+	}
+
+	var subtitles []*osdb.Subtitle
+
+	for subtitle := range results {
+		subtitles = append(subtitles, subtitle)
+	}
+
+	if len(errors) > 0 {
+		return subtitles, fmt.Errorf(
+			"errors while searching for subtitles: %s",
+			strings.Join(errors, ", "),
+		)
+	}
+
+	return subtitles, nil
 }
 
 func (c *Context) searchForSubtitlesWithLanguage(
 	pair library.ShowWithFile,
 	language types.Language,
-) (
-	[]*osdb.Subtitle,
-	error,
-) {
+	results chan<- *osdb.Subtitle,
+) error {
 	client, err := c.OsdbClient()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	file := pair.File
@@ -232,15 +340,15 @@ func (c *Context) searchForSubtitlesWithLanguage(
 	// FIXME: this is even more retarded. Modify the osdb library.
 	monolithicSubtitles, err := client.SearchSubtitles(&params)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	subtitles := make([]*osdb.Subtitle, len(monolithicSubtitles))
+	log.Printf("searching: %v\n ---> yielded %d results", params[1], len(monolithicSubtitles))
 	for i := range monolithicSubtitles {
-		subtitles[i] = &monolithicSubtitles[i]
+		results <- &monolithicSubtitles[i]
 	}
 
-	return subtitles, nil
+	return nil
 }
 
 type undownloadedSubtitle struct {

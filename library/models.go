@@ -93,7 +93,7 @@ type Subtitle struct {
 	Hash            string         `json:"hash"`
 	Language        types.Language `gorm:"type:varchar(3)",json:"language"`
 	HearingImpaired bool           `json:"hearing_impaired"`
-	Filename        string         `json:"filename"`
+	Filename        string         `json:"filename",sql:"unique"`
 	Score           int            `json:"score"`
 
 	VideoFileID uint

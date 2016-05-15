@@ -2,6 +2,7 @@ package importer
 
 import (
 	"crypto/md5"
+	"encoding/hex"
 	"io"
 	"os"
 	"testing"
@@ -31,7 +32,7 @@ func testContext(t *testing.T) *Context {
 				MaxRequests: 8,
 			},
 			Subtitles: config.Subtitles{
-				Languages: types.MustParseLanguages("en de"),
+				Languages: types.MustParseLanguages("en bg"),
 				Filename: types.MustParseTemplate(
 					"{{.NoExtPath}}.{{.Language}}.{{.Score}}.{{.Format}}",
 				),
@@ -49,7 +50,7 @@ func testContext(t *testing.T) *Context {
 	return context
 }
 
-func md5File(t *testing.T, filename string) (hash [16]byte) {
+func md5File(t *testing.T, filename string) (hash string) {
 	hasher := md5.New()
 	f, err := os.Open(filename)
 	if err != nil {
@@ -62,7 +63,5 @@ func md5File(t *testing.T, filename string) (hash [16]byte) {
 		t.Errorf("can't read from file: %s", err)
 		return
 	}
-	hashData := hasher.Sum(nil)
-	copy(hash[:], hashData)
-	return hash
+	return hex.EncodeToString(hasher.Sum(nil))
 }

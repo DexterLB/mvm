@@ -146,6 +146,17 @@ func (lib *Library) GetSubtitleByHash(hash string) (*Subtitle, error) {
 	return subtitle, err
 }
 
+// GetSubtitleByFilename finds the subtitle by its filename, creating it if it doesn't exist
+func (lib *Library) GetSubtitleByFilename(filename string) (*Subtitle, error) {
+	subtitle := &Subtitle{}
+	err := lib.db.Where("filename = ?", filename).FirstOrCreate(subtitle).Error
+	if err != nil {
+		return nil, err
+	}
+	subtitle.Filename = filename
+	return subtitle, err
+}
+
 // Save saves the item to the library
 func (lib *Library) Save(item interface{}) error {
 	return lib.db.Save(item).Error
