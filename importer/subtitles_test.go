@@ -1,7 +1,6 @@
 package importer
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -73,31 +72,32 @@ func TestSubtitleDownloader(t *testing.T) {
 	}
 
 	assert := assert.New(t)
-	assert.Equal("en", allSubtitles[0].Language.String())
-	assert.Equal("322f10e7fee92c86ff46ce17cfbec64b", fmt.Sprintf("%s", allSubtitles[0].Hash))
-	assert.Equal(false, allSubtitles[0].HearingImpaired)
-	assert.Equal(99987157, allSubtitles[0].Score)
-	assert.Equal(tempdir+"/Sintel.2010.720p.en.5.srt", allSubtitles[0].Filename)
-	// assert.Equal("foobarbaz", md5File(t, allSubtitles[0].Filename))
+	for _, subtitle := range allSubtitles {
+		switch subtitle.Hash {
+		case "322f10e7fee92c86ff46ce17cfbec64b":
+			assert.Equal("en", subtitle.Language.String())
+			assert.Equal(false, subtitle.HearingImpaired)
+			assert.Equal(99987157, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.en.99987157.srt", subtitle.Filename)
+			// assert.Equal("foobarbaz", md5File(t, allSubtitles[0].Filename))
+		case "5097c0bb857cfcf6b8bc4769da8513f6":
+			assert.Equal("en", subtitle.Language.String())
+			assert.Equal(false, subtitle.HearingImpaired)
+			assert.Equal(99968565, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.en.99968565.srt", subtitle.Filename)
+		case "c06e9a01f792b55b79581cead2067fe9":
+			assert.Equal("bg", subtitle.Language.String())
+			assert.Equal(false, subtitle.HearingImpaired)
+			assert.Equal(99998428, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.bg.99998428.srt", subtitle.Filename)
+		case "6e393aaaa4d33cff81cef1c9f795110c":
+			assert.Equal("bg", subtitle.Language.String())
+			assert.Equal(false, subtitle.HearingImpaired)
+			assert.Equal(99999465, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.bg.99999465.srt", subtitle.Filename)
 
-	assert.Equal("en", allSubtitles[1].Language.String())
-	assert.Equal("barfaz", fmt.Sprintf("%s", allSubtitles[1].Hash))
-	assert.Equal(true, allSubtitles[1].HearingImpaired)
-	assert.Equal(7, allSubtitles[1].Score)
-	assert.Equal(tempdir+"/Sintel.2010.720p.en.7.srt", allSubtitles[1].Filename)
-	assert.Equal("barfaz", md5File(t, allSubtitles[1].Filename))
-
-	assert.Equal("de", allSubtitles[2].Language.String())
-	assert.Equal("dfgfda", fmt.Sprintf("%s", allSubtitles[2].Hash))
-	assert.Equal(false, allSubtitles[2].HearingImpaired)
-	assert.Equal(3, allSubtitles[2].Score)
-	assert.Equal(tempdir+"/Sintel.2010.720p.de.3.srt", allSubtitles[2].Filename)
-	assert.Equal("dfgfda", md5File(t, allSubtitles[2].Filename))
-
-	assert.Equal("de", allSubtitles[3].Language.String())
-	assert.Equal("dfgfda", fmt.Sprintf("%s", allSubtitles[3].Hash))
-	assert.Equal(false, allSubtitles[3].HearingImpaired)
-	assert.Equal(9, allSubtitles[3].Score)
-	assert.Equal(tempdir+"/Sintel.2010.720p.de.9.srt", allSubtitles[3].Filename)
-	assert.Equal("dfgfda", md5File(t, allSubtitles[3].Filename))
+		default:
+			t.Errorf("unknown subtitle hash: %s", subtitle.Hash)
+		}
+	}
 }

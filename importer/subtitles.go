@@ -3,7 +3,6 @@ package importer
 import (
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -343,7 +342,6 @@ func (c *Context) searchForSubtitlesWithLanguage(
 		return err
 	}
 
-	log.Printf("searching: %v\n ---> yielded %d results", params[1], len(monolithicSubtitles))
 	for i := range monolithicSubtitles {
 		results <- &monolithicSubtitles[i]
 	}
