@@ -307,28 +307,44 @@ func (c *Context) searchForSubtitlesWithLanguage(
 	file := pair.File
 	show := pair.Show
 
-	// FIXME: this is retarded. Modify the osdb library to contain a params struct
+	// holy shit! the opensubtitles API is ugly!
 	params := []interface{}{
 		client.Token,
-		[]struct {
-			Hash      string `xmlrpc:"moviehash"`
-			Size      uint64 `xmlrpc:"moviebytesize"`
-			Filename  string `xmlrpc:"tag"`
-			ImdbID    int    `xmlrpc:"imdbid"`
-			Languages string `xmlrpc:"sublanguageid"`
-			Title     string `xmlrpc:"query"`
-			Season    string `xmlrpc:"season"`
-			Episode   string `xmlrpc:"episode"`
-		}{{
-			Hash:      fmt.Sprintf("%016x", file.OsdbHash),
-			Size:      file.Size,
-			Filename:  file.OriginalBasename,
-			ImdbID:    show.ImdbID,
-			Title:     show.Title,
-			Season:    fmt.Sprintf("%d", show.Season),
-			Episode:   fmt.Sprintf("%d", show.Episode),
-			Languages: language.ISO3(),
-		}},
+		[]interface{}{
+			struct {
+				Hash      string `xmlrpc:"moviehash"`
+				Size      uint64 `xmlrpc:"moviebytesize"`
+				Languages string `xmlrpc:"sublanguageid"`
+			}{
+				Hash:      fmt.Sprintf("%016x", file.OsdbHash),
+				Size:      file.Size,
+				Languages: language.ISO3(),
+			},
+			struct {
+				Filename  string `xmlrpc:"tag"`
+				Languages string `xmlrpc:"sublanguageid"`
+			}{
+				Filename:  file.OriginalBasename,
+				Languages: language.ISO3(),
+			},
+			struct {
+				ImdbID    int    `xmlrpc:"imdbid"`
+				Languages string `xmlrpc:"sublanguageid"`
+			}{
+				ImdbID:    show.ImdbID,
+				Languages: language.ISO3(),
+			},
+			struct {
+				Title     string `xmlrpc:"query"`
+				Season    string `xmlrpc:"season"`
+				Episode   string `xmlrpc:"episode"`
+				Languages string `xmlrpc:"sublanguageid"`
+			}{
+				Title:     show.Title,
+				Season:    fmt.Sprintf("%d", show.Season),
+				Episode:   fmt.Sprintf("%d", show.Episode),
+				Languages: language.ISO3(),
+			}},
 		struct {
 			NumberOfResults int `xmlrpc:"limit"`
 		}{
