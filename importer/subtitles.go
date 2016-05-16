@@ -14,6 +14,8 @@ import (
 	"github.com/oz/osdb"
 )
 
+// SubtitleDownloader downloads subtitles for each file, using information
+// from its associated show.
 func (c *Context) SubtitleDownloader(
 	files <-chan library.ShowWithFile,
 	subtitles chan<- *library.Subtitle,
@@ -24,7 +26,7 @@ func (c *Context) SubtitleDownloader(
 
 	maxRequests := c.Config.Importer.Osdb.MaxRequests
 
-	undownloaded := make(chan *undownloadedSubtitle, c.Config.Importer.BufferSize)
+	undownloaded := make(chan *subtitleInfo, c.Config.Importer.BufferSize)
 	undownloadedCounts := newSubtitleCounts()
 
 	go func() {
@@ -53,12 +55,12 @@ func (c *Context) SubtitleDownloader(
 }
 
 func (c *Context) subtitleDownloaderWorker(
-	undownloaded <-chan *undownloadedSubtitle,
+	undownloaded <-chan *subtitleInfo,
 	subtitles chan<- *library.Subtitle,
 	done chan<- library.ShowWithFile,
 	undownloadedCounts *subtitleCounts,
 ) {
-	var currentSubtitles []*undownloadedSubtitle
+	var currentSubtitles []*subtitleInfo
 	maxSubtitles := c.Config.Importer.Osdb.MaxSubtitlesPerRequest
 	for {
 		select {
@@ -81,7 +83,7 @@ func (c *Context) subtitleDownloaderWorker(
 
 func (c *Context) subtitleSearcherWorker(
 	files <-chan library.ShowWithFile,
-	undownloaded chan<- *undownloadedSubtitle,
+	undownloaded chan<- *subtitleInfo,
 	filesWithNoSubtitles chan<- library.ShowWithFile,
 	undownloadedCounts *subtitleCounts,
 ) {
@@ -103,7 +105,7 @@ func (c *Context) subtitleSearcherWorker(
 
 			for i := range subtitles {
 				undownloadedCounts.Push(file.File.ID)
-				undownloaded <- &undownloadedSubtitle{
+				undownloaded <- &subtitleInfo{
 					ShowWithFile: file,
 					Subtitle:     subtitles[i],
 				}
@@ -115,7 +117,7 @@ func (c *Context) subtitleSearcherWorker(
 }
 
 func (c *Context) downloadSubtitles(
-	undownloaded []*undownloadedSubtitle,
+	undownloaded []*subtitleInfo,
 	subtitles chan<- *library.Subtitle,
 	done chan<- library.ShowWithFile,
 	undownloadedCounts *subtitleCounts,
@@ -170,7 +172,7 @@ func (c *Context) downloadSubtitles(
 
 func (c *Context) saveSubtitle(
 	data *osdb.SubtitleFile,
-	info *undownloadedSubtitle,
+	info *subtitleInfo,
 ) (
 	*library.Subtitle,
 	error,
@@ -365,7 +367,7 @@ func (c *Context) searchForSubtitlesWithLanguage(
 	return nil
 }
 
-type undownloadedSubtitle struct {
+type subtitleInfo struct {
 	library.ShowWithFile
 
 	Subtitle *osdb.Subtitle

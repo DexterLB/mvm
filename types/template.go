@@ -20,7 +20,7 @@ func ParseTemplate(s string) (*Template, error) {
 	return t, nil
 }
 
-// ParseTemplate creates a new template from the string and panics on failiure.
+// MustParseTemplate creates a new template from the string and panics on failiure.
 func MustParseTemplate(s string) *Template {
 	t, err := ParseTemplate(s)
 	if err != nil {
