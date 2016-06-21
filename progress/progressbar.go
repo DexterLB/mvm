@@ -7,11 +7,24 @@ type ProgressBar struct {
 	pb.ProgressBar
 }
 
-// NewProgressBar creates a progressbar with a 0/1 progress. It's pretty
-// useless until you use SetTotal() to make the total something other than 1.
-// Also, you have to call Start() to make it show up.
-func NewProgressBar() *ProgressBar {
-	return &ProgressBar{*pb.New(1)}
+// NewProgressBar creates a progressbar with a 0/total progress. It's pretty
+// useless until you call Start() to make it show up.
+func NewProgressBar(total int) *ProgressBar {
+	p := &ProgressBar{
+		ProgressBar: *pb.New(total),
+	}
+	p.ShowPercent = true
+	p.ShowTimeLeft = true
+	return p
+}
+
+// StartProgressBar creates a progressbar and makes it show up immediately.
+// Prefix shows as a title to the progressbar.
+func StartProgressBar(total int, prefix string) *ProgressBar {
+	p := NewProgressBar(total)
+	p.Prefix(prefix)
+	p.Start()
+	return p
 }
 
 func (p *ProgressBar) SetTotal(max int) {
