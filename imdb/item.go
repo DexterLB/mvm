@@ -15,6 +15,7 @@ import (
 type Item struct {
 	id              int
 	title           *string
+	year            *int
 	itemType        ItemType
 	season          *int
 	episode         *int
@@ -30,6 +31,8 @@ type ItemType int
 const (
 	// Unknown is a null item type
 	Unknown ItemType = iota
+	// Any is used for searching for any item
+	Any
 	// Movie is the type of a item which is a movie
 	Movie
 	// Series is the type of a item which is a series

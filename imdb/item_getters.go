@@ -75,6 +75,10 @@ func (s *Item) Title() (string, error) {
 
 // Year returns the item's airing year
 func (s *Item) Year() (int, error) {
+	if s.year != nil {
+		return *s.year, nil
+	}
+
 	mainPage, err := s.page("combined")
 	if err != nil {
 		return 0, err
@@ -118,6 +122,8 @@ func (s *Item) Year() (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("year is not a number: %s", err)
 	}
+
+	s.year = &year
 
 	return year, nil
 }
