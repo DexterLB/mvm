@@ -53,7 +53,13 @@ func (s *SearchQuery) encode() string {
 
 // Search executes the query
 func Search(query *SearchQuery) ([]*Item, error) {
-	searchPage, err := parsePage(fmt.Sprintf(
+	return SearchWithClient(query, nil)
+}
+
+// SearchWithClient executes the query using the given HTTP client to communicate
+// with IMDB.
+func SearchWithClient(query *SearchQuery, client HttpGetter) ([]*Item, error) {
+	searchPage, err := parsePage(client, fmt.Sprintf(
 		"http://akas.imdb.com/find?%s", query.encode(),
 	))
 	if err != nil {

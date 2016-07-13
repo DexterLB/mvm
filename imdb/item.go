@@ -21,6 +21,7 @@ type Item struct {
 	episode         *int
 	cachedDocuments map[string]*htmlParser.HtmlDocument
 	cacheLock       sync.Mutex
+	client          HttpGetter
 }
 
 // ItemType is one of Unknown, Movie, Series and Episode
@@ -47,6 +48,14 @@ func New(id int) *Item {
 		id:              id,
 		cachedDocuments: make(map[string]*htmlParser.HtmlDocument),
 	}
+}
+
+// NewWithClient creates a item from an IMDB ID which will use the given
+// HTTP client to communicate with IMDBIMDB.
+func NewWithClient(id int, client HttpGetter) *Item {
+	item := New(id)
+	item.client = client
+	return item
 }
 
 // Free frees all resources used by the parser. You must always call it
@@ -99,7 +108,7 @@ func (s *Item) page(name string) (*xml.ElementNode, error) {
 
 func (s *Item) parsePage(name string) (*htmlParser.HtmlDocument, error) {
 	url := fmt.Sprintf("http://akas.imdb.com/title/tt%07d/%s", s.id, name)
-	return parsePage(url)
+	return parsePage(s.client, url)
 }
 
 // idFromLink extracts an IMDB ID from a link

@@ -16,6 +16,7 @@ type Season struct {
 	seasonNumber *int
 	document     *htmlParser.HtmlDocument
 	episodes     []*Item
+	client       HttpGetter
 }
 
 // NewSeason creates a season from its url
@@ -23,6 +24,14 @@ func NewSeason(url string) *Season {
 	return &Season{
 		url: url,
 	}
+}
+
+// NewSeasonWithClient creates a season from its url which will use the
+// given HTTP client to communicate with IMDB.
+func NewSeasonWithClient(url string, client HttpGetter) *Season {
+	season := NewSeason(url)
+	season.client = client
+	return season
 }
 
 // URL returns the sason's url
@@ -142,7 +151,7 @@ func (s *Season) episode(element xml.Node) (*Item, error) {
 
 func (s *Season) page() (*xml.ElementNode, error) {
 	if s.document == nil {
-		page, err := parsePage(s.URL())
+		page, err := parsePage(s.client, s.URL())
 		if err != nil {
 			return nil, err
 		}

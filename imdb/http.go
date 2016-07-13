@@ -9,8 +9,12 @@ import (
 	htmlParser "github.com/jbowtie/gokogiri/html"
 )
 
-func parsePage(url string) (*htmlParser.HtmlDocument, error) {
-	data, err := openPage(url)
+type HttpGetter interface {
+	Get(url string) (resp *http.Response, err error)
+}
+
+func parsePage(client HttpGetter, url string) (*htmlParser.HtmlDocument, error) {
+	data, err := openPage(client, url)
 	if err != nil {
 		return nil, err
 	}
@@ -22,8 +26,12 @@ func parsePage(url string) (*htmlParser.HtmlDocument, error) {
 	return page, nil
 }
 
-func openPage(url string) ([]byte, error) {
-	resp, err := http.Get(url)
+func openPage(client HttpGetter, url string) ([]byte, error) {
+	if client == nil {
+		client = http.DefaultClient
+	}
+
+	resp, err := client.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("unable to download imdb page: %s", err)
 	}

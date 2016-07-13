@@ -525,7 +525,7 @@ func (s *Item) Seasons() ([]*Season, error) {
 			"http://akas.imdb.com/title/tt%07d/episodes?season=%s",
 			s.ID(), link,
 		)
-		season := NewSeason(url)
+		season := NewSeasonWithClient(url, s.client)
 
 		seasons[i] = season
 	}
