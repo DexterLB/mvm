@@ -1,6 +1,10 @@
 package imdb
 
-import "fmt"
+import (
+	"fmt"
+
+	_ "github.com/orchestrate-io/dvr"
+)
 
 func ExampleSearch() {
 	query := &SearchQuery{
@@ -32,11 +36,11 @@ func ExampleSearch() {
 	// 0076759: Star Wars (1977)
 	// 0295630: Star Wars (1988)
 	// 0251413: Star Wars (1983)
-	// 2488496: Star Wars: Episode VII - The Force Awakens (2015)
 	// 3748528: Rogue One: A Star Wars Story (2016)
+	// 2488496: Star Wars: Episode VII - The Force Awakens (2015)
 	// 2527336: Star Wars: Episode VIII (2017)
-	// 0458290: Star Wars: The Clone Wars (2008)
 	// 2930604: Star Wars Rebels (2014)
+	// 0458290: Star Wars: The Clone Wars (2008)
 	// 2527338: Star Wars: Episode IX (2019)
 	// 1185834: Star Wars: The Clone Wars (2008)
 }

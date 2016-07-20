@@ -3,6 +3,8 @@ package importer
 import (
 	"sync"
 
+	"golang.org/x/text/language"
+
 	"github.com/DexterLB/mvm/imdb"
 	"github.com/DexterLB/mvm/library"
 	"github.com/DexterLB/mvm/types"
@@ -143,7 +145,12 @@ func imdbSetCommonData(commonData *library.CommonData, data *imdb.ItemData) {
 	commonData.PosterURL = data.PosterURL
 	commonData.ImdbRating = data.Rating
 	commonData.ImdbVotes = data.Votes
-	commonData.Languages = types.NewLanguages(data.Languages)
+	commonData.Languages = types.NewLanguages(nil)
+	for i := range data.Languages {
+		commonData.Languages = append(
+			commonData.Languages, types.NewLanguage(language.Base(*data.Languages[i])),
+		)
+	}
 }
 
 type seriesCache struct {

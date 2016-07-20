@@ -1,11 +1,14 @@
 package imdb
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strconv"
 	"sync"
 	"time"
+
+	"golang.org/x/text/language"
 
 	htmlParser "github.com/jbowtie/gokogiri/html"
 	"github.com/jbowtie/gokogiri/xml"
@@ -41,6 +44,28 @@ const (
 	// Episode is the type of a item which is an episode
 	Episode
 )
+
+type Language language.Base
+
+func (l *Language) MarshalJSON() ([]byte, error) {
+	return json.Marshal(l.String())
+}
+
+func (l *Language) UnmarshalJSON(data []byte) error {
+	var base string
+	err := json.Unmarshal(data, &base)
+	if err != nil {
+		return err
+	}
+
+	lang, err := language.ParseBase(base)
+	if err != nil {
+		return err
+	}
+
+	*l = Language(lang)
+	return nil
+}
 
 // New creates a item from an IMDB ID
 func New(id int) *Item {

@@ -1,44 +1,51 @@
 package imdb
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
 	"strings"
 	"time"
-
-	"golang.org/x/text/language"
 )
+
+// ShortItem contains only the essential data to identify an item
+type ShortItem struct {
+	ID    int      `json:"id"`
+	Title string   `json:"title"`
+	Type  ItemType `json:"type"`
+	Year  int      `json:"year"`
+}
 
 // ItemData holds all fields for a item
 type ItemData struct {
-	ID   int
-	Type ItemType
+	ID   int      `json:"id"`
+	Type ItemType `json:"type"`
 
-	Title       string
-	Year        int
-	OtherTitles map[string]string
-	Duration    time.Duration
-	Plot        string
-	PlotMedium  string
-	PlotLong    string
-	PosterURL   string
-	Rating      float32
-	Votes       int
-	Languages   []language.Base
+	Title       string            `json:"title"`
+	Year        int               `json:"year"`
+	OtherTitles map[string]string `json:"other_titles"`
+	Duration    time.Duration     `json:"duration"`
+	Plot        string            `json:"plot"`
+	PlotMedium  string            `json:"plot_medium"`
+	PlotLong    string            `json:"plot_long"`
+	PosterURL   string            `json:"poster_url"`
+	Rating      float32           `json:"rating"`
+	Votes       int               `json:"votes"`
+	Languages   []*Language       `json:"languages"`
 
 	// Movie and Episode-only fields
-	ReleaseDate time.Time
+	ReleaseDate time.Time `json:"release_date"`
 
 	// Movie-only fields
-	Tagline string
+	Tagline string `json:"tagline"`
 
 	// Episode-only fields
-	SeasonNumber  int
-	EpisodeNumber int
-	Series        *Item
+	SeasonNumber  int   `json:"season_number"`
+	EpisodeNumber int   `json:"episode_number"`
+	Series        *Item `json:"series"`
 
 	// Series-only fields
-	Seasons []*Season
+	Seasons []*Season `json:"seasons"`
 }
 
 // String returns the data in a human-readable form
@@ -268,4 +275,55 @@ func (s *Item) AllData() (*ItemData, error) {
 	}
 
 	return data, nil
+}
+
+// Short returns a ShortItem containing only the essential data for this item
+func (i *Item) Short() (*ShortItem, error) {
+	itemType, err := i.Type()
+	if err != nil {
+		return nil, err
+	}
+
+	title, err := i.Title()
+	if err != nil {
+		return nil, err
+	}
+
+	year, err := i.Year()
+	if err != nil {
+		return nil, err
+	}
+
+	return &ShortItem{
+		ID:    i.ID(),
+		Title: title,
+		Type:  itemType,
+		Year:  year,
+	}, nil
+}
+
+// MarshalJSON marshals the ShortItem constructed from this one. If you want
+// to marshal more data, call AllData() first.
+func (i *Item) MarshalJSON() ([]byte, error) {
+	short, err := i.Short()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(short)
+}
+
+// String returns the data in a human-readable form
+func (s *ShortItem) String() string {
+	text := fmt.Sprintf(
+		`id: %d
+type: %s
+title: %s
+year: %d
+`,
+		s.ID,
+		s.Type,
+		s.Title,
+		s.Year,
+	)
+	return text
 }

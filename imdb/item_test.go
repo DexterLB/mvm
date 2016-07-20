@@ -1,6 +1,7 @@
 package imdb
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -368,7 +369,7 @@ func ExampleItem_Votes() {
 	fmt.Printf("thousands of votes: %d\n", votes/1000)
 
 	// Output:
-	// thousands of votes: 46
+	// thousands of votes: 47
 }
 
 func ExampleItem_Type() {
@@ -596,7 +597,7 @@ func ExampleItem_AllData_movie() {
 	// long plot: THE SETTING: In the world that is modern Moscow, there exists a parallel realm known as the Gloom (kind of like the Astral Plane)...
 	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 	// rating: 6.5
-	// votes: 46k
+	// votes: 47k
 	// languages: ru, de
 	// release date: 2005-10-07
 	// tagline: All That Stands Between Light And Darkness Is The Night Watch.
@@ -671,4 +672,77 @@ func ExampleItem_AllData_series() {
 	// votes: 38k
 	// languages: en
 	// seasons: 1, 2
+}
+
+func ExampleItem_Short() {
+	movie := New(403358) // Nochnoy Dozor
+	defer movie.Free()
+
+	short, err := movie.Short()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", short)
+
+	// Output:
+	// id: 403358
+	// type: Movie
+	// title: Nochnoy dozor
+	// year: 2004
+}
+
+func ExampleItem_Short_episode() {
+	episode := New(1577257) // Doctor Who s05e02
+	defer episode.Free()
+
+	short, err := episode.Short()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", short)
+
+	// Output:
+	// id: 1577257
+	// type: Episode
+	// title: The Beast Below
+	// year: 2010
+}
+
+func ExampleItem_Short_series() {
+	series := New(1286039) // Stargate Universe
+	defer series.Free()
+
+	short, err := series.Short()
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", short)
+
+	// Output:
+	// id: 1286039
+	// type: Series
+	// title: SGU Stargate Universe
+	// year: 2009
+}
+
+func ExampleItem_MarshalJSON() {
+	movie := New(403358) // Nochnoy Dozor
+	defer movie.Free()
+
+	data, err := json.Marshal(movie)
+	if err != nil {
+		fmt.Printf("error: %s\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", string(data))
+
+	// Output:
+	// {"id":403358,"title":"Nochnoy dozor","type":2,"year":2004}
 }

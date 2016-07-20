@@ -81,6 +81,9 @@ func SearchWithClient(query *SearchQuery, client HttpGetter) ([]*Item, error) {
 			return nil, fmt.Errorf("unable to parse search result: %s", err)
 		}
 		if item != nil {
+			if query.Category != Any {
+				item.itemType = query.Category
+			}
 			items = append(items, item)
 		}
 	}

@@ -237,7 +237,7 @@ func (s *Item) Duration() (time.Duration, error) {
 }
 
 // Languages returns a slice with the names of languages for the item
-func (s *Item) Languages() ([]language.Base, error) {
+func (s *Item) Languages() ([]*Language, error) {
 	mainPage, err := s.page("combined")
 	if err != nil {
 		return nil, err
@@ -252,7 +252,7 @@ func (s *Item) Languages() ([]language.Base, error) {
 
 	matcher := regexp.MustCompile(`\/language\/(\w+)`)
 
-	languages := make([]language.Base, len(languageElements))
+	languages := make([]*Language, len(languageElements))
 	for i := range languageElements {
 		groups := matcher.FindStringSubmatch(
 			languageElements[i].Attribute("href").String(),
@@ -260,10 +260,11 @@ func (s *Item) Languages() ([]language.Base, error) {
 		if len(groups) < 2 {
 			return nil, fmt.Errorf("invalid language")
 		}
-		languages[i], err = language.ParseBase(groups[1])
+		lang, err := language.ParseBase(groups[1])
 		if err != nil {
 			return nil, fmt.Errorf("invalid language: %s", err)
 		}
+		languages[i] = (*Language)(&lang)
 	}
 
 	return languages, nil
@@ -407,6 +408,15 @@ func (s *Item) Votes() (int, error) {
 
 // SeasonEpisode returns an episode's season and episode numbers
 func (s *Item) SeasonEpisode() (int, int, error) {
+	itemType, err := s.Type()
+	if err != nil {
+		return 0, 0, fmt.Errorf("can't determine item type: %s", err)
+	}
+
+	if itemType != Episode {
+		return 0, 0, nil
+	}
+
 	if s.season != nil && s.episode != nil {
 		return *s.season, *s.episode, nil
 	}
@@ -459,7 +469,7 @@ func (s *Item) Series() (*Item, error) {
 		return nil, err
 	}
 
-	return New(id), nil
+	return NewWithClient(id, s.client), nil
 }
 
 // episodeTitle returns the title of an episode

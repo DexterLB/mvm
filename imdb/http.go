@@ -2,6 +2,7 @@ package imdb
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 
@@ -11,6 +12,15 @@ import (
 
 type HttpGetter interface {
 	Get(url string) (resp *http.Response, err error)
+}
+
+type HttpPoster interface {
+	Post(url string, bodyType string, body io.Reader) (resp *http.Response, err error)
+}
+
+type HttpGetPoster interface {
+	HttpGetter
+	HttpPoster
 }
 
 func parsePage(client HttpGetter, url string) (*htmlParser.HtmlDocument, error) {
