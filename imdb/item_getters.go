@@ -338,7 +338,8 @@ func (s *Item) PosterURL() (string, error) {
 		return groups[1] + ".jpg", nil
 	}
 
-	return "", fmt.Errorf("can't parse poster url: '%s'", url)
+	// return "", fmt.Errorf("can't parse poster url: '%s'", url)
+	return url, nil
 }
 
 // Rating returns the item's rating
