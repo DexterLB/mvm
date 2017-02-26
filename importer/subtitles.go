@@ -276,6 +276,7 @@ func (c *Context) searchForSubtitles(
 			if err != nil {
 				errorLock.Lock()
 				*errors = append(*errors, fmt.Sprintf("%s", err))
+				errorLock.Unlock()
 			}
 		}(&errors, i)
 	}
