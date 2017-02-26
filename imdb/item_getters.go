@@ -325,8 +325,8 @@ func (s *Item) PosterURL() (string, error) {
 
 	url := src.String()
 
-	firstMatcher := regexp.MustCompile(`^(http:.+@@)`)
-	secondMatcher := regexp.MustCompile(`^(http:.+?)\.[^\/]+$`)
+	firstMatcher := regexp.MustCompile(`^(http(s?):.+@@)`)
+	secondMatcher := regexp.MustCompile(`^(http(s?):.+?)\.[^\/]+$`)
 
 	groups := firstMatcher.FindStringSubmatch(url)
 	if len(groups) >= 2 {
@@ -338,8 +338,7 @@ func (s *Item) PosterURL() (string, error) {
 		return groups[1] + ".jpg", nil
 	}
 
-	// return "", fmt.Errorf("can't parse poster url: '%s'", url)
-	return url, nil
+	return "", fmt.Errorf("can't parse poster url: '%s'", url)
 }
 
 // Rating returns the item's rating

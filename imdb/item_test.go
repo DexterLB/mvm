@@ -337,7 +337,7 @@ func ExampleItem_PosterURL() {
 	fmt.Printf("poster url: %s\n", posterURL)
 
 	// Output:
-	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
+	// poster url: https://images-na.ssl-images-amazon.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 }
 
 func ExampleItem_Rating() {
@@ -595,7 +595,7 @@ func ExampleItem_AllData_movie() {
 	// short plot: A fantasy-thriller set in present-day Moscow where the respective forces that control daytime and nighttime do battle.
 	// medium plot: Among normal humans live the "Others" possessing various supernatural powers...
 	// long plot: THE SETTING: In the world that is modern Moscow, there exists a parallel realm known as the Gloom (kind of like the Astral Plane)...
-	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
+	// poster url: https://images-na.ssl-images-amazon.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 	// rating: 6.5
 	// votes: 47k
 	// languages: ru, de
@@ -626,7 +626,7 @@ func ExampleItem_AllData_episode() {
 	// short plot: The Doctor takes Amy to the future inside Starship UK, which contains in addition to British explorers, an intimidating race known as the Smilers.
 	// medium plot: The Doctor and Amy travel to a future time where all of the residents actually live in a orbiting spacecraft, Starship UK...
 	// long plot: Starship UK is floating through space and we can see the words 'Yorkshire', 'Kent' and 'Surrey' visible on some of the buildings...
-	// poster url: http://ia.media-imdb.com/images/M/MV5BNjY3MDI5OTE3N15BMl5BanBnXkFtZTcwMzA0MDU1NA@@.jpg
+	// poster url: https://images-na.ssl-images-amazon.com/images/M/MV5BNjY3MDI5OTE3N15BMl5BanBnXkFtZTcwMzA0MDU1NA@@.jpg
 	// rating: 7.7
 	// votes: 3k
 	// languages: en
@@ -664,12 +664,12 @@ func ExampleItem_AllData_series() {
 	//  > USA (promotional title) -> SG.U Stargate Universe
 	//  > World-wide (alternative title) (English title) -> Stargate: Universe
 	// duration: 43m0s
-	// short plot: Trapped on an Ancient spaceship billions of light years from home, a group of soldiers and civilians struggle to survive and find their way back to Earth.
-	// medium plot: The Previously unknown purpose of the "Ninth Chevron" is revealed, and ends up taking a team to an Ancient ship "Destiny", a ship built millions of years ago by the Ancients, used to seed Distant galaxies with Stargates...
+	// short plot: Trapped on an Ancient spaceship billions of light-years from home, a group of soldiers and civilians struggle to survive and find their way back to Earth.
+	// medium plot: The previously unknown purpose of the "Ninth Chevron" is revealed, and ends up taking a team to an Ancient ship "Destiny", a ship built millions of years ago by the Ancients, used to seed distant galaxies with Stargates...
 	// long plot: An attack on a secret off-world base by a rebel organisation has stranded the remaining survivors on an Ancient ship "Destiny", a large unmanned ship launched millions of years ago...
-	// poster url: http://ia.media-imdb.com/images/M/MV5BOTEzNTY5NDY5M15BMl5BanBnXkFtZTcwMTY4MDQ3Mg@@.jpg
+	// poster url: https://images-na.ssl-images-amazon.com/images/M/MV5BOTEzNTY5NDY5M15BMl5BanBnXkFtZTcwMTY4MDQ3Mg@@.jpg
 	// rating: 7.7
-	// votes: 38k
+	// votes: 40k
 	// languages: en
 	// seasons: 1, 2
 }
