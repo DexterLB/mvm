@@ -2,8 +2,6 @@ package imdb
 
 import (
 	"fmt"
-
-	_ "github.com/orchestrate-io/dvr"
 )
 
 func ExampleSearch() {

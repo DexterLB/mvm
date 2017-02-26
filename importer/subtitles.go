@@ -11,7 +11,7 @@ import (
 
 	"github.com/DexterLB/mvm/library"
 	"github.com/DexterLB/mvm/types"
-	"github.com/oz/osdb"
+	"github.com/DexterLB/osdb"
 )
 
 // SubtitleDownloader downloads subtitles for each file, using information

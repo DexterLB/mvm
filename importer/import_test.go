@@ -11,7 +11,6 @@ import (
 	"github.com/DexterLB/mvm/library"
 	"github.com/DexterLB/mvm/types"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	_ "github.com/orchestrate-io/dvr"
 )
 
 func testContext(t *testing.T) *Context {
@@ -21,7 +20,7 @@ func testContext(t *testing.T) *Context {
 	}
 
 	context := NewContext(lib, &config.Config{
-		FileRoot: "./testdata",
+		FileRoot: "./fixtures",
 		Importer: config.Importer{
 			Osdb: config.Osdb{
 				MaxMoviesPerRequest:    200,

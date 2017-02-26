@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
-
-	_ "github.com/orchestrate-io/dvr"
 )
 
 func ExampleItem_ID() {

@@ -7,7 +7,7 @@ import (
 
 	"github.com/DexterLB/mvm/library"
 	"github.com/DexterLB/mvm/types"
-	"github.com/oz/osdb"
+	"github.com/DexterLB/osdb"
 )
 
 // OsdbClient returns a logged in Osdb client

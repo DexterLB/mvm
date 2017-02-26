@@ -3,7 +3,6 @@ package imdb
 import (
 	"testing"
 
-	_ "github.com/orchestrate-io/dvr"
 	"github.com/stretchr/testify/assert"
 )
 

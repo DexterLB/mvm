@@ -7,7 +7,7 @@ import (
 
 	"github.com/DexterLB/mvm/library"
 	"github.com/DexterLB/mvm/types"
-	"github.com/oz/osdb"
+	"github.com/DexterLB/osdb"
 )
 
 // FileInfo takes filenames and constructs video file data

@@ -6,7 +6,7 @@ import (
 
 	"github.com/DexterLB/mvm/config"
 	"github.com/DexterLB/mvm/library"
-	"github.com/oz/osdb"
+	"github.com/DexterLB/osdb"
 )
 
 // Context contains common data for all importers

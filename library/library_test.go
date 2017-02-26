@@ -6,7 +6,6 @@ import (
 
 	"github.com/DexterLB/mvm/types"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	_ "github.com/orchestrate-io/dvr"
 	"github.com/stretchr/testify/assert"
 )
 

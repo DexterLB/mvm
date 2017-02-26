@@ -3,8 +3,6 @@ package progress
 import (
 	"sync"
 	"time"
-
-	_ "github.com/orchestrate-io/dvr"
 )
 
 func ExampleProgressBar() {

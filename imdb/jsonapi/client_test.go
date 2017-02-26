@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/DexterLB/mvm/imdb"
-	_ "github.com/orchestrate-io/dvr"
 )
 
 func ExampleClient_Item() {
@@ -60,7 +59,7 @@ func ExampleClient_Item() {
 	// short plot: A fantasy-thriller set in present-day Moscow where the respective forces that control daytime and nighttime do battle.
 	// medium plot: Among normal humans live the "Others" possessing various supernatural powers...
 	// long plot: THE SETTING: In the world that is modern Moscow, there exists a parallel realm known as the Gloom (kind of like the Astral Plane)...
-	// poster url: http://ia.media-imdb.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
+	// poster url: https://images-na.ssl-images-amazon.com/images/M/MV5BMjE0Nzk0NDkyOV5BMl5BanBnXkFtZTcwMjkzOTkyMQ@@.jpg
 	// rating: 6.5
 	// votes: 47k
 	// languages: ru, de

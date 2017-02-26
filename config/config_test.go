@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/DexterLB/mvm/types"
-	_ "github.com/orchestrate-io/dvr"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLoad(t *testing.T) {
-	config, err := Load("./testdata/test_config.toml")
+	config, err := Load("./fixtures/test_config.toml")
 	if err != nil {
 		t.Fatalf("error: %s", err)
 	}

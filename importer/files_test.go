@@ -15,7 +15,7 @@ func TestFileInfo(t *testing.T) {
 
 	go context.FileInfo(filenames, files)
 
-	filenames <- "testdata/drop.avi"
+	filenames <- "fixtures/drop.avi"
 	close(filenames)
 
 	dropFile := <-files
