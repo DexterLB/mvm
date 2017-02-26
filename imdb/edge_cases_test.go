@@ -24,7 +24,7 @@ func TestRatingEdgeCases(t *testing.T) {
 	assert := assert.New(t)
 
 	assert.InDelta(8.4, rating, 0.1)
-	assert.Equal(3, votes/100)
+	assert.Equal(4, votes/100)
 }
 
 func TestRatingEdgeCases_AllData(t *testing.T) {
@@ -39,5 +39,5 @@ func TestRatingEdgeCases_AllData(t *testing.T) {
 	assert := assert.New(t)
 
 	assert.InDelta(8.4, data.Rating, 0.1)
-	assert.Equal(3, data.Votes/100)
+	assert.Equal(4, data.Votes/100)
 }
