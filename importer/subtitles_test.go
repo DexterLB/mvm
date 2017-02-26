@@ -77,24 +77,23 @@ func TestSubtitleDownloader(t *testing.T) {
 		case "322f10e7fee92c86ff46ce17cfbec64b":
 			assert.Equal("en", subtitle.Language.String())
 			assert.Equal(false, subtitle.HearingImpaired)
-			assert.Equal(99987157, subtitle.Score)
-			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.en.99987157.srt", subtitle.Filename)
-			// assert.Equal("foobarbaz", md5File(t, allSubtitles[0].Filename))
+			assert.Equal(99979839, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.en.99979839.srt", subtitle.Filename)
 		case "5097c0bb857cfcf6b8bc4769da8513f6":
 			assert.Equal("en", subtitle.Language.String())
 			assert.Equal(false, subtitle.HearingImpaired)
-			assert.Equal(99968565, subtitle.Score)
-			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.en.99968565.srt", subtitle.Filename)
+			assert.Equal(99961450, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.en.99961450.srt", subtitle.Filename)
 		case "c06e9a01f792b55b79581cead2067fe9":
 			assert.Equal("bg", subtitle.Language.String())
 			assert.Equal(false, subtitle.HearingImpaired)
-			assert.Equal(99998428, subtitle.Score)
-			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.bg.99998428.srt", subtitle.Filename)
+			assert.Equal(99997785, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.bg.99997785.srt", subtitle.Filename)
 		case "6e393aaaa4d33cff81cef1c9f795110c":
 			assert.Equal("bg", subtitle.Language.String())
 			assert.Equal(false, subtitle.HearingImpaired)
-			assert.Equal(99999465, subtitle.Score)
-			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.bg.99999465.srt", subtitle.Filename)
+			assert.Equal(99999292, subtitle.Score)
+			assert.Equal(tempdir+"/Star.Wars.Episode.4.A.New.Hope.1977.1080p.BrRip.x264.BOKUTOX.YIFY.bg.99999292.srt", subtitle.Filename)
 
 		default:
 			t.Errorf("unknown subtitle hash: %s", subtitle.Hash)
