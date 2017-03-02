@@ -16,15 +16,16 @@ import (
 
 // Item represents a single item (either a movie or an episode)
 type Item struct {
-	id              int
-	title           *string
-	year            *int
-	itemType        ItemType
-	season          *int
-	episode         *int
-	cachedDocuments map[string]*htmlParser.HtmlDocument
-	cacheLock       sync.Mutex
-	client          HttpGetter
+	id                   int
+	title                *string
+	year                 *int
+	itemType             ItemType
+	season               *int
+	episode              *int
+	cachedDocuments      map[string]*htmlParser.HtmlDocument
+	cacheIndividualLocks map[string]*sync.Mutex
+	cacheLock            sync.Mutex
+	client               HttpGetter
 }
 
 // ItemType is one of Unknown, Movie, Series and Episode
@@ -70,8 +71,9 @@ func (l *Language) UnmarshalJSON(data []byte) error {
 // New creates a item from an IMDB ID
 func New(id int) *Item {
 	return &Item{
-		id:              id,
-		cachedDocuments: make(map[string]*htmlParser.HtmlDocument),
+		id:                   id,
+		cachedDocuments:      make(map[string]*htmlParser.HtmlDocument),
+		cacheIndividualLocks: make(map[string]*sync.Mutex),
 	}
 }
 
@@ -86,6 +88,8 @@ func NewWithClient(id int, client HttpGetter) *Item {
 // Free frees all resources used by the parser. You must always call it
 // after you finish reading the attributes
 func (s *Item) Free() {
+	s.cacheLock.Lock()
+	defer s.cacheLock.Unlock()
 	for name := range s.cachedDocuments {
 		s.cachedDocuments[name].Free()
 		delete(s.cachedDocuments, name)
@@ -115,16 +119,39 @@ func (s *Item) PreloadAll() {
 // page returns the html contents of the page at
 // http://akas.imdb.com/title/tt<s.ID>/<name>
 func (s *Item) page(name string) (*xml.ElementNode, error) {
+	s.cacheLock.Lock()
+	individualLock, ok := s.cacheIndividualLocks[name]
+	if !ok {
+		individualLock = &sync.Mutex{}
+		s.cacheIndividualLocks[name] = individualLock
+	}
+
 	document, ok := s.cachedDocuments[name]
+	if !ok {
+		s.cachedDocuments[name] = nil
+		individualLock.Lock()
+	}
+	s.cacheLock.Unlock()
+
+	if ok && document == nil {
+		individualLock.Lock()
+		document, ok = s.cachedDocuments[name]
+		if ok {
+			individualLock.Unlock()
+		}
+	}
+
 	if !ok {
 		var err error
 
 		document, err = s.parsePage(name)
 		if err != nil {
+			individualLock.Unlock()
 			return nil, err
 		}
 		s.cacheLock.Lock()
 		s.cachedDocuments[name] = document
+		individualLock.Unlock()
 		s.cacheLock.Unlock()
 	}
 

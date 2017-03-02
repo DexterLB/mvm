@@ -149,10 +149,12 @@ func (c *Context) downloadSubtitles(
 
 	if err != nil {
 		for i := range undownloaded {
+			undownloaded[i].File.Lock()
 			undownloaded[i].File.SubtitlesError = types.Errorf(
 				"unable to download subtitles: %s", // FIXME: what if there's already another error?
 				err,
 			)
+			undownloaded[i].File.Unlock()
 		}
 		return
 	}
@@ -160,10 +162,12 @@ func (c *Context) downloadSubtitles(
 	for i := range data {
 		subtitle, err := c.saveSubtitle(&data[i], undownloaded[i])
 		if err != nil {
+			undownloaded[i].File.Lock()
 			undownloaded[i].File.SubtitlesError = types.Errorf(
 				"unable to save subtitles: %s",
 				err,
 			)
+			undownloaded[i].File.Unlock()
 		} else {
 			subtitles <- subtitle
 		}
