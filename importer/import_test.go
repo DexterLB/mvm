@@ -14,7 +14,7 @@ import (
 )
 
 func testContext(t *testing.T) *Context {
-	lib, err := library.New("sqlite3", ":memory:")
+	lib, err := library.New("sqlite3", "file::memory:?cache=shared")
 	if err != nil {
 		t.Fatalf("unable to initialize library: %s\n", err)
 	}

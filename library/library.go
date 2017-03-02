@@ -2,6 +2,7 @@ package library
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/jinzhu/gorm"
 )
@@ -16,6 +17,11 @@ func New(dbDriver string, arguments ...interface{}) (*Library, error) {
 	db, err := gorm.Open(dbDriver, arguments...)
 	if err != nil {
 		return nil, err
+	}
+
+	if strings.Contains(dbDriver, "sqlite") {
+		db.Exec("PRAGMA busy_timeout = 5000")
+		db.DB().SetMaxOpenConns(1) // sqlite doesn't like multithreadedness
 	}
 
 	db.AutoMigrate(&Show{}, &EpisodeData{}, &Series{}, &VideoFile{}, &Subtitle{})
