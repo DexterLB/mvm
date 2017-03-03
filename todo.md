@@ -35,7 +35,7 @@
 - database
     - [x] don't panic when unable to connect to the database
     - [ ] don't panic when there's an error in a chained query
-    - [ ] fix race conditions that result in "unknown table" errors
+    - [x] fix race conditions that result in "unknown table" errors
     - [ ] indexes (not indices)
     - [ ] don't use gorm
 - progress
