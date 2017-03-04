@@ -17,7 +17,7 @@ func (c *Context) Import(paths []string) {
 	files := make(chan *library.VideoFile, bufSize)
 	go c.FileInfo(filenames, files)
 
-	shows := make(chan *library.Show, bufSize)
+	shows := make(chan *library.ShowWithFile, bufSize)
 	identifiedFiles := make(chan *library.VideoFile, bufSize)
 	go c.OsdbIdentifier(files, shows, identifiedFiles)
 
@@ -28,7 +28,7 @@ func (c *Context) Import(paths []string) {
 		wg.Done()
 	}()
 	go func() {
-		c.ProcessShows(shows)
+		c.ProcessShows(library.JustShows(shows))
 		wg.Done()
 	}()
 	wg.Wait()

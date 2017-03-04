@@ -163,6 +163,20 @@ func (lib *Library) GetSubtitleByFilename(filename string) (*Subtitle, error) {
 	return subtitle, err
 }
 
+// JustShows extracts just the shows from a ShowWithFile channel
+func JustShows(showsWithFiles <-chan *ShowWithFile) chan *Show {
+	shows := make(chan *Show)
+
+	go func() {
+		for sf := range showsWithFiles {
+			shows <- sf.Show
+		}
+		close(shows)
+	}()
+
+	return shows
+}
+
 // Save saves the item to the library
 func (lib *Library) Save(item interface{}) error {
 	return lib.db.Save(item).Error
