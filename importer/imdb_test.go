@@ -10,8 +10,8 @@ import (
 func TestImdbIdentifier(t *testing.T) {
 	context := testContext(t)
 
-	shows := make(chan *library.Show, 5)
-	done := make(chan *library.Show, 5)
+	shows := make(chan *library.ShowWithFile, 5)
+	done := make(chan *library.ShowWithFile, 5)
 	doneSeries := make(chan *library.Series, 5)
 
 	go context.ImdbIdentifier(shows, doneSeries, done)
@@ -21,7 +21,11 @@ func TestImdbIdentifier(t *testing.T) {
 		t.Errorf("Library error: %s", err)
 	}
 
-	shows <- movie
+	shows <- &library.ShowWithFile{
+		Show: movie,
+		File: nil,
+	}
+
 	close(shows)
 
 	doneMovie := <-done
@@ -29,12 +33,12 @@ func TestImdbIdentifier(t *testing.T) {
 		t.Errorf("Done channel not closed after reading all shows")
 	}
 
-	if doneMovie != movie {
+	if doneMovie.Show != movie {
 		t.Errorf("Wrong movie is done")
 	}
 
-	if doneMovie.ImdbError != nil {
-		t.Fatalf("Imdb error: %s", *doneMovie.ImdbError)
+	if doneMovie.Show.ImdbError != nil {
+		t.Fatalf("Imdb error: %s", *doneMovie.Show.ImdbError)
 	}
 
 	if _, ok := <-doneSeries; ok {
@@ -51,8 +55,8 @@ func TestImdbIdentifier(t *testing.T) {
 func TestImdbIdentifierMultipleShows(t *testing.T) {
 	context := testContext(t)
 
-	shows := make(chan *library.Show, 5)
-	done := make(chan *library.Show, 5)
+	shows := make(chan *library.ShowWithFile, 5)
+	done := make(chan *library.ShowWithFile, 5)
 	doneSeries := make(chan *library.Series, 5)
 
 	go context.ImdbIdentifier(shows, doneSeries, done)
@@ -67,8 +71,16 @@ func TestImdbIdentifierMultipleShows(t *testing.T) {
 		t.Errorf("Library error: %s", err)
 	}
 
-	shows <- movie
-	shows <- episode
+	shows <- &library.ShowWithFile{
+		Show: movie,
+		File: nil,
+	}
+
+	shows <- &library.ShowWithFile{
+		Show: episode,
+		File: nil,
+	}
+
 	close(shows)
 
 	series := <-doneSeries
@@ -88,7 +100,9 @@ func TestImdbIdentifierMultipleShows(t *testing.T) {
 		episodePresent bool
 	)
 
-	for show := range done {
+	for sf := range done {
+		show := sf.Show
+
 		switch show.ImdbID {
 		case 403358:
 			assert.Equal("Nochnoy dozor", show.Title)

@@ -14,9 +14,9 @@ import (
 // have an ImdbID). For shows which are episodes, it fetches the respective
 // series.
 func (c *Context) ImdbIdentifier(
-	shows <-chan *library.Show,
+	shows <-chan *library.ShowWithFile,
 	doneSeries chan<- *library.Series,
-	done chan<- *library.Show,
+	done chan<- *library.ShowWithFile,
 ) {
 	defer close(done)
 	defer close(doneSeries)
@@ -37,9 +37,9 @@ func (c *Context) ImdbIdentifier(
 }
 
 func (c *Context) imdbIdentifierWorker(
-	shows <-chan *library.Show,
+	shows <-chan *library.ShowWithFile,
 	doneSeries chan<- *library.Series,
-	done chan<- *library.Show,
+	done chan<- *library.ShowWithFile,
 	cache *seriesCache,
 ) {
 	for {
@@ -49,7 +49,7 @@ func (c *Context) imdbIdentifierWorker(
 				return
 			}
 
-			seriesData := c.imdbProcessShow(show)
+			seriesData := c.imdbProcessShow(show.Show)
 
 			var (
 				series    *library.Series
@@ -63,7 +63,7 @@ func (c *Context) imdbIdentifierWorker(
 				if series, ok = cache.PrevSeries[id]; !ok {
 					series, err = c.Library.GetSeriesByImdbID(id)
 					if err != nil {
-						show.ImdbError = types.Errorf(
+						show.Show.ImdbError = types.Errorf(
 							"Unable to get series from library: %s", err,
 						)
 						cache.Unlock()
@@ -79,7 +79,8 @@ func (c *Context) imdbIdentifierWorker(
 				}
 
 				series.Lock()
-				series.Episodes = append(series.Episodes, show)
+				// fixme: what if the show appears twice for some reason?
+				series.Episodes = append(series.Episodes, show.Show)
 				series.Unlock()
 			}
 

@@ -28,24 +28,24 @@ func (c *Context) Import(paths []string) {
 		wg.Done()
 	}()
 	go func() {
-		c.ProcessShows(library.JustShows(shows))
+		c.ProcessShows(shows)
 		wg.Done()
 	}()
 	wg.Wait()
 }
 
 // ProcessShows fetches data for each show from online sources
-func (c *Context) ProcessShows(shows <-chan *library.Show) {
+func (c *Context) ProcessShows(shows <-chan *library.ShowWithFile) {
 	bufSize := c.Config.Importer.BufferSize
 
 	identifiedSeries := make(chan *library.Series, bufSize)
-	identifiedShows := make(chan *library.Show, bufSize)
+	identifiedShows := make(chan *library.ShowWithFile, bufSize)
 	go c.ImdbIdentifier(shows, identifiedSeries, identifiedShows)
 
 	wg := sync.WaitGroup{}
 	wg.Add(2)
 	go func() {
-		c.saveAll(identifiedShows)
+		c.saveAll(library.JustShows(identifiedShows))
 		wg.Done()
 	}()
 	go func() {
