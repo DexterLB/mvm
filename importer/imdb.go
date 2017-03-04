@@ -14,9 +14,9 @@ import (
 // have an ImdbID). For shows which are episodes, it fetches the respective
 // series.
 func (c *Context) ImdbIdentifier(
-	shows <-chan *library.ShowWithFile,
+	shows <-chan library.ShowWithFile,
 	doneSeries chan<- *library.Series,
-	done chan<- *library.ShowWithFile,
+	done chan<- library.ShowWithFile,
 ) {
 	defer close(done)
 	defer close(doneSeries)
@@ -37,9 +37,9 @@ func (c *Context) ImdbIdentifier(
 }
 
 func (c *Context) imdbIdentifierWorker(
-	shows <-chan *library.ShowWithFile,
+	shows <-chan library.ShowWithFile,
 	doneSeries chan<- *library.Series,
-	done chan<- *library.ShowWithFile,
+	done chan<- library.ShowWithFile,
 	cache *seriesCache,
 ) {
 	for {

@@ -37,7 +37,7 @@ func (c *Context) OsdbClient() (*osdb.Client, error) {
 // OsdbIdentifier identifies the video files (matching them to shows) using
 // the opensubtitles.org database
 func (c *Context) OsdbIdentifier(
-	files <-chan *library.VideoFile, shows chan<- *library.ShowWithFile,
+	files <-chan *library.VideoFile, shows chan<- library.ShowWithFile,
 	done chan<- *library.VideoFile,
 ) {
 	defer close(done)
@@ -63,7 +63,7 @@ func (c *Context) OsdbIdentifier(
 }
 
 func (c *Context) osdbIdentifierWorker(
-	files <-chan *library.VideoFile, shows chan<- *library.ShowWithFile,
+	files <-chan *library.VideoFile, shows chan<- library.ShowWithFile,
 	done chan<- *library.VideoFile,
 	client *osdb.Client,
 ) {
@@ -89,7 +89,7 @@ func (c *Context) osdbIdentifierWorker(
 }
 
 func (c *Context) osdbProcessFiles(
-	files []*library.VideoFile, shows chan<- *library.ShowWithFile,
+	files []*library.VideoFile, shows chan<- library.ShowWithFile,
 	done chan<- *library.VideoFile,
 	client *osdb.Client,
 ) {
@@ -141,7 +141,7 @@ func (c *Context) osdbProcessFiles(
 				show.Files = append(show.Files, files[i])
 				show.Title = movies[i].Title
 				show.Year, _ = strconv.Atoi(movies[i].Year) // FIXME: check error
-				shows <- &library.ShowWithFile{
+				shows <- library.ShowWithFile{
 					Show: show,
 					File: files[i],
 				}

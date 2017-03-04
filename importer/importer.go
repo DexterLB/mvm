@@ -17,7 +17,7 @@ func (c *Context) Import(paths []string) {
 	files := make(chan *library.VideoFile, bufSize)
 	go c.FileInfo(filenames, files)
 
-	shows := make(chan *library.ShowWithFile, bufSize)
+	shows := make(chan library.ShowWithFile, bufSize)
 	identifiedFiles := make(chan *library.VideoFile, bufSize)
 	go c.OsdbIdentifier(files, shows, identifiedFiles)
 
@@ -35,21 +35,29 @@ func (c *Context) Import(paths []string) {
 }
 
 // ProcessShows fetches data for each show from online sources
-func (c *Context) ProcessShows(shows <-chan *library.ShowWithFile) {
+func (c *Context) ProcessShows(shows <-chan library.ShowWithFile) {
 	bufSize := c.Config.Importer.BufferSize
 
 	identifiedSeries := make(chan *library.Series, bufSize)
-	identifiedShows := make(chan *library.ShowWithFile, bufSize)
+	identifiedShows := make(chan library.ShowWithFile, bufSize)
 	go c.ImdbIdentifier(shows, identifiedSeries, identifiedShows)
 
+	subtitledShows := make(chan library.ShowWithFile, bufSize)
+	subtitles := make(chan *library.Subtitle, bufSize)
+	go c.SubtitleDownloader(identifiedShows, subtitles, subtitledShows)
+
 	wg := sync.WaitGroup{}
-	wg.Add(2)
+	wg.Add(3)
 	go func() {
-		c.saveAll(library.JustShows(identifiedShows))
+		c.saveAll(library.JustShows(subtitledShows))
 		wg.Done()
 	}()
 	go func() {
 		c.saveAll(identifiedSeries)
+		wg.Done()
+	}()
+	go func() {
+		c.saveAll(subtitles)
 		wg.Done()
 	}()
 	wg.Wait()

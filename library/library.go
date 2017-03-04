@@ -164,7 +164,7 @@ func (lib *Library) GetSubtitleByFilename(filename string) (*Subtitle, error) {
 }
 
 // JustShows extracts just the shows from a ShowWithFile channel
-func JustShows(showsWithFiles <-chan *ShowWithFile) chan *Show {
+func JustShows(showsWithFiles <-chan ShowWithFile) chan *Show {
 	shows := make(chan *Show)
 
 	go func() {

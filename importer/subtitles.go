@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -209,12 +210,17 @@ func (c *Context) saveSubtitle(
 		return nil, fmt.Errorf("unable to determine subtitle filename: %s", err)
 	}
 
+	absoluteFilename := filename
+	if !strings.HasPrefix(filename, "/") {
+		absoluteFilename = path.Join(c.Config.FileRoot, filename)
+	}
+
 	reader, err := data.Reader()
 	if err != nil {
 		return nil, fmt.Errorf("unable to read subtitle data: %s", err)
 	}
 
-	f, err := os.Create(filename)
+	f, err := os.Create(absoluteFilename)
 	if err != nil {
 		return nil, fmt.Errorf("unable to open subtitle file for writing: %s", err)
 	}

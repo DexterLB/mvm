@@ -58,7 +58,7 @@ const (
 func manualImport(
 	c *cli.Context,
 	importer *importer.Context,
-	shows chan<- *library.ShowWithFile,
+	shows chan<- library.ShowWithFile,
 	file *library.VideoFile,
 ) userState {
 	input := bufio.NewScanner(os.Stdin)
@@ -97,7 +97,7 @@ func manualImport(
 		file.OsdbError = nil
 
 		show.Files = append(show.Files, file)
-		shows <- &library.ShowWithFile{
+		shows <- library.ShowWithFile{
 			Show: show,
 			File: file,
 		}
@@ -112,7 +112,7 @@ func fixFileErrors(c *cli.Context, importer *importer.Context) {
 		"%d of the files have errors. Let's walk through them:\n", len(files),
 	)
 
-	shows := make(chan *library.ShowWithFile, importer.Config.Importer.BufferSize)
+	shows := make(chan library.ShowWithFile, importer.Config.Importer.BufferSize)
 
 	wg := sync.WaitGroup{}
 	wg.Add(1)

@@ -10,8 +10,8 @@ import (
 func TestImdbIdentifier(t *testing.T) {
 	context := testContext(t)
 
-	shows := make(chan *library.ShowWithFile, 5)
-	done := make(chan *library.ShowWithFile, 5)
+	shows := make(chan library.ShowWithFile, 5)
+	done := make(chan library.ShowWithFile, 5)
 	doneSeries := make(chan *library.Series, 5)
 
 	go context.ImdbIdentifier(shows, doneSeries, done)
@@ -21,7 +21,7 @@ func TestImdbIdentifier(t *testing.T) {
 		t.Errorf("Library error: %s", err)
 	}
 
-	shows <- &library.ShowWithFile{
+	shows <- library.ShowWithFile{
 		Show: movie,
 		File: nil,
 	}
@@ -55,8 +55,8 @@ func TestImdbIdentifier(t *testing.T) {
 func TestImdbIdentifierMultipleShows(t *testing.T) {
 	context := testContext(t)
 
-	shows := make(chan *library.ShowWithFile, 5)
-	done := make(chan *library.ShowWithFile, 5)
+	shows := make(chan library.ShowWithFile, 5)
+	done := make(chan library.ShowWithFile, 5)
 	doneSeries := make(chan *library.Series, 5)
 
 	go context.ImdbIdentifier(shows, doneSeries, done)
@@ -71,12 +71,12 @@ func TestImdbIdentifierMultipleShows(t *testing.T) {
 		t.Errorf("Library error: %s", err)
 	}
 
-	shows <- &library.ShowWithFile{
+	shows <- library.ShowWithFile{
 		Show: movie,
 		File: nil,
 	}
 
-	shows <- &library.ShowWithFile{
+	shows <- library.ShowWithFile{
 		Show: episode,
 		File: nil,
 	}
